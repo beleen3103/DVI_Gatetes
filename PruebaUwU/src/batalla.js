@@ -27,7 +27,4 @@ export default class Batalla extends Phaser.Scene {
         }
 
     }
-    
-
-
 }

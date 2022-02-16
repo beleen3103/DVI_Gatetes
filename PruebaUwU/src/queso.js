@@ -1,8 +1,8 @@
-export default class Pincho extends Phaser.GameObjects.Sprite {
+export default class Queso extends Phaser.GameObjects.Sprite {
 
 
     constructor(scene, m, x, y) {
-        super(scene, x, y, 'pincho');
+        super(scene, x, y, 'queso');
         this.mapache = m;
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this, true);
@@ -11,7 +11,7 @@ export default class Pincho extends Phaser.GameObjects.Sprite {
     preUpdate() {
         super.preUpdate();
         if (this.scene.physics.overlap(this.mapache, this)) {
-            this.scene.pinchoPinchado();
+            this.scene.nomnomQuesito();
         }
     }
 

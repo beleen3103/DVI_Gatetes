@@ -3,10 +3,10 @@ import Mapache from './mapache.js';
 import Pincho from './pincho.js';
 import Queso from './queso.js';
 
-export default class Nivel1 extends Phaser.Scene {
+export default class Cosa extends Phaser.Scene {
 
     constructor() {
-        super({ key: 'nivel1' });
+        super({ key: 'cosa' });
     }
 
 
@@ -16,17 +16,11 @@ export default class Nivel1 extends Phaser.Scene {
         new Platform(this, this.mapache, 500, 350);
         new Platform(this, this.mapache, 850, 200);
         new Queso(this, this.mapache, 850, 120);
-        new Pincho(this, this.mapache, 500, 450);
     }
 
     nomnomQuesito(){
         this.scene.pause();
-        this.scene.start('cosa');
-    }
-
-    pinchoPinchado() {
-        this.scene.pause();
-        this.scene.start('batalla');
+        this.scene.start('nivel1');
     }
 
 }

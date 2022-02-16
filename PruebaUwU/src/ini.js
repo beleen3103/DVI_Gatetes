@@ -9,6 +9,7 @@ export default class Ini extends Phaser.Scene {
         this.load.image('platform', 'platform.png');
         this.load.image('mapache', 'mapachop.png');
         this.load.image('pincho', 'pincho.png');
+        this.load.image('queso', 'queso.png');
     }
 
     create() {
