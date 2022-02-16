@@ -1,4 +1,5 @@
 import Mapache from './mapache.js';
+import Npc from './npc.js';
 import Barra from './healthBar.js';
 
 export default class Batalla extends Phaser.Scene {
@@ -12,6 +13,7 @@ export default class Batalla extends Phaser.Scene {
     create() {
         this.cursor = this.input.keyboard.createCursorKeys();
         this.mapache = new Mapache(this, 200, 300, false);
+        this.npc = new Npc(this, this.mapache, 700, 280, false);
         this.barra = new Barra(this, 150, 400, this.mapache.vida);
     }
 
