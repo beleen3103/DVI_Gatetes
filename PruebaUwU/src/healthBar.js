@@ -1,4 +1,4 @@
-export default class HealthBar{
+export default class HealthBar {
     constructor(scene, x, y,maxHealth){
         this.bar = new Phaser.GameObjects.Graphics(scene);
         this.x=x;
@@ -8,9 +8,21 @@ export default class HealthBar{
         this.draw();
         scene.add.existing(this.bar);
     }
+
+    increase(x){
+        if(this.health + x <= this.maxHealth){
+            this.health += x;
+        }
+        else this.health = this.maxHealth;
+
+        this.draw();
+    }
+
     decrease(x){
+        
         if(this.health > 0) this.health -= x;
-        else this.health = 0;
+        else this.health = 0;    
+        
         this.draw();
     }
 
@@ -23,7 +35,7 @@ export default class HealthBar{
         this.bar.fillStyle(0x000000);
         this.bar.fillRect(this.x,this.y,100,16);
         this.bar.fillStyle(0x008000);
-        var d = Math.floor(this.health/this.maxHealth*100);
+        var d = Math.floor((this.health/this.maxHealth)*100);
         if(!this.isDead()) this.bar.fillRect(this.x,this.y,d,16);
     }
 }

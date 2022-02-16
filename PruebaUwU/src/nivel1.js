@@ -10,7 +10,7 @@ export default class Nivel1 extends Phaser.Scene {
 
 
     create() {
-        this.mapache = new Mapache(this, 200, 300);
+        this.mapache = new Mapache(this, 200, 300, true);
 
         new Platform(this, this.mapache, 500, 350);
         new Platform(this, this.mapache, 850, 200);
