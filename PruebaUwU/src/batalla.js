@@ -27,6 +27,7 @@ export default class Batalla extends Phaser.Scene {
             this.barra.increase(1);
             this.mapache.heal(1);
         }
+        if(this.barra.isDead()) this.scene.start('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
 
     }
 }
