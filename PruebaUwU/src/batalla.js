@@ -11,6 +11,7 @@ export default class Batalla extends Phaser.Scene {
 
 
     create() {
+        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.cursor = this.input.keyboard.createCursorKeys();
         this.mapache = new Mapache(this, 200, 300, false);
         this.npc = new Npc(this, this.mapache, 700, 280, false);
@@ -27,7 +28,9 @@ export default class Batalla extends Phaser.Scene {
             this.barra.increase(1);
             this.mapache.heal(1);
         }
-        if(this.barra.isDead()) this.scene.start('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
-
+        if(this.barra.isDead()) {
+            this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.stop();
+        }
     }
 }

@@ -1,31 +1,34 @@
 export default class Npc extends Phaser.GameObjects.Sprite {
   
-  constructor(scene, mapache, x, y, f) {
+  constructor(scene, m, x, y, f) {
     super(scene, x, y, 'npc');
+    this.mapache = m;
     this.scene.add.existing(this);
-    this.scene.physics.add.existing(this, true);
-    this.body.x = x;
+    this.scene.physics.add.existing(this);
+    this.body.setCollideWorldBounds();
     this.fisicas = f;
     this.flipX = false;
-    this.speed = 2;
+    this.speed = 100;
     this.maxMovement = 5;
     this.xDirection = -1; //empezamos a la izq
   }
   
-  preUpdate() {
-      super.preUpdate();
+  preUpdate(t, dt) {
+      super.preUpdate(t, dt);
       //movimiento automatico
+      
       if(this.fisicas){
-        if(this.body.x === 500 || this.body.x === 1000) { //limites de movimiento
+       // Esta mal y a medias, como Espanha
+        if(this.getCenter().distance(500, 430) <= 0 || this.getCenter().x >= 900) { //limites de movimiento
           this.xDirection *= -1;
-          this.flipX = (this.body.x === 500 ? true : false); //giros del personaje al andar
+          this.flipX = (this.getCenter().x === 500); //giros del personaje al andar
         }
-        this.x += this.xDirection * this.speed; //se mueve el sprite
-        this.body.x = this.x; //se actualiza la posicion del objeto pa que colisione bien
+        this.body.setVelocityX(-this.speed); //se actualiza la posicion del objeto pa que colisione bien
 
         //si colisiona con nuestro personaje
-        if (this.scene.physics.overlap(this.scene.mapache, this)) {
+        if (this.scene.physics.overlap(this.mapache, this)) {
             this.scene.pinchoPinchado();
+            this.destroy();
         }
       }
   }

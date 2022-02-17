@@ -1,6 +1,7 @@
 import ClaseEscenaInicial from './ini.js';
 import ClaseEscenaNivel1 from './nivel1.js';
 import Batalla from './batalla.js';
+import Cosa from './cosa.js';
 
 
 new Phaser.Game({
@@ -11,12 +12,12 @@ new Phaser.Game({
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, Batalla],
+    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, Batalla, Cosa],
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 900 },
-            debug: false
+            debug: true
         }
     }
 });

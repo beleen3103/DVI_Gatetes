@@ -18,17 +18,17 @@ export default class Nivel1 extends Phaser.Scene {
         new Platform(this, this.mapache, 850, 200);
         new Queso(this, this.mapache, 850, 120);
         new Npc(this, this.mapache, 900, 430, true);
-        new Pincho(this, this.mapache, 500, 450);
+        //new Pincho(this, this.mapache, 500, 450);
     }
 
     nomnomQuesito(){
-        this.scene.pause();
         this.scene.start('cosa');
+        this.scene.pause();
     }
 
     pinchoPinchado() {
+        this.scene.launch('batalla');
         this.scene.pause();
-        this.scene.start('batalla');
     }
 
 }

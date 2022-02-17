@@ -12,6 +12,7 @@ export default class Mapache extends Phaser.GameObjects.Sprite {
         if(this.fisicas){
             this.cursors = this.scene.input.keyboard.createCursorKeys();
             this.scene.physics.add.existing(this);
+            this.body.setSize(80,71,true);
             this.body.setCollideWorldBounds();
             this.label = this.scene.add.text(10, 10, "");
         }
@@ -50,16 +51,16 @@ export default class Mapache extends Phaser.GameObjects.Sprite {
                 if (this.flipX) {
                     this.flipX = false;
                 }
-                if(this.body.onFloor())
-                    this.body.setVelocityY(-50);
+                /*if(this.body.onFloor())
+                    this.body.setVelocityY(-50);*/
             }
             else if (this.cursors.right.isDown) {
                 this.body.setVelocityX(this.speed);
                 if (!this.flipX) {
                     this.flipX = true;
                 }
-                if (this.body.onFloor())
-                    this.body.setVelocityY(-50);
+                /*if (this.body.onFloor())
+                    this.body.setVelocityY(-50);*/
             }
             else {
                 this.body.setVelocityX(0);
