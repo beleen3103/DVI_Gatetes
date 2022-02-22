@@ -9,7 +9,6 @@ export default class Npc extends Phaser.GameObjects.Sprite {
     this.fisicas = f;
     this.flipX = false;
     this.speed = 100;
-    this.maxMovement = 5;
     this.xDirection = -1; //empezamos a la izq
   }
   
@@ -19,11 +18,12 @@ export default class Npc extends Phaser.GameObjects.Sprite {
       
       if(this.fisicas){
        // Esta mal y a medias, como Espanha
-        if(this.getCenter().distance(500, 430) <= 0 || this.getCenter().x >= 900) { //limites de movimiento
+        if(this.body.position.x <= 500 || this.body.position.x >= 900) { //limites de movimiento
           this.xDirection *= -1;
-          this.flipX = (this.getCenter().x === 500); //giros del personaje al andar
+          this.flipX = !this.flipX; //giros del personaje al andar
         }
-        this.body.setVelocityX(-this.speed); //se actualiza la posicion del objeto pa que colisione bien
+        this.get
+        this.body.setVelocityX(this.speed*this.xDirection); //se actualiza la posicion del objeto pa que colisione bien
 
         //si colisiona con nuestro personaje
         if (this.scene.physics.overlap(this.mapache, this)) {
