@@ -11,6 +11,7 @@ export default class Batalla extends Phaser.Scene {
 
 
     create() {
+
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.cursor = this.input.keyboard.createCursorKeys();
         this.mapache = new Mapache(this, 200, 300, false);
