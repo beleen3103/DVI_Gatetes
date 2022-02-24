@@ -16,7 +16,11 @@ export default class Cosa extends Phaser.Scene {
         new Platform(this, this.mapache, 500, 350);
         new Platform(this, this.mapache, 850, 200);
         new Queso(this, this.mapache, 850, 120);
-        this.cameras.main.startFollow(this.mapache);
+        let c = this.cameras.main;
+        c.startFollow(this.mapache);
+        const lerpValue = 0.1
+        c.setLerp(lerpValue,lerpValue);
+        c.setFollowOffset(0,150);
     }
 
     nomnomQuesito(){
