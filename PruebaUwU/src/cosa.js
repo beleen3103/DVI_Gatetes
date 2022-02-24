@@ -8,7 +8,7 @@ export default class Cosa extends Phaser.Scene {
     constructor() {
         super({ key: 'cosa' });
     }
-
+    
 
     create() {
         this.mapache = new Mapache(this, 200, 300, true);
@@ -16,6 +16,7 @@ export default class Cosa extends Phaser.Scene {
         new Platform(this, this.mapache, 500, 350);
         new Platform(this, this.mapache, 850, 200);
         new Queso(this, this.mapache, 850, 120);
+        this.cameras.main.startFollow(this.mapache);
     }
 
     nomnomQuesito(){
