@@ -25,7 +25,7 @@ export default class Cosa extends Phaser.Scene {
 
     nomnomQuesito(){
         this.scene.pause();
-        this.scene.start('nivel1');
+        this.scene.start('hub');
     }
 
 }

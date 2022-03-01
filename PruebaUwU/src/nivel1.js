@@ -22,7 +22,7 @@ export default class Nivel1 extends Phaser.Scene {
     }
 
     nomnomQuesito(){
-        this.scene.start('cosa');
+        this.scene.start('hub');
         this.scene.pause();
     }
 

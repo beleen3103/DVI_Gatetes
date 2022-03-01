@@ -11,11 +11,13 @@ export default class Ini extends Phaser.Scene {
         this.load.image('pincho', 'pincho.png');
         this.load.image('queso', 'queso.png');
         this.load.image('npc', 'npc.png');
+        this.load.image('puertaCombate', 'puertaCombate.png');
+        this.load.image('puertaPlataformeo', 'puertaPlataformeo.png');
         this.load.setPath('assets/background/');
         this.load.image('vs', 'batalla.jpg');
     }
 
     create() {
-        this.scene.start('nivel1');
+        this.scene.start('hub'); //Miquel: hacer que el juego empiece en el hub
     }
 }
