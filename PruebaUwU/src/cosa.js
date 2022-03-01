@@ -8,19 +8,26 @@ export default class Cosa extends Phaser.Scene {
     constructor() {
         super({ key: 'cosa' });
     }
-    
+    preload(){this.load.image('background', 'assets/background/batalla.jpg')}
 
     create() {
-        this.mapache = new Mapache(this, 200, 300, true);
+        this.add.image(0,0,'background').setOrigin(0);
 
+        let c = this.cameras.main;
+        const lerpValue = 0.1
+        c.setLerp(lerpValue,lerpValue);
+        const xIni = 0, yIni = 0, xSize = 2000, ySize = 500;
+        c.setBounds(xIni,yIni,xSize,ySize) //Tamaño de la camara (minimo-maximo)
+        this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
+
+        this.mapache = new Mapache(this, 200, 300, true);
         new Platform(this, this.mapache, 500, 350);
         new Platform(this, this.mapache, 850, 200);
         new Queso(this, this.mapache, 850, 120);
-        let c = this.cameras.main;
+        
         c.startFollow(this.mapache);
-        const lerpValue = 0.1
-        c.setLerp(lerpValue,lerpValue);
-        c.setFollowOffset(0,150);
+        
+        //c.setFollowOffset(0,150);
     }
 
     nomnomQuesito(){
