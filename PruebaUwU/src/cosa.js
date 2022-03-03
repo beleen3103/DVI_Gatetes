@@ -32,8 +32,8 @@ export default class Cosa extends Phaser.Scene {
         //c.setFollowOffset(0,150);
     }
     update(){
-        if(this.mapache.body.y < this.body.y) this.body.enable = true;
-        else this.body.enable = false;
+        if(this.mapache.body.y < this.a.body.y) this.a.body.enable = true;
+        else this.a.body.enable = false;
       }
 
     nomnomQuesito(){
