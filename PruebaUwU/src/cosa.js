@@ -1,4 +1,5 @@
 import Platform from './platform.js';
+import PlatformT from './platformT.js';
 import Mapache from './mapache.js';
 import Pincho from './pincho.js';
 import Queso from './queso.js';
@@ -21,7 +22,8 @@ export default class Cosa extends Phaser.Scene {
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
 
         this.mapache = new Mapache(this, 200, 300, true);
-        new Platform(this, this.mapache, 500, 350);
+        this.a = new PlatformT(this, this.mapache, 500, 350);
+        
         new Platform(this, this.mapache, 850, 200);
         new Queso(this, this.mapache, 850, 120);
         
@@ -29,10 +31,14 @@ export default class Cosa extends Phaser.Scene {
         
         //c.setFollowOffset(0,150);
     }
+    update(){
+        if(this.mapache.body.y < this.body.y) this.body.enable = true;
+        else this.body.enable = false;
+      }
 
     nomnomQuesito(){
-        this.scene.pause();
-        this.scene.start('hub');
+        //this.scene.pause();
+        //this.scene.start('hub');
     }
 
 }

@@ -7,6 +7,7 @@ export default class Ini extends Phaser.Scene {
     preload() {
         this.load.setPath('assets/sprites/');
         this.load.image('platform', 'platform.png');
+        this.load.image('platformT', 'platformT.png');
         this.load.image('mapache', 'mapachop.png');
         this.load.image('pincho', 'pincho.png');
         this.load.image('queso', 'queso.png');
