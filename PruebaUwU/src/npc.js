@@ -1,3 +1,5 @@
+import Barra from './healthBar.js';
+
 export default class Npc extends Phaser.GameObjects.Sprite {
   
   constructor(scene, m, x, y, f) {
@@ -11,7 +13,8 @@ export default class Npc extends Phaser.GameObjects.Sprite {
       this.body.setCollideWorldBounds();
     }
     else {
-      this.label = this.scene.add.text(790, 400, "");
+      this.label = this.scene.add.text(x+70, y+120, "");
+      this.barra = new Barra(scene, x-40, y+120, this.vida);
       this.updateScore();
     }
     this.flipX = false;

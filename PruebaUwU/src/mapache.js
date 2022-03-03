@@ -1,4 +1,4 @@
-
+import Barra from './healthBar.js';
 export default class Mapache extends Phaser.GameObjects.Sprite {
 
 
@@ -16,7 +16,10 @@ export default class Mapache extends Phaser.GameObjects.Sprite {
             this.body.setCollideWorldBounds();
             this.label = this.scene.add.text(10, 10, "");
         }
-        else this.label = this.scene.add.text(270, 400, "");
+        else {
+            this.label = this.scene.add.text(270, 400, "");
+            this.barra = new Barra(scene, 150, 400, this.vida);
+        }
         this.speed = 300;
         this.jumpSpeed = -600;
         

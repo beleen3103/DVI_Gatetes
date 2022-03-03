@@ -1,6 +1,6 @@
 import Mapache from './mapache.js';
 import Npc from './npc.js';
-import Barra from './healthBar.js';
+
 
 export default class Batalla extends Phaser.Scene {
 
@@ -22,27 +22,31 @@ export default class Batalla extends Phaser.Scene {
         this.cursor = this.input.keyboard.createCursorKeys();
         this.mapache = new Mapache(this, 200, 300, false);
         this.npc = new Npc(this, this.mapache, 700, 280, false);
+        this.npc1 = new Npc(this, this.mapache, 880, 280, false); //cambiar por un bucle
         this.listaMalos = this.add.group();
         this.listaMalos.add(this.npc);
-        this.barra = new Barra(this, 670, 400, this.npc.vida);
-        this.barraM = new Barra(this, 150, 400, this.mapache.vida);
+        this.listaMalos.add(this.npc1); //cambiar por un bucle
     }
 
     update(t,dt){
         super.update(t,dt);
+        if(this.npc.barra.isDead() || this.mapache.barra.isDead()) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
+            this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.stop();
+        }
         if(this.turn){
             if (this.keyQ.isDown) { //Ppum pum punietaso
-                this.barra.decrease(10);
+                this.npc.barra.decrease(10);
                 this.listaMalos.children.get(0).damage(10);
                 this.turn = false;
             }
             else if (this.keyW.isDown) {//curarse
-                this.barraM.increase(10);
+                this.mapache.barra.increase(10);
                 this.mapache.heal(10);
                 this.turn = false;
             }
             else if (this.keyE.isDown) {
-                this.barra.decrease(6);
+                this.npc.barra.decrease(6);
                 this.listaMalos.children.each(malo => {
                     malo.damage(6);
                 });
@@ -50,12 +54,12 @@ export default class Batalla extends Phaser.Scene {
                 this.turn = false;
             }
             else if (this.keyR.isDown) {
-                this.barra.decrease(10);
+                this.npc.barra.decrease(10);
                 this.npc.damage(10);
                 this.turn = false;
             }
             else if (this.cursor.right.isDown) {
-                this.barra.increase(10);
+                this.npc.barra.increase(10);
                 this.npc.heal(10);
                 this.turn = false;
             }
@@ -66,20 +70,20 @@ export default class Batalla extends Phaser.Scene {
             this.label.text = "";
             if(this.auxDT >= 2000) {
                 this.turn = true;
-                this.ataca = Phaser.Math.Between(0, 100);
-                if(this.ataca < 80) {
-                    this.barraM.decrease(9);
-                    this.mapache.damage(9);
-                }
-                else{
-                    this.label.text = "FALLO!";
-                }
+                this.listaMalos.children.each(malo => { //cada enemigo ataca
+                        this.ataca = Phaser.Math.Between(0, 100);
+                    if(this.ataca < 80) {
+                        this.mapache.barra.decrease(4);
+                        this.mapache.damage(4);
+                    }
+                    else{
+                        this.label.text = "FALLO!"; //estaria guay indicar cual de los dos falla
+                    }
+                });
+                
             }
             
         }
-        if(this.barra.isDead() || this.barraM.isDead()) {
-            this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
-            this.scene.stop();
-        }
+        
     }
 }
