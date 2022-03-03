@@ -14,11 +14,16 @@ export default class Batalla extends Phaser.Scene {
         this.auxDT = 0;
         this.turn = true;
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.label = this.add.text(10,10,"");
         this.cursor = this.input.keyboard.createCursorKeys();
         this.mapache = new Mapache(this, 200, 300, false);
         this.npc = new Npc(this, this.mapache, 700, 280, false);
+        this.listaMalos = this.add.group();
+        this.listaMalos.add(this.npc);
         this.barra = new Barra(this, 670, 400, this.npc.vida);
         this.barraM = new Barra(this, 150, 400, this.mapache.vida);
     }
@@ -26,7 +31,25 @@ export default class Batalla extends Phaser.Scene {
     update(t,dt){
         super.update(t,dt);
         if(this.turn){
-            if (this.keyQ.isDown) {
+            if (this.keyQ.isDown) { //Ppum pum punietaso
+                this.barra.decrease(10);
+                this.listaMalos.children.get(0).damage(10);
+                this.turn = false;
+            }
+            else if (this.keyW.isDown) {//curarse
+                this.barraM.increase(10);
+                this.mapache.heal(10);
+                this.turn = false;
+            }
+            else if (this.keyE.isDown) {
+                this.barra.decrease(6);
+                this.listaMalos.children.each(malo => {
+                    malo.damage(6);
+                });
+
+                this.turn = false;
+            }
+            else if (this.keyR.isDown) {
                 this.barra.decrease(10);
                 this.npc.damage(10);
                 this.turn = false;
@@ -54,7 +77,7 @@ export default class Batalla extends Phaser.Scene {
             }
             
         }
-        if(this.barra.isDead()) {
+        if(this.barra.isDead() || this.barraM.isDead()) {
             this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }

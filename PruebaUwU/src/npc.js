@@ -10,10 +10,14 @@ export default class Npc extends Phaser.GameObjects.Sprite {
       this.scene.physics.add.existing(this);
       this.body.setCollideWorldBounds();
     }
-    else this.label = this.scene.add.text(790, 400, "");
+    else {
+      this.label = this.scene.add.text(790, 400, "");
+      this.updateScore();
+    }
     this.flipX = false;
     this.speed = 100;
     this.xDirection = -1; //empezamos a la izq
+    
   }
 
   damage(x) {
