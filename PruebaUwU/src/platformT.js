@@ -6,8 +6,8 @@ export default class PlatformT extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.collider(this, mapache);
     
   }
-  update(){
+  /*update(){
     if(this.mapache.body.y < this.body.y) this.body.enable = true;
     else this.body.enable = false;
-  }
+  }*/
 }
