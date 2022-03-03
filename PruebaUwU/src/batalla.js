@@ -46,9 +46,9 @@ export default class Batalla extends Phaser.Scene {
                 this.turn = false;
             }
             else if (this.keyE.isDown) {
-                this.npc.barra.decrease(6);
                 this.listaMalos.children.each(malo => {
                     malo.damage(6);
+                    malo.barra.decrease(6);
                 });
 
                 this.turn = false;
