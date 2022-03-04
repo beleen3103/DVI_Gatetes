@@ -37,8 +37,8 @@ export default class Cosa extends Phaser.Scene {
       }
 
     nomnomQuesito(){
-        //this.scene.pause();
-        //this.scene.start('hub');
+        this.scene.pause();
+        this.scene.start('hub');
     }
 
 }

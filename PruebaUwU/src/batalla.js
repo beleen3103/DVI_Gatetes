@@ -30,10 +30,7 @@ export default class Batalla extends Phaser.Scene {
 
     update(t,dt){
         super.update(t,dt);
-        if(this.npc.barra.isDead() || this.mapache.barra.isDead()) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
-            this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
-            this.scene.stop();
-        }
+        
         if(this.turn){
             if (this.keyQ.isDown) { //Ppum pum punietaso
                 this.npc.barra.decrease(10);
@@ -79,10 +76,13 @@ export default class Batalla extends Phaser.Scene {
                     else{
                         this.label.text = "FALLO!"; //estaria guay indicar cual de los dos falla
                     }
-                });
-                
+                });                
             }
             
+        }
+        if(this.npc.barra.isDead() || this.mapache.barra.isDead()) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
+            this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.stop();
         }
         
     }

@@ -1,44 +1,17 @@
-import Barra from './healthBar.js';
-
-export default class Npc extends Phaser.GameObjects.Sprite {
+import Enemigos from './Enemigos.js';
+export default class Npc extends Enemigos {
   
   constructor(scene, m, x, y, f) {
-    super(scene, x, y, 'npc');
-    this.vida = 100;
-    this.mapache = m;
+    super(scene, m, x, y, f, 'npc', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
+   // this.vida = 100;
     this.scene.add.existing(this);   
-    this.fisicas = f;
-    if(this.fisicas){
-      this.scene.physics.add.existing(this);
-      this.body.setCollideWorldBounds();
-    }
-    else {
-      this.label = this.scene.add.text(x+70, y+120, "");
-      this.barra = new Barra(scene, x-40, y+120, this.vida);
-      this.updateScore();
-    }
     this.flipX = false;
     this.speed = 100;
     this.xDirection = -1; //empezamos a la izq
     
   }
-
-  damage(x) {
-    if(this.vida - x < 0) this.vida = 0;
-    else this.vida -= x;
-    this.updateScore();
-  }
-
-  heal(x) {
-    if(this.vida + x > 100) this.vida = 100;
-    else this.vida += x;
-    this.updateScore();
-  }
-
-  updateScore() {
-    this.label.text = this.vida;
-  }
   
+
   preUpdate(t, dt) {
       super.preUpdate(t, dt);
       //movimiento automatico
