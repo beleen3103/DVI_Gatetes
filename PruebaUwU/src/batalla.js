@@ -20,7 +20,7 @@ export default class Batalla extends Phaser.Scene {
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.label = this.add.text(10,10,"");
         this.cursor = this.input.keyboard.createCursorKeys();
-        this.mapache = new Mapache(this, 200, 300, false);
+        this.mapache = new Mapache(this, 200, 280, false);
         this.npc = new Npc(this, this.mapache, 700, 280, false);
         this.npc1 = new Npc(this, this.mapache, 880, 280, false); //cambiar por un bucle
         this.listaMalos = this.add.group();
