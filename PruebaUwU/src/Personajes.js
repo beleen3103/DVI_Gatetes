@@ -20,7 +20,9 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
         this.updateScore();
       }     
   }
-
+  isDead(){
+    return this.vida ===0;
+  }
   damage(x) {
     if(this.vida - x < 0) this.vida = 0;
     else this.vida -= x;
