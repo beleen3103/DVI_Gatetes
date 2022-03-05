@@ -1,7 +1,7 @@
 import ClaseEscenaInicial from './ini.js';
 import ClaseEscenaNivel1 from './nivel1.js';
 import Batalla from './batalla.js';
-import Cosa from './cosa.js';
+import Tutorial from './tutorial.js';
 import Hub from './hub.js'; //Miquel: Añadir el Hub
 
 
@@ -13,7 +13,7 @@ new Phaser.Game({
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, Batalla, Cosa, Hub], //Miquel: Añadir el hub
+    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, Batalla, Tutorial, Hub], //Miquel: Añadir el hub
     physics: {
         default: 'arcade',
         arcade: {

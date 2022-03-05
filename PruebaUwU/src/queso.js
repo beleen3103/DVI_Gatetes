@@ -11,7 +11,7 @@ export default class Queso extends Phaser.GameObjects.Sprite {
     preUpdate() {
         super.preUpdate();
         if (this.scene.physics.overlap(this.mapache, this)) {
-            this.scene.nomnomQuesito();
+            this.scene.goHub();
         }
     }
 

@@ -17,7 +17,7 @@ export default class Animales extends Personajes {
         
         this.anims.create({
             key: 'andar',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 0, end: 5 }),
+            frames: this.anims.generateFrameNumbers('Anime1', { start: 0, end: 4 }),
             frameRate: 10,
             repeat: -1
         });

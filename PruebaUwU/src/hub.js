@@ -59,20 +59,9 @@ export default class Hub extends Phaser.Scene {
 
     overlapPlataformeo(){
         if(this.keyE.isDown){
-            this.scene.start('cosa');
+            this.scene.start('tutorial');
             this.scene.pause();
         }
-    }
-
-
-    nomnomQuesito(){
-        this.scene.start('cosa');
-        this.scene.pause();
-    }
-
-    pinchoPinchado() {
-        this.scene.launch('batalla');
-        this.scene.pause();
     }
 
 }

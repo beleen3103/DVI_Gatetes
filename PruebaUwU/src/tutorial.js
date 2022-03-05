@@ -8,7 +8,7 @@ import Npc from './npc.js';
 export default class Cosa extends Phaser.Scene {
 
     constructor() {
-        super({ key: 'cosa' });
+        super({ key: 'tutorial' });
     }
     preload(){this.load.image('background', 'assets/background/batalla.jpg')}
 
@@ -54,12 +54,12 @@ export default class Cosa extends Phaser.Scene {
         //else this.a.body.enable = false;
     }
 
-    nomnomQuesito(){
+    goHub(){
         this.scene.pause();
         this.scene.start('hub');
     }
 
-    pinchoPinchado() {
+    combatir() {
         //this.scene.launch('batalla');
         //this.scene.pause();
     }

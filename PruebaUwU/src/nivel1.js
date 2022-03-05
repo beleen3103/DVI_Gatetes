@@ -39,12 +39,12 @@ export default class Nivel1 extends Phaser.Scene {
         }
 
     }*/
-    nomnomQuesito(){
+    goHub(){
         this.scene.start('hub');
         this.scene.pause();
     }
 
-    pinchoPinchado() {
+    combatir() {
         this.scene.launch('batalla');
         this.scene.pause();
     }

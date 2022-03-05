@@ -26,7 +26,7 @@ export default class Npc extends Enemigos {
 
         //si colisiona con nuestro personaje
         if (this.scene.physics.overlap(this.mapache, this)) {
-            this.scene.pinchoPinchado();
+            this.scene.combatir();
             this.destroy();
         }
       }
