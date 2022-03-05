@@ -1,5 +1,6 @@
 import Mapache from './mapache.js';
 import Npc from './npc.js';
+import Platform from './platform.js';
 
 
 export default class Batalla extends Phaser.Scene {
@@ -8,28 +9,36 @@ export default class Batalla extends Phaser.Scene {
         super({ key: 'batalla' });
         
     }
-
-
     create() {
-        this.auxDT = 0;
-        this.xp = 600;
-        this.yp = 280;
-        this.turn = true;
+        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
+
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
+
+        this.pointer = this.input.activePointer;
+        
+        
+        
+
         this.label = this.add.text(10,10,"");
-        this.cursor = this.input.keyboard.createCursorKeys();
-        this.mapache = new Mapache(this, 200, 280, false);
+        this.mapache = new Mapache(this, 200, 250, false);
+        this.auxDT = 0;
+        this.turn = true;
+
+        let xM = this.mapache.getX();
+        let yM = this.mapache.getY();
+        this.mordisco = this.add.sprite(xM-50,yM+150,'mordisco').setInteractive();
+        this.curacion = this.add.sprite(xM+50,yM+150,'curacion').setInteractive();
+
         this.listaMalos = this.add.group();
-        this.listaMalos.maxSize = Phaser.Math.Between(0, 3);
-        this.i = 0;
+        this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
+        let xNpc = 600;
+        const yNpc = 250;
         while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
-            this.npc = new Npc(this, this.mapache, this.xp, this.xp, this.yp, false);
-            this.listaMalos.add(this.npc);
-            this.xp += 180;
+            this.listaMalos.add(new Npc(this, this.mapache, xNpc, xNpc, yNpc, false));
+            xNpc += 150;
         }
        
        // this.npc1 = new Npc(this, this.mapache, 880, 280, false); //cambiar por un bucle
@@ -42,17 +51,34 @@ export default class Batalla extends Phaser.Scene {
         super.update(t,dt);
         
         if(this.turn){
+            this.click = true;
+            this.mordisco.on('pointerdown', () =>{
+                if(this.click){
+                    this.listaMalos.getFirstAlive().barra.decrease(10);
+                    this.listaMalos.getFirstAlive().damage(10);
+                    this.turn = false;
+                    this.click = false;
+                }
+            });
             if (this.keyQ.isDown) { //Ppum pum punietaso
                 this.listaMalos.getFirstAlive().barra.decrease(10);
                 this.listaMalos.getFirstAlive().damage(10);
                 this.turn = false;
             }
-            else if (this.keyW.isDown) {//curarse
+            this.curacion.on('pointerdown', () =>{
+                if(this.click){
+                    this.mapache.barra.increase(10);
+                    this.mapache.heal(10);
+                    this.turn = false;
+                    this.click = false;
+                }
+            });
+            if (this.keyW.isDown) {//curarse
                 this.mapache.barra.increase(10);
                 this.mapache.heal(10);
                 this.turn = false;
             }
-            else if (this.keyE.isDown) {
+            if (this.keyE.isDown) {
                 this.listaMalos.children.each(malo => {
                     malo.damage(6);
                     malo.barra.decrease(6);
@@ -60,7 +86,7 @@ export default class Batalla extends Phaser.Scene {
 
                 this.turn = false;
             }
-            else if (this.keyR.isDown) {
+            if (this.keyR.isDown) {
                 this.listaMalos.getFirstAlive().barra.decrease(10);
                 this.npc.damage(10);
                 this.turn = false;

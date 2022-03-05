@@ -15,8 +15,8 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
         this.body.setCollideWorldBounds();
     }
     else{
-        this.label = this.scene.add.text(x+70, y+120, "");
-        this.barra = new Barra(scene, x-40, y+120, this.vida);
+        this.label = this.scene.add.text(x+70, y+80, "");
+        this.barra = new Barra(scene, x-40, y+80, this.vida);
         this.updateScore();
       }     
   }
