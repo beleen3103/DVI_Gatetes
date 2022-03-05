@@ -1,4 +1,4 @@
-import Platform from './platform.js';
+import Basura from './basura.js';
 import PlatformT from './platformT.js';
 import Mapache from './mapache.js';
 import Pincho from './pincho.js';
@@ -10,7 +10,7 @@ export default class Cosa extends Phaser.Scene {
     constructor() {
         super({ key: 'tutorial' });
     }
-    preload(){this.load.image('background', 'assets/background/batalla.jpg')}
+    preload(){this.load.image('background', 'assets/background/fondo.png')}
 
     create() {
         this.add.image(0,0,'background').setOrigin(0);
@@ -24,8 +24,8 @@ export default class Cosa extends Phaser.Scene {
 
         this.mapache = new Mapache(this, 200, 300, true);
 
-        new Platform(this, this.mapache, 600, 400); //Bloque de 160x100 px Tocon/Ladrillos....
-        new Platform(this, this.mapache, 600, 465);
+        new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
+
         
         new Npc(this, this.mapache, 1500, 940, 430, true);
 
