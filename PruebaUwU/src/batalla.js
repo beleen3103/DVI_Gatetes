@@ -27,7 +27,7 @@ export default class Batalla extends Phaser.Scene {
         this.listaMalos.maxSize = Phaser.Math.Between(0, 3);
         this.i = 0;
         while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
-            this.npc = new Npc(this, this.mapache, this.xp, this.yp, false);
+            this.npc = new Npc(this, this.mapache, this.xp, this.xp, this.yp, false);
             this.listaMalos.add(this.npc);
             this.xp += 180;
         }

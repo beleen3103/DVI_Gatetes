@@ -21,7 +21,7 @@ export default class Nivel1 extends Phaser.Scene {
         new Platform(this, this.player, 500, 350);
         new Platform(this, this.player, 850, 200);
         new Queso(this, this.player, 850, 120);
-        new Npc(this, this.player, 900, 430, true);
+        new Npc(this, this.player, 900, 500, 430, true);
        // this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
         //new Pincho(this, this.mapache, 500, 450);
     }

@@ -23,7 +23,7 @@ export default class Cosa extends Phaser.Scene {
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
 
         this.mapache = new Mapache(this, 200, 300, true);
-        
+
         new Platform(this, this.mapache, 600, 400); //Bloque de 160x100 px Tocon/Ladrillos....
         new Platform(this, this.mapache, 600, 465);
         
