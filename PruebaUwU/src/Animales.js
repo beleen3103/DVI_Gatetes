@@ -1,5 +1,5 @@
 import Personajes from './Personajes.js';
-
+import Barra from './healthBar.js';
 export default class Animales extends Personajes {
 
     constructor(scene, x, y, f, name, vida, speed, jumpSpeed) {
@@ -12,6 +12,11 @@ export default class Animales extends Personajes {
             this.body.setSize(80,65,true);
             this.label = this.scene.add.text(10, 10, "");
         }
+        else{
+            this.label = this.scene.add.text(x+70, y+60, "");
+            this.barra = new Barra(scene, x-40, y+60, this.vida);
+            this.updateScore();
+        }
         this.speed = speed;
         this.jumpSpeed = jumpSpeed;
         
@@ -23,6 +28,10 @@ export default class Animales extends Personajes {
         });
       
     }
+
+    updateScore() {
+        this.label.text = this.vida;
+      }
 
     //los getters y setters estan aqui y no en personajes porque belen ha estado probando lo de cambiar de animal
     getX(){

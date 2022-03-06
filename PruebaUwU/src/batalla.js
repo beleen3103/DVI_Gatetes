@@ -21,16 +21,16 @@ export default class Batalla extends Phaser.Scene {
         
         
         
-
-        this.label = this.add.text(10,10,"");
-        this.mapache = new Mapache(this, 200, 250, false);
+        this.fallo = this.add.text(400,70,"", { font: "60px Verdana"});
+        this.mapache = new Mapache(this, 200, 300, false);
         this.auxDT = 0;
         this.turn = true;
 
         let xM = this.mapache.getX();
         let yM = this.mapache.getY();
-        this.mordisco = this.add.sprite(xM-50,yM+150,'mordisco').setInteractive();
-        this.curacion = this.add.sprite(xM+50,yM+150,'curacion').setInteractive();
+        this.mordisco = this.add.sprite(xM-50,yM+120,'mordisco').setInteractive();
+        this.curacion = this.add.sprite(xM+50,yM+120,'curacion').setInteractive();
+        this.cola = this.add.sprite(xM+150, yM+120, 'cola').setInteractive();
 
         this.listaMalos = this.add.group();
         this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
@@ -54,17 +54,12 @@ export default class Batalla extends Phaser.Scene {
             this.click = true;
             this.mordisco.on('pointerdown', () =>{
                 if(this.click){
-                    this.listaMalos.getFirstAlive().barra.decrease(10);
-                    this.listaMalos.getFirstAlive().damage(10);
+                    this.listaMalos.getFirstAlive().barra.decrease(30);
+                    this.listaMalos.getFirstAlive().damage(30);
                     this.turn = false;
                     this.click = false;
                 }
             });
-            if (this.keyQ.isDown) { //Ppum pum punietaso
-                this.listaMalos.getFirstAlive().barra.decrease(10);
-                this.listaMalos.getFirstAlive().damage(10);
-                this.turn = false;
-            }
             this.curacion.on('pointerdown', () =>{
                 if(this.click){
                     this.mapache.barra.increase(10);
@@ -73,19 +68,16 @@ export default class Batalla extends Phaser.Scene {
                     this.click = false;
                 }
             });
-            if (this.keyW.isDown) {//curarse
-                this.mapache.barra.increase(10);
-                this.mapache.heal(10);
-                this.turn = false;
-            }
-            if (this.keyE.isDown) {
-                this.listaMalos.children.each(malo => {
-                    malo.damage(6);
-                    malo.barra.decrease(6);
-                });
-
-                this.turn = false;
-            }
+            this.cola.on('pointerdown', () =>{
+                if(this.click){
+                    this.listaMalos.children.each(malo => {
+                        malo.damage(15);
+                        malo.barra.decrease(15);
+                    });
+                    this.turn = false;
+                    this.click = false;
+                }
+            });
             if (this.keyR.isDown) {
                 this.listaMalos.getFirstAlive().barra.decrease(10);
                 this.npc.damage(10);
@@ -98,7 +90,7 @@ export default class Batalla extends Phaser.Scene {
         }
         else{
             this.auxDT += dt;
-            this.label.text = "";
+            this.fallo.text = "";
             if(this.auxDT >= 2000) {
                 this.turn = true;
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
@@ -109,7 +101,7 @@ export default class Batalla extends Phaser.Scene {
                             this.mapache.damage(4);
                         }
                         else{
-                            this.label.text = "FALLO!"; //estaria guay indicar cual de los dos falla
+                            this.fallo.text = "FALLO"; //estaria guay indicar cual de los dos falla
                         }
                     }
                 });                
@@ -117,7 +109,7 @@ export default class Batalla extends Phaser.Scene {
             
         }
         if(this.mapache.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
-            this.scene.resume('nivel1'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
         

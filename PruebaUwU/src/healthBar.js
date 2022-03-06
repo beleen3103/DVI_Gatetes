@@ -21,7 +21,7 @@ export default class HealthBar {
     decrease(x){
         
         if(this.health > 0) this.health -= x;
-        else this.health = 0;    
+        if(this.health < 0) this.health = 0;    
         
         this.draw();
     }

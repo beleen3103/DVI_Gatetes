@@ -13,7 +13,7 @@ new Phaser.Game({
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, Batalla, Tutorial, Hub], //Miquel: Añadir el hub
+    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, Tutorial, Batalla, Hub], //Miquel: Añadir el hub
     physics: {
         default: 'arcade',
         arcade: {

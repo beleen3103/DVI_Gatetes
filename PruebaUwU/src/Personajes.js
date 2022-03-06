@@ -13,12 +13,7 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
     if(this.fisicas){
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds();
-    }
-    else{
-        this.label = this.scene.add.text(x+70, y+80, "");
-        this.barra = new Barra(scene, x-40, y+80, this.vida);
-        this.updateScore();
-      }     
+    }   
   }
   isDead(){
     return this.vida ===0;
@@ -35,9 +30,7 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
     this.updateScore();
   }
 
-  updateScore() {
-    this.label.text = this.vida;
-  }
+  
   
   preUpdate(t, dt) {
       super.preUpdate(t, dt);
