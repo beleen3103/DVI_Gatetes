@@ -2,7 +2,7 @@ import Enemigos from './Enemigos.js';
 export default class Npc extends Enemigos {
   
   constructor(scene, m, xIni, xFin, y, f) {
-    super(scene, m, xIni, y, f, 'npc', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
+    super(scene, m, xIni, y, f, 'emo', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
     this.xIni = xIni;
     this.xFin = xFin;
     this.flipX = false;

@@ -60,8 +60,8 @@ export default class Cosa extends Phaser.Scene {
     }
 
     combatir() {
-        //this.scene.launch('batalla');
-        //this.scene.pause();
+        this.scene.launch('batalla');
+        this.scene.pause();
     }
 
 }
