@@ -26,6 +26,12 @@ export default class Animales extends Personajes {
             frameRate: 10,
             repeat: -1
         });
+        this.anims.create({
+            key: 'parar',
+            frames: this.anims.generateFrameNumbers('Anime1', { start: 5, end: 10 }),
+            frameRate: 10,
+            repeat: 0
+        })
 
         this.keyA = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyW = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -80,6 +86,7 @@ export default class Animales extends Personajes {
                 }
             }
             else {
+                
                 this.body.setVelocityX(0);
                 this.move = false;
                 this.stop();
