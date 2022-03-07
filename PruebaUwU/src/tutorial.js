@@ -1,8 +1,6 @@
 import Basura from './basura.js';
-import PlatformT from './platformT.js';
+import Platform from './platform.js';
 import Mapache from './mapache.js';
-import Pincho from './pincho.js';
-import Queso from './queso.js';
 import Npc from './npc.js';
 
 export default class Cosa extends Phaser.Scene {
@@ -19,11 +17,12 @@ export default class Cosa extends Phaser.Scene {
         const lerpValue = 0.1
         c.setLerp(lerpValue,lerpValue);
         const xIni = 0, yIni = 0, xSize = 2000, ySize = 500;
-        c.setBounds(xIni,yIni,xSize,ySize) //Tamaño de la camara (minimo-maximo)
+        c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
-
+        
         this.mapache = new Mapache(this, 200, 300, true);
-
+        
+        
         new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
 
         
@@ -34,7 +33,7 @@ export default class Cosa extends Phaser.Scene {
         fin.body.setAllowGravity(false);
         this.physics.add.overlap(this.mapache,fin,()=>{
             this.scene.pause();
-            this.scene.start('nivel1');
+            this.scene.start('tutorial');
         });
         /*if(this.scene.physics.collision(this.mapache, this.fin)){
             this.scene.pause();

@@ -41,10 +41,7 @@ export default class Batalla extends Phaser.Scene {
             xNpc += 150;
         }
        
-       // this.npc1 = new Npc(this, this.mapache, 880, 280, false); //cambiar por un bucle
-        
-       // this.listaMalos.add(this.npc);
-       // this.listaMalos.add(this.npc1); //cambiar por un bucle
+       
     }
 
     update(t,dt){
@@ -84,9 +81,7 @@ export default class Batalla extends Phaser.Scene {
                 this.turn = false;
             }
             this.auxDT = 0;
-            while(this.listaMalos.countActive() > 0 && this.listaMalos.getFirstAlive().isDead()){ //desactiva los que estan muertos
-                this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
-            }
+            
         }
         else{
             this.auxDT += dt;
@@ -107,6 +102,9 @@ export default class Batalla extends Phaser.Scene {
                 });                
             }
             
+        }
+        while(this.listaMalos.countActive() > 0 && this.listaMalos.getFirstAlive().isDead()){ //desactiva los que estan muertos
+            this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
         }
         if(this.mapache.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
             this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
