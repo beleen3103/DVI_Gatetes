@@ -1,6 +1,8 @@
 import Basura from './basura.js';
 import Platform from './platform.js';
 import Mapache from './mapache.js';
+import Pincho from './pincho.js';
+import Queso from './queso.js';
 import Npc from './npc.js';
 
 export default class Cosa extends Phaser.Scene {
@@ -19,13 +21,33 @@ export default class Cosa extends Phaser.Scene {
         const xIni = 0, yIni = 0, xSize = 2000, ySize = 500;
         c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
-        
-        this.mapache = new Mapache(this, 200, 300, true);
-        
-        
-        new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
 
+        this.mapache = new Mapache(this, 100, 300, true);
+
+        new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
         
+        this.add.rectangle(1000,550,2000,100,0x00ff00);
+        let elli = this.add.ellipse(140,220,200,80,0x32A8A3);
+        elli.setStrokeStyle(2,0x2B908C);
+        let fle = this.add.text(50,200,"Utiliza A D \nde direccion para mover", { font: "15px Verdana", align: "center"});
+        this.container = this.add.container(0,0,[elli,fle]);
+
+        let cambio1 = this.add.zone(300,0,10,1000);
+        this.physics.world.enable(cambio1);
+        cambio1.body.setAllowGravity(false);
+        this.physics.add.overlap(this.mapache,cambio1,()=>{
+            elli.setPosition(500,220);
+            fle.setText("Utiliza el espacio o W\npara saltar");
+            fle.setPosition(420,200);
+            cambio1.destroy();
+        })
+        let cambio2 = this.add.zone(650,0,10,1000);
+        this.physics.world.enable(cambio2);
+        cambio2.body.setAllowGravity(false);
+        this.physics.add.overlap(this.mapache,cambio2,()=>{
+            this.container.destroy();
+            cambio2.destroy();
+        })
         new Npc(this, this.mapache, 1500, 940, 430, true);
 
         let fin = this.add.zone(1950,0,100,1000);
@@ -35,15 +57,10 @@ export default class Cosa extends Phaser.Scene {
             this.scene.pause();
             this.scene.start('tutorial');
         });
-        /*if(this.scene.physics.collision(this.mapache, this.fin)){
-            this.scene.pause();
-            this.scene.start('nivel1');
-        }*/
         
         c.startFollow(this.mapache);
         //new Queso(this, this.mapache, 850, 120);
         //this.a = new PlatformT(this, this.mapache, 500, 350);
-        //c.setFollowOffset(0,150);
     }
     
     
