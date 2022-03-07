@@ -26,6 +26,12 @@ export default class Animales extends Personajes {
             frameRate: 10,
             repeat: -1
         });
+
+        this.keyA = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyW = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyS = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyD = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.keySpace = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
       
     }
 
@@ -50,10 +56,10 @@ export default class Animales extends Personajes {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if(this.fisicas){
-            if (this.cursors.up.isDown && this.body.onFloor()) {
+            if ((this.keyW.isDown || this.keySpace.isDown) && this.body.onFloor()) {
                 this.body.setVelocityY(this.jumpSpeed);
             }
-            if (this.cursors.left.isDown) {
+            if (this.keyA.isDown) {
                 if (!this.move) {
                     this.play('andar');
                     this.move = true;
@@ -63,7 +69,7 @@ export default class Animales extends Personajes {
                     this.flipX = false;
                 }
             }
-            else if (this.cursors.right.isDown) {
+            else if (this.keyD.isDown) {
                 if (!this.move) {
                     this.play('andar');
                     this.move = true;
