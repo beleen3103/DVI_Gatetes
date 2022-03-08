@@ -104,7 +104,27 @@ Se sigue avanzando hasta el final de Gran Vía, donde el jugador se encontrará 
 </ul>
 
 <h2>Dirección Artística</h2>
-<p></p>
+<h3><i>Arte gráfico</i></h3>
+<i>por completar ...</i>
+
+<h3><i>Banda Sonora</i></h3>
+La Banda Sonora del juego se basa en leitmotivs y se caracteriza por el uso de sonidos orgánicos, cercanos y cotidianos.
+<br><br>
+En cada zona además la música se adecúa al contexto, como por ejemplo un aumento en la reverberación al estar dentro de las alcantarillas.
+<br><br>
+Hay un leitmotiv por personaje que empieza a sonar cuando se empieza a usar (el jugador puede decidir cambiar de personaje en cualquier instante del juego.
+<br><br>
+La lista de tracks es la siguiente:
+<ul>
+  <li><i><b>Cat's will:</b> leitmotiv del Gato</i></li>
+  <li><i><b>Overpowered Raccoon:</b> leitmotiv del Mapache</i></li>
+  <li><i><b>Legionnaire Rat:</b> leitmotiv de la Rata</i></li>
+  <li><i><b>Bard Raven:</b> leitmotiv del Cuervo</i></li>
+  <li><i><b>Tortoise the Shoe Fetishist:</b> leitmotiv de la Tortuga</i></li>
+  <li><i><b>Compulsive Deceiver:</b> leitmotive de Perro Sanxe</i></li>
+  <li><i><b>Eren's freedom:</b> música de combate</i></li>
+  <li><i><b>A Seagull's Dream:</b> despedida de Madrid</i></li>
+</ul>
 
 <h2>Arquitectura</h2>
 Diseño UML de las clases
