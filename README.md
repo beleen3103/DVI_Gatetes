@@ -108,7 +108,7 @@ Se sigue avanzando hasta el final de Gran Vía, donde el jugador se encontrará 
 
 <h2>Arquitectura</h2>
 Diseño UML de las clases
-![uml](assets/uml.png?raw=true)
+![uml](uml.png)
 
 
 <h2>Sistema</h2>
