@@ -12,13 +12,40 @@ https://beleen3103.github.io/DVI_Gatetes/
 <p>+18</p>
 
 <h2>Lore</h2>
-<p></p>
+<h3><i>Personajes principales</i></h3>
+<ul>
+  <li>Gato</li>
+  <li>Mapache</li>
+  <li>Rata</li>
+  <li>Cuervo</li>
+  <li>Tortuga</li>
+</ul>
+
+<h3><i>Enemigos</i></h3>
+<ul>
+  <li>Emos</li>
+  <li>Gente comprando en el Primark</li>
+  <li>Fotógrafos Shweppes</li>
+  <li>Peces mutantes de alcantarilla</li>
+  <li>Empresarios</li>
+  <li>CEO Hotel Plaza España</li>
+</ul>
 
 <h2>Contexto</h2>
 <p></p>
 
 <h2>Mecánicas</h2>
-<p></p>
+<ul>
+  <li>Movimiento Lateral</li>
+  <li>Salto</li>
+  <li>Combatir (por turnos)</li>
+  <li>Escalar pared <i><b>(Gato)</b></i></li>
+  <li>Rebuscar en la basura <i><b>(Mapache)</b></i></li>
+  <li>Doble Salto <i><b>(Mapache)</b></i></li>
+  <li>Meterse en agujeros <i><b>(Rata)</b></i></li>
+  <li>Planear <i><b>(Cuervo)</b></i></li>
+  <li>Nadar <i><b>(Tortuga)</b></i></li>
+</ul>
 
 <h2>Dinámicas</h2>
 <p></p>
