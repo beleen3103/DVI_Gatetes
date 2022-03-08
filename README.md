@@ -24,7 +24,7 @@ https://beleen3103.github.io/DVI_Gatetes/
 <h3><i>Enemigos</i></h3>
 <ul>
   <li>Emos</li>
-  <li>Gente comprando en el Primark</li>
+  <li>Cliente del Primark</li>
   <li>Fotógrafos Shweppes</li>
   <li>Peces mutantes de alcantarilla</li>
   <li>Empresarios</li>
@@ -107,7 +107,9 @@ Se sigue avanzando hasta el final de Gran Vía, donde el jugador se encontrará 
 <p></p>
 
 <h2>Arquitectura</h2>
-<p></p>
+Diseño UML de las clases
+!uml(https://github.com/beleen3103/DVI_Gatetes/assets/main/uml.png?raw=true)
+
 
 <h2>Sistema</h2>
 <p></p>
