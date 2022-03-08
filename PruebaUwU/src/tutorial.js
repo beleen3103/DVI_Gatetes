@@ -22,7 +22,7 @@ export default class Cosa extends Phaser.Scene {
         c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
 
-        this.mapache = new Mapache(this, 100, 300, true);
+        this.mapache = new Mapache(this, 100, 450, true);
 
         new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
         
