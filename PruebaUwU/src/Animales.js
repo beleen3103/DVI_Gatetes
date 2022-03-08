@@ -6,6 +6,7 @@ export default class Animales extends Personajes {
         super(scene, x, y, f, name, vida);
         this.flipX = true;
         this.move = false;
+        this.parar = false;
         
         if(this.fisicas){
             this.cursors = this.scene.input.keyboard.createCursorKeys();
@@ -29,7 +30,13 @@ export default class Animales extends Personajes {
         this.anims.create({
             key: 'parar',
             frames: this.anims.generateFrameNumbers('Anime1', { start: 5, end: 10 }),
-            frameRate: 10,
+            frameRate: 15,
+            repeat: 0
+        })
+        this.anims.create({
+            key: 'levantarse',
+            frames: this.anims.generateFrameNumbers('Anime1', { start: 10, end: 5 }),
+            frameRate: 20,
             repeat: 0
         })
 
@@ -66,8 +73,10 @@ export default class Animales extends Personajes {
                 this.body.setVelocityY(this.jumpSpeed);
             }
             if (this.keyA.isDown) {
+                this.parar = false;
                 if (!this.move) {
-                    this.play('andar');
+                    this.play('levantarse');
+                    this.chain('andar');
                     this.move = true;
                 }
                 this.body.setVelocityX(-this.speed);
@@ -76,8 +85,10 @@ export default class Animales extends Personajes {
                 }
             }
             else if (this.keyD.isDown) {
+                this.parar = false;
                 if (!this.move) {
-                    this.play('andar');
+                    this.play('levantarse');
+                    this.chain('andar');
                     this.move = true;
                 }
                 this.body.setVelocityX(this.speed);
@@ -86,10 +97,13 @@ export default class Animales extends Personajes {
                 }
             }
             else {
-                
                 this.body.setVelocityX(0);
-                this.move = false;
-                this.stop();
+                this.move = false;  
+                if (!this.parar) {
+                    this.chain();
+                    this.play('parar');
+                    this.parar = true;
+                }
             }
         }
     }
