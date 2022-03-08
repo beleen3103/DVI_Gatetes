@@ -1,3 +1,44 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
 h1 {
   text-align: center;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  color:rgb(164, 123, 184);
+}
+
+a:visited {
+  color: white;
+}
+
+.footer {
+  position: absolute;
+  top: 90%;
+  left: 0;
+  height: 10%;
+  width: 100%;
+  color: white;
+  background-color: rgb(22, 22, 22);
+}
+
+.footer-text {
+  margin-top: 20px;
+  margin-left: 50px;
+  margin-right: 130px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
 }
