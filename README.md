@@ -84,6 +84,8 @@ Se sigue avanzando hasta el final de Gran Vía, donde el jugador se encontrará 
 <ul>
   <li>Movimiento Lateral</li>
   <li>Salto</li>
+  <li>Salto de pared</li>
+  <li>Agacharse</li>
   <li>Combatir (por turnos)</li>
   <li>Escalar pared <i><b>(Gato)</b></i></li>
   <li>Rebuscar en la basura <i><b>(Mapache)</b></i></li>
