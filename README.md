@@ -1,4 +1,4 @@
-<h1> Madrid o Libertad</h1>
+<h1> Miaudrid o Libertad</h1>
 
 https://beleen3103.github.io/DVI_Gatetes/
 
@@ -86,17 +86,27 @@ Se sigue avanzando hasta el final de Gran Vía, donde el jugador se encontrará 
   <li>Salto</li>
   <li>Salto de pared</li>
   <li>Agacharse</li>
+  <li>Curarse (objetos)</li>
+  <li>Cambiar de personaje</li>
   <li>Combatir (por turnos)</li>
+    <ul>
+      <li><i>Ataque</i></li>
+      <li><i>Ataque curación</i></li>
+    </ul>
   <li>Escalar pared <i><b>(Gato)</b></i></li>
   <li>Rebuscar en la basura <i><b>(Mapache)</b></i></li>
-  <li>Doble Salto <i><b>(Mapache)</b></i></li>
+  <li>Doble Salto <i><b>(Cuervo)</b></i></li>
   <li>Meterse en agujeros <i><b>(Rata)</b></i></li>
-  <li>Planear <i><b>(Cuervo)</b></i></li>
   <li>Nadar <i><b>(Tortuga)</b></i></li>
 </ul>
 
 <h2>Dinámicas</h2>
-<p></p>
+Serán las resultantes de combinar diferentes mecánicas para ejecutar diferentes estrategias. Por ejemplo:
+<ul>
+  <li>Usar el plataformeo para evitar algún combate</li>
+  <li>Combinación de personajes para acceder a zonas concretas<li>
+  <li>Orden de los ataques en el combate</li>
+</ul>
 
 <h2>Controles</h2>
 <ul>
@@ -123,17 +133,70 @@ La lista de tracks es la siguiente:
   <li><i><b>Legionnaire Rat:</b> leitmotiv de la Rata</i></li>
   <li><i><b>Bard Raven:</b> leitmotiv del Cuervo</i></li>
   <li><i><b>Tortoise the Shoe Fetishist:</b> leitmotiv de la Tortuga</i></li>
-  <li><i><b>Compulsive Deceiver:</b> leitmotive de Perro Sanxe</i></li>
+  <li><i><b>Compulsive Deceiver:</b> leitmotiv de Perro Sanxe</i></li>
   <li><i><b>Eren's freedom:</b> música de combate</i></li>
   <li><i><b>A Seagull's Dream:</b> despedida de Madrid</i></li>
 </ul>
 
 <h2>Arquitectura</h2>
 Diseño UML de las clases
+<br><br>
 <p align="center">
-<img src="assets/uml.png" width="500">
+<img src="assets/uml.png">
 </p>
 
+<h2>Plan de trabajo</h2>
+<h3><i>Sprint 20/03</i></h3>
+<ul>
+  <li>Acabar el Tutorial</li>
+  <li>Añadir personaje del Gato</li>
+  <li>Zona Gran Vía (diseño plataformeo y enemigos)</li>
+  <li>Evento Mapache</li>
+  <li>Cambio de personaje</li>
+  <li>BSO de Combate, Gato y Mapache</li>
+</ul>
+
+<h3><i>Sprint 27/03</i></h3>
+<ul>
+  <li>Zona Alcantarillas</li>
+  <li>Personaje Rata</li>
+  <li>HUB</li>
+  <li>Enemigos Alcantarillas</li>
+  <li>Evento Rata (para meterse en una zona chiquita)</li>
+  <li>BSO Perro Sanxe y Rata</li>
+</ul>
+
+<h3><i>Sprint 03/04</i></h3>
+<ul>
+  <li>Zona Cuatro Torres</li>
+  <li>Personaje Cuervo</li>
+  <li>Enemigos Cuatro Torres</li>
+  <li>BSO Cuervo</li>
+</ul>
+
+<h3><i>Sprint 10/04</i></h3>
+<ul>
+  <li>Zona Atocha</li>
+  <li>Personaje Tortuga</li>
+  <li>Enemigos Atocha</li>
+  <li>Evento Tortuga</li>
+  <li>BSO Tortuga, Boss final</li>
+</ul>
+
+<h3><i>Sprint 24/04</i></h3>
+<ul>
+  <li>Zona Final del juego</li>
+  <li>Pantalla de despedida - créditos</li>
+  <li>Añadir objetos que solo se puedan obtener en las zonas anteriores con los nuevos personajes</li>
+  <li>BSO Combate Final, despedida</li>
+  <li>Empezar con el testeo del juego</li>
+</ul>
+
+<h3><i>Sprint 01/05</i></h3>
+<ul>
+  <li>Testeo final y pulido</li>
+  <li>Documentación</li>
+</ul>
 
 <h2>Sistema</h2>
 <p></p>
