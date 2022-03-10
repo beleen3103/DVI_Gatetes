@@ -10,10 +10,20 @@ export default class Cosa extends Phaser.Scene {
     constructor() {
         super({ key: 'tutorial' });
     }
-    preload(){this.load.image('background', 'assets/background/fondo.png')}
+    preload(){
+        this.load.image('background', 'assets/background/fondo.png');
+        this.load.audio('DVI_01', 'audio/DVI_01.ogg'); //Precargar el audio
+        this.load.audio('DVI_02', 'audio/DVI_02.ogg'); //Precargar el audio
+    }
 
     create() {
         this.add.image(0,0,'background').setOrigin(0);
+
+        this.musica1 = this.sound.add('DVI_01');
+        this.musica2 = this.sound.add('DVI_02');
+        this.musica1.play({loop:true});
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.musicitme = 0;
 
         let c = this.cameras.main;
         const lerpValue = 0.1
@@ -25,6 +35,7 @@ export default class Cosa extends Phaser.Scene {
         this.mapache = new Mapache(this, 100, 450, true);
 
         new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
+
         
         this.add.rectangle(1000,550,2000,100,0x00ff00);
         let elli = this.add.ellipse(140,220,200,80,0x32A8A3);
@@ -61,6 +72,7 @@ export default class Cosa extends Phaser.Scene {
         c.startFollow(this.mapache);
         //new Queso(this, this.mapache, 850, 120);
         //this.a = new PlatformT(this, this.mapache, 500, 350);
+
     }
     
     
@@ -68,6 +80,20 @@ export default class Cosa extends Phaser.Scene {
     update(){
         //if(this.mapache.body.y < this.a.body.y) this.a.body.enable = true;
         //else this.a.body.enable = false;
+        if(this.keyE.isDown){
+            if(this.musica1.isPlaying && !this.musica2.isPlaying){
+                this.musictime = this.musica1.seek;
+                this.musica1.stop();
+                this.musica2.play({loop:true,seek:this.musictime});
+            }
+            if(!this.musica1.isPlaying && this.musica2.isPlaying){
+                this.musictime = this.musica2.seek;
+                this.musica2.stop();
+                this.musica1.play({loop:true,seek:this.musictime});
+
+            }
+        }
+        
     }
 
     goHub(){

@@ -26,6 +26,6 @@ export default class Ini extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('tutorial'); //Miquel: hacer que el juego empiece en el hub
+        this.scene.start('tutorial');
     }
 }
