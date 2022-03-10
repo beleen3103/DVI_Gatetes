@@ -3,7 +3,7 @@ import Barra from './healthBar.js';
 export default class Animales extends Personajes {
 
     constructor(scene, x, y, f, name, vida, speed, jumpSpeed) {
-        super(scene, x, y, f, name, vida);
+        super(scene, x, y, f, name, vida, 60);
         this.flipX = true;
         this.move = false;
         this.parar = false;
@@ -14,8 +14,8 @@ export default class Animales extends Personajes {
             this.label = this.scene.add.text(10, 10, "");
         }
         else{
-            this.label = this.scene.add.text(x+70, y+60, "");
-            this.barra = new Barra(scene, x-40, y+60, this.vida);
+           // this.label = this.scene.add.text(x+70, y+60, "");
+           // this.barra = new Barra(scene, x-40, y+60, this.vida);
             this.updateScore();
         }
         this.speed = speed;
@@ -48,9 +48,6 @@ export default class Animales extends Personajes {
       
     }
 
-    updateScore() {
-        this.label.text = this.vida;
-      }
 
     //los getters y setters estan aqui y no en personajes porque belen ha estado probando lo de cambiar de animal
     getX(){
