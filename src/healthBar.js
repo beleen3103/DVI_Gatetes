@@ -9,6 +9,9 @@ export default class HealthBar {
         scene.add.existing(this.bar);
     }
 
+    getBar(){
+        return this.bar;
+    }
     increase(x){
         if(this.health + x <= this.maxHealth){
             this.health += x;

@@ -104,6 +104,8 @@ export default class Batalla extends Phaser.Scene {
             
         }
         while(this.listaMalos.countActive() > 0 && this.listaMalos.getFirstAlive().isDead()){ //desactiva los que estan muertos
+            this.listaMalos.getFirstAlive().label.setVisible(false);
+            this.listaMalos.getFirstAlive().barra.getBar().setVisible(false);
             this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
         }
         if(this.mapache.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
