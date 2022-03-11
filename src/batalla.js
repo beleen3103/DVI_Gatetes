@@ -24,7 +24,8 @@ export default class Batalla extends Phaser.Scene {
         this.fallo = this.add.text(400,70,"", { font: "60px Verdana"});
         this.mapache = new Mapache(this, 200, 300, false);
         this.auxDT = 0;
-        this.turn = true;
+        this.turn = 0;
+        this. ataque = 0;
 
         let xM = this.mapache.getX();
         let yM = this.mapache.getY();
@@ -37,23 +38,24 @@ export default class Batalla extends Phaser.Scene {
         let xNpc = 600;
         const yNpc = 250;
         while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
-            this.listaMalos.add(new Npc(this, this.mapache, xNpc, xNpc, yNpc, false));
+            this.npc = new Npc(this, this.mapache, xNpc, xNpc, yNpc, false);
+            this.npc.setInteractive();
+            this.listaMalos.add(this.npc);
             xNpc += 150;
         }
        
        
     }
-
     update(t,dt){
         super.update(t,dt);
         
-        if(this.turn){
+        if(this.turn === 0){
             this.click = true;
             this.mordisco.on('pointerdown', () =>{
                 if(this.click){
-                    this.listaMalos.getFirstAlive().barra.decrease(30);
-                    this.listaMalos.getFirstAlive().damage(30);
-                    this.turn = false;
+                    //this.ataque('mordisco');
+                    this.turn = 1;
+                    this.ataque = 1;
                     this.click = false;
                 }
             });
@@ -61,7 +63,7 @@ export default class Batalla extends Phaser.Scene {
                 if(this.click){
                     this.mapache.barra.increase(10);
                     this.mapache.heal(10);
-                    this.turn = false;
+                    this.turn = 2;
                     this.click = false;
                 }
             });
@@ -71,23 +73,38 @@ export default class Batalla extends Phaser.Scene {
                         malo.damage(15);
                         malo.barra.decrease(15);
                     });
-                    this.turn = false;
+                    this.turn = 2;
                     this.click = false;
                 }
             });
-            if (this.keyR.isDown) {
-                this.listaMalos.getFirstAlive().barra.decrease(10);
-                this.npc.damage(10);
-                this.turn = false;
-            }
+            
             this.auxDT = 0;
             
+        }
+        else if(this.turn === 1){
+            this.click = true;
+            if(this.ataque === 1){
+                this.listaMalos.children.each(malo => {
+                    if(!malo.isDead()){
+                        malo.on('pointerdown', () => {
+                            if(this.click){
+                                malo.barra.decrease(30);
+                                malo.damage(30);
+                                this.turn = 2;
+                                this.click = false;
+                            }
+                        });
+                    }
+                    //malo.barra.decrease(15);
+                });
+            }
+           // else this.turn = 2;
         }
         else{
             this.auxDT += dt;
             this.fallo.text = "";
             if(this.auxDT >= 2000) {
-                this.turn = true;
+                this.turn = 0;
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
                     if(malo.active){ //si no esta muerto ya, ataca
                         this.ataca = Phaser.Math.Between(0, 100);
