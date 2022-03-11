@@ -7,7 +7,8 @@ export default class gato extends Animales {
     }
     /*preUpdate(t, dt){ //el gato puede trepar
         super.preUpdate(t,dt);
-        this.scene.physics.add.overlap(this,this.scene.a,()=>{ //this.scene.a deberia ser el nombre dado en la clase tutorial a la enredadera
+        //meter las enredaderas de la zona en un grupo
+        this.scene.physics.add.overlap(this,this.scene.a,()=>{ //this.scene.a deberia ser el nombre del GRUPO que contiene todas las plataformas Enredadera
         if(this.keyW.isDown)  {
             this.body.velocity.y = -300/2;
         }
