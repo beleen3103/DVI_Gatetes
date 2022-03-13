@@ -1,11 +1,10 @@
 export default class Platform extends Phaser.GameObjects.Sprite {
   
 
-  constructor(scene, mapache, x, y) {
-    super(scene, x, y, 'platform');
+  constructor(scene, player, x, y, collide, sprite) {
+    super(scene, x, y, sprite);
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this, true);
-    this.scene.physics.add.collider(this, mapache);   
+    if(collide) this.scene.physics.add.collider(this, player);   
   }
-
 }
