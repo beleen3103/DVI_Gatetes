@@ -1,5 +1,5 @@
 import Animales from './Animales.js'
-import Ataque from './Ataque.js';
+import Ataque from './ataque.js';
 export default class Mapache extends Animales {
     constructor(scene, x, y, f) {
         super(scene, x, y, f, 'Anime1', 100, 300, -600);
