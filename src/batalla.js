@@ -79,14 +79,14 @@ export default class Batalla extends Phaser.Scene {
                     else if(ataque.getTarget() != 1){//curacion
                         if(this.click){
                             ataque.attack(this.mapache);
-                            this.turn = 1;
+                            this.turn = 2;
                             this.click = false;
                         }
                     }
                     else if(ataque.getTarget() === 1 && ataque.esBarrido()){ //ataca a todos
                         if(this.click){
                             ataque.attack(this.listaMalos);
-                            this.turn = 1;
+                            this.turn = 2;
                             this.click = false;
                         }
                     }
