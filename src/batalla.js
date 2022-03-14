@@ -35,9 +35,6 @@ export default class Batalla extends Phaser.Scene {
         this.listaAtaques.add(this.mapache.ataque2);
         this.mapache.ataque3.setInteractive();
         this.listaAtaques.add(this.mapache.ataque3);
-        //this.ataque1 = this.add.sprite(xM-50,yM+120,'mordisco').setInteractive();
-        //this.ataque2 = this.add.sprite(xM+50,yM+120,'curacion').setInteractive();
-        //this.ataque3 = this.add.sprite(xM+150, yM+120, 'cola').setInteractive();
 
         this.listaMalos = this.add.group();
         this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
@@ -62,19 +59,8 @@ export default class Batalla extends Phaser.Scene {
                     //this.click = false;
                     //en el caso de que ataque a 1 enemigo
                     if(ataque.getTarget() === 1 && !ataque.esBarrido()){
-                        //this.click = true;
-                        /*this.listaMalos.children.each(malo => {
-                            if(!malo.isDead()){
-                                if(this.click){
-                                    malo.on('pointerdown', () => {                               
-                                        this.turn = 1;  
-                                        ataque.attack(malo);
-                                    });
-                                    this.click = false;
-                                }
-                            }
-                        });     */
-                        this.turn = 1;                         
+                        this.turn = 1;
+                        this.click = false;                         
                     }
                     else if(ataque.getTarget() != 1){//curacion
                         if(this.click){
