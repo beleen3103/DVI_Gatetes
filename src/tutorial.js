@@ -25,6 +25,8 @@ export default class Cosa extends Phaser.Scene {
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.musicitme = 0;
 
+        this.mapache = new Mapache(this, 100, 450, true);
+
         let c = this.cameras.main;
         const lerpValue = 0.1
         c.setLerp(lerpValue,lerpValue);
@@ -32,11 +34,29 @@ export default class Cosa extends Phaser.Scene {
         c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
 
-        this.mapache = new Mapache(this, 100, 450, true);
+        this.createEnemies();
+        this.createPlatforms();
+        this.tutorialText();
 
-        new Basura(this, this.mapache, 600, 450); //Bloque de 160x100 px Tocon/Ladrillos....
-
+        let fin = this.add.zone(1950,0,100,1000);
+        this.physics.world.enable(fin);
+        fin.body.setAllowGravity(false);
+        this.physics.add.overlap(this.mapache,fin,()=>{
+            this.scene.pause();
+            this.scene.start('tutorial');
+        });
         
+        c.startFollow(this.mapache);
+
+    }
+    createEnemies(){
+        new Npc(this, this.mapache, 1500, 940, 430, true);
+    }
+    createPlatforms(){
+        new Basura(this, this.mapache, 600, 450);
+    }
+    
+    tutorialText(){
         this.add.rectangle(1000,550,2000,100,0x00ff00);
         let elli = this.add.ellipse(140,220,200,80,0x32A8A3);
         elli.setStrokeStyle(2,0x2B908C);
@@ -59,27 +79,10 @@ export default class Cosa extends Phaser.Scene {
             this.container.destroy();
             cambio2.destroy();
         })
-        new Npc(this, this.mapache, 1500, 940, 430, true);
-
-        let fin = this.add.zone(1950,0,100,1000);
-        this.physics.world.enable(fin);
-        fin.body.setAllowGravity(false);
-        this.physics.add.overlap(this.mapache,fin,()=>{
-            this.scene.pause();
-            this.scene.start('tutorial');
-        });
-        
-        c.startFollow(this.mapache);
-        //new Queso(this, this.mapache, 850, 120);
-        //this.a = new PlatformT(this, this.mapache, 500, 350);
-
     }
     
-    
-    
     update(){
-        //if(this.mapache.body.y < this.a.body.y) this.a.body.enable = true;
-        //else this.a.body.enable = false;
+        
         if(this.keyE.isDown){
             if(this.musica1.isPlaying && !this.musica2.isPlaying){
                 this.musictime = this.musica1.seek;

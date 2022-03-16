@@ -1,7 +1,5 @@
 import Mapache from './mapache.js';
 import Npc from './npc.js';
-import Platform from './platform.js';
-
 
 export default class Batalla extends Phaser.Scene {
 
@@ -25,13 +23,18 @@ export default class Batalla extends Phaser.Scene {
         this.mapache = new Mapache(this, 200, 300, false);
         this.auxDT = 0;
         this.turn = 0;
-        this. ataque = 0;
+        //this.seleccion = 0;
 
         let xM = this.mapache.getX();
         let yM = this.mapache.getY();
-        this.mordisco = this.add.sprite(xM-50,yM+120,'mordisco').setInteractive();
-        this.curacion = this.add.sprite(xM+50,yM+120,'curacion').setInteractive();
-        this.cola = this.add.sprite(xM+150, yM+120, 'cola').setInteractive();
+        //cuando tengamos mas animales en batalla esto va a fallar
+        this.listaAtaques = this.add.group();
+        this.mapache.ataque1.setInteractive();
+        this.listaAtaques.add(this.mapache.ataque1);
+        this.mapache.ataque2.setInteractive();
+        this.listaAtaques.add(this.mapache.ataque2);
+        this.mapache.ataque3.setInteractive();
+        this.listaAtaques.add(this.mapache.ataque3);
 
         this.listaMalos = this.add.group();
         this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
@@ -49,14 +52,102 @@ export default class Batalla extends Phaser.Scene {
     update(t,dt){
         super.update(t,dt);
         
-        if(this.turn === 0){
+        if(this.turn != 2){
+            this.click = true;
+            this.listaAtaques.children.each(ataque =>{
+                ataque.on('pointerdown', () =>{
+                    //this.click = false;
+                    //en el caso de que ataque a 1 enemigo
+                    if(ataque.getTarget() === 1 && !ataque.esBarrido()){
+                        this.turn = 1;
+                        this.click = false;                         
+                    }
+                    else if(ataque.getTarget() != 1){//curacion
+                        if(this.click){
+                            ataque.attack(this.mapache);
+                            this.turn = 2;
+                            this.click = false;
+                        }
+                    }
+                    else if(ataque.getTarget() === 1 && ataque.esBarrido()){ //ataca a todos
+                        if(this.click){
+                            ataque.attack(this.listaMalos);
+                            this.turn = 2;
+                            this.click = false;
+                        }
+                    }
+                });
+                if(this.turn === 1){
+                    this.click = true;
+                   
+                        this.listaMalos.children.each(malo => {
+                            if(!malo.isDead()){
+                                malo.on('pointerdown', () => {
+                                    if(this.click){
+                                        ataque.attack(malo);
+                                        this.turn = 2;
+                                        this.click = false;
+                                    }
+                                });
+                            }
+                        });
+                    
+                }
+            });
+            
+            this.auxDT = 0;
+        }
+        
+        else{
+            this.auxDT += dt;
+            this.fallo.text = "";
+            if(this.auxDT >= 2000) {
+                this.turn = 0;
+                this.listaMalos.children.each(malo => { //cada enemigo ataca
+                    if(malo.active){ //si no esta muerto ya, ataca
+                        this.ataca = Phaser.Math.Between(0, 100);
+                        if(this.ataca < 80) {
+                            this.mapache.barra.decrease(4);
+                            this.mapache.damage(4);
+                        }
+                        else{
+                            this.fallo.text = "FALLO"; //estaria guay indicar cual de los dos falla
+                        }
+                    }
+                });                
+            }
+        }
+        while(this.listaMalos.countActive() > 0 && this.listaMalos.getFirstAlive().isDead()){ //desactiva los que estan muertos
+            this.listaMalos.getFirstAlive().label.setVisible(false);
+            this.listaMalos.getFirstAlive().barra.getBar().setVisible(false);
+            this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
+        }
+        if(this.mapache.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
+            this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.stop();
+        }
+       /* if(this.turn === 0){
             this.click = true;
             this.mordisco.on('pointerdown', () =>{
                 if(this.click){
-                    //this.ataque('mordisco');
                     this.turn = 1;
                     this.ataque = 1;
                     this.click = false;
+                    this.click = true;
+                    if(this.ataque === 1){
+                        this.listaMalos.children.each(malo => {
+                            if(!malo.isDead()){
+                                malo.on('pointerdown', () => {
+                                    if(this.click){
+                                        malo.barra.decrease(30);
+                                        malo.damage(30);
+                                        this.turn = 2;
+                                        this.click = false;
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
             });
             this.curacion.on('pointerdown', () =>{
@@ -95,10 +186,8 @@ export default class Batalla extends Phaser.Scene {
                             }
                         });
                     }
-                    //malo.barra.decrease(15);
                 });
             }
-           // else this.turn = 2;
         }
         else{
             this.auxDT += dt;
@@ -129,6 +218,6 @@ export default class Batalla extends Phaser.Scene {
             this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
-        
+        */
     }
 }
