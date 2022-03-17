@@ -55,6 +55,7 @@ export default class Batalla extends Phaser.Scene {
         if(this.turn === 0){
             this.click = true;
             if(this.pointer.leftButtonDown()) { //comprobamos qué ataque es
+                this.a = null;
                 this.listaAtaques.children.each(ataque=>{
                     this.i = this.pointer.downX;
                     this.j = this.pointer.downY;
@@ -64,34 +65,38 @@ export default class Batalla extends Phaser.Scene {
                     }
 
                 });
-                if(this.a.getTarget() === 1 && !this.a.esBarrido()){
-                    if(this.click){
-                    this.turn = 1;
-                    this.click = false;   
-                    this.listaMalos.children.each(malo => { //se pueden clickar enemigos
-                        malo.setInteractive();
-                    });  
-                    }                   
-                }
-                else if(this.a.getTarget() != 1){//curacion
-                    if(this.click){
-                        this.a.attack(this.mapache);
-                        this.turn = 2;
-                        this.click = false;
+                if(this.a != null){
+                    if(this.a.getTarget() === 1 && !this.a.esBarrido()){
+                        if(this.click){
+                            console.log("aaaa");
+                        this.turn = 1;
+                        this.click = false;   
+                        
+                        }                   
                     }
-                }
-                else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
-                    if(this.click){
-                        this.a.attack(this.listaMalos);
-                        this.turn = 2;
-                        this.click = false;
+                    else if(this.a.getTarget() != 1){//curacion
+                        if(this.click){
+                            this.a.attack(this.mapache);
+                            this.turn = 2;
+                            this.click = false;
+                        }
                     }
-                }
-                this.auxDT = 0;
+                    else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
+                        if(this.click){
+                            this.a.attack(this.listaMalos);
+                            this.turn = 2;
+                            this.click = false;
+                        }
+                    }
+                    this.auxDT = 0;
+            }
             }
         }
         else if(this.turn === 1){ //seleccion de enemigo si es necesario
             this.click = true;
+            this.listaMalos.children.each(malo => { //se pueden clickar enemigos
+                malo.setInteractive();
+            });  
                 this.listaMalos.children.each(malo => {
                     if(!malo.isDead()){
                         malo.on('pointerdown', () => {
