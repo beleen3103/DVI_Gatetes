@@ -21,7 +21,7 @@ export default class Cosa extends Phaser.Scene {
 
         this.musica1 = this.sound.add('DVI_01');
         this.musica2 = this.sound.add('DVI_02');
-        this.musica1.play({loop:true});
+        this.musica2.play({loop:true, volume:0.3});
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.musicitme = 0;
 
@@ -83,19 +83,34 @@ export default class Cosa extends Phaser.Scene {
     
     update(){
         
-        if(this.keyE.isDown){
+        if(Phaser.Input.Keyboard.JustDown(this.keyE)){
+            if(this.musica1.isPlaying){
+                this.musictime = this.musica1.seek;
+                this.musica1.stop();
+                this.musica2.play({loop:true,seek:this.musictime,volume:0.3});
+            }
+            else if(this.musica2.isPlaying){
+                this.musictime = this.musica2.seek;
+                this.musica2.stop();
+                this.musica1.play({loop:true,seek:this.musictime,volume:0.3});
+
+            }
+        }
+        /*
+                if(this.keyE.isDown){
             if(this.musica1.isPlaying && !this.musica2.isPlaying){
                 this.musictime = this.musica1.seek;
                 this.musica1.stop();
                 this.musica2.play({loop:true,seek:this.musictime});
             }
-            if(!this.musica1.isPlaying && this.musica2.isPlaying){
+            else if(!this.musica1.isPlaying && this.musica2.isPlaying){
                 this.musictime = this.musica2.seek;
                 this.musica2.stop();
                 this.musica1.play({loop:true,seek:this.musictime});
 
             }
         }
+        */
         
     }
 
