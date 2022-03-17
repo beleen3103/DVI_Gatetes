@@ -21,24 +21,7 @@ export default class Animales extends Personajes {
         this.speed = speed;
         this.jumpSpeed = jumpSpeed;
         
-        this.anims.create({
-            key: 'andar',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 0, end: 4 }),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'parar',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 5, end: 10 }),
-            frameRate: 15,
-            repeat: 0
-        })
-        this.anims.create({
-            key: 'levantarse',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 10, end: 5 }),
-            frameRate: 20,
-            repeat: 0
-        })
+        
 
         this.keyA = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.keyW = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
