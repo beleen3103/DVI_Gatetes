@@ -23,7 +23,6 @@ export default class Cosa extends Phaser.Scene {
         this.musica2 = this.sound.add('DVI_02');
         this.musica2.play({loop:true, volume:0.3});
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        this.musicitme = 0;
 
         this.mapache = new Mapache(this, 100, 450, true);
 
