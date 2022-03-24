@@ -7,7 +7,7 @@ export default class gato extends Animales {
         this.fisicas = f;
         if(!this.fisicas){
             this.ataque1 = new Ataque(this.scene, 1, 15, 0, 0, false, 'zarpazo',this.x-50, this.y+120);            
-            this.ataque2 = new Ataque(this.scene, -1, 10, 0 , 0, false, 'elAfilador', this.x +50, this.y+120);
+            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'elAfilador', this.x +50, this.y+120);
             this.ataque3 = new Ataque(this.scene, 1, 30, 0, 0, false, 'sangrado',this.x +150,this.y+120);
         }
 

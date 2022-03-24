@@ -1,6 +1,6 @@
 import Mapache from './mapache.js';
 import Npc from './npc.js';
-
+import Ataque from './ataque.js';
 export default class Batalla extends Phaser.Scene {
 
     constructor() {
@@ -68,7 +68,6 @@ export default class Batalla extends Phaser.Scene {
                 if(this.a != null){
                     if(this.a.getTarget() === 1 && !this.a.esBarrido()){
                         if(this.click){
-                            console.log("aaaa");
                         this.turn = 1;
                         this.click = false;   
                         
@@ -121,10 +120,21 @@ export default class Batalla extends Phaser.Scene {
                 this.turn = 0;
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
                     if(malo.active){ //si no esta muerto ya, ataca
+                        //primero actualizamos cooldown
+                        malo.advance();
                         this.ataca = Phaser.Math.Between(0, 100);
                         if(this.ataca < 80) {
-                            this.mapache.barra.decrease(4);
-                            this.mapache.damage(4);
+                            this.ataqueMalo = malo.selectAttack();
+                            if(this.ataqueMalo.getTarget() === 1) {
+                                if(!this.ataqueMalo.esBarrido()) this.target = malo;
+                                else this.target = this.listaMalos;
+                            }
+                            else{
+                                /*if(!this.ataqueMalo().esBarrido()) this.target = //todos los animales;
+                                else this.target = randomAnimal (uno de los que tengamos);*/
+                                this.target = this.mapache;
+                            }
+                            this.ataqueMalo.attack(this.target);
                         }
                         else{
                             this.fallo.text = "FALLO"; //estaria guay indicar cual de los dos falla
