@@ -1,8 +1,6 @@
 import Basura from './basura.js';
 import Platform from './platform.js';
-import Mapache from './mapache.js';
-import Pincho from './pincho.js';
-import Queso from './queso.js';
+import Gato from './gato.js';
 import Npc from './npc.js';
 
 export default class Cosa extends Phaser.Scene {
@@ -24,7 +22,7 @@ export default class Cosa extends Phaser.Scene {
         this.musica2.play({loop:true, volume:0.3});
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 
-        this.mapache = new Mapache(this, 100, 450, true);
+        this.player = new Gato(this, 100, 450, true);
 
         let c = this.cameras.main;
         const lerpValue = 0.1
@@ -40,19 +38,19 @@ export default class Cosa extends Phaser.Scene {
         let fin = this.add.zone(1950,0,100,1000);
         this.physics.world.enable(fin);
         fin.body.setAllowGravity(false);
-        this.physics.add.overlap(this.mapache,fin,()=>{
+        this.physics.add.overlap(this.player,fin,()=>{
             this.scene.pause();
             this.scene.start('tutorial');
         });
         
-        c.startFollow(this.mapache);
+        c.startFollow(this.player);
 
     }
     createEnemies(){
-        new Npc(this, this.mapache, 1500, 940, 430, true);
+        new Npc(this, this.player, 1500, 940, 430, true);
     }
     createPlatforms(){
-        new Basura(this, this.mapache, 600, 450);
+        new Basura(this, this.player, 600, 450);
     }
     
     tutorialText(){
@@ -65,7 +63,7 @@ export default class Cosa extends Phaser.Scene {
         let cambio1 = this.add.zone(300,0,10,1000);
         this.physics.world.enable(cambio1);
         cambio1.body.setAllowGravity(false);
-        this.physics.add.overlap(this.mapache,cambio1,()=>{
+        this.physics.add.overlap(this.player,cambio1,()=>{
             elli.setPosition(500,220);
             fle.setText("Utiliza el espacio o W\npara saltar");
             fle.setPosition(420,200);
@@ -74,7 +72,7 @@ export default class Cosa extends Phaser.Scene {
         let cambio2 = this.add.zone(650,0,10,1000);
         this.physics.world.enable(cambio2);
         cambio2.body.setAllowGravity(false);
-        this.physics.add.overlap(this.mapache,cambio2,()=>{
+        this.physics.add.overlap(this.player,cambio2,()=>{
             this.container.destroy();
             cambio2.destroy();
         })
