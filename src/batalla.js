@@ -122,9 +122,9 @@ export default class Batalla extends Phaser.Scene {
                     if(malo.active){ //si no esta muerto ya, ataca
                         //primero actualizamos cooldown
                         malo.advance();
+                        this.ataqueMalo = malo.selectAttack();
                         this.ataca = Phaser.Math.Between(0, 100);
                         if(this.ataca < 80) {
-                            this.ataqueMalo = malo.selectAttack();
                             if(this.ataqueMalo.getTarget() === 1) {
                                 if(!this.ataqueMalo.esBarrido()) this.target = malo;
                                 else this.target = this.listaMalos;
