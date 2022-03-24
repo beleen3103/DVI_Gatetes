@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"ventana.png",
+ "imageheight":30,
+ "imagewidth":50,
+ "margin":0,
+ "name":"ventana",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.7.1",
+ "tileheight":30,
+ "tilewidth":30,
+ "type":"tileset",
+ "version":"1.6"
+}
