@@ -12,21 +12,39 @@ export default class Nivel1 extends Phaser.Scene {
         super({ key: 'nivel1' });
     }
 
+    preload(){
+        this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
+        this.load.image('aaaa','assets/sprites/ventana.png');
+    }
+
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
         this.add.rectangle(1000,250,2000,500,0xffffff,100);
+        this.player = new Gato(this, 100, 300, true);
+        this.map = this.make.tilemap({
+            key:'mapa',
+            tileWidth: 30,
+            tileHeight: 30
+        });
+        const tileset1 = this.map.addTilesetImage('ventana','aaaa'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
+        this.capa = this.map.createLayer('balcones', tileset1);
+        // this.capa.setCollisionByProperty({collides: true});
+        this.capa.setCollisionBetween(0,99)
+        this.physics.add.collider(this.player,this.capa);
+
+        
         let c = this.cameras.main;
         const lerpValue = 0.1
         c.setLerp(lerpValue,lerpValue);
         const xIni = 0, yIni = 0, xSize = 2000, ySize = 500;
         c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
-        this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
+        //this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
         
        // this.mapache = new Mapache(this, 200, 300, true); //
        // this.gato = new gato(this, 200, 300, true)//
        // this.gato.setActive(false).setVisible(false); //
        // this.player = this.mapache; //
-        this.player = new Gato(this, 100, 300, true);
+        
         c.startFollow(this.player);
         this.createEnemies()
         this.createPlatforms();
@@ -72,30 +90,30 @@ export default class Nivel1 extends Phaser.Scene {
 
     }
     createEnemies(){
-        new Npc(this, this.player, 1300, 700, 430, true);
+        //new Npc(this, this.player, 1300, 700, 430, true);
     }
     createPlatforms(){
         this.Bloque = this.add.group();
         this.physics.add.collider(this.player,this.Bloque);
-        this.Bloque.add(new Platform(this,this.player,300,450,'platformBasica'));
+        //this.Bloque.add(new Platform(this,this.player,300,450,'platformBasica'));
         //this.Bloque.add(new Platform(this,this.player,300,200,'platformBasica'));
 
         this.BloqueTras = this.add.group();
         this.physics.add.collider(this.player,this.BloqueTras);
-        this.BloqueTras.add(new Platform(this,this.player,300,300,'platformAtravesable'));
+        //this.BloqueTras.add(new Platform(this,this.player,300,300,'platformAtravesable'));
         //this.BloqueTras.add(new Platform(this,this.player,600,300,'platformAtravesable'));
 
         this.Plants = this.add.group();
         this.physics.add.overlap(this.player,this.Plants);
-        this.Plants.add(new Platform(this,this.player,550,200,'platformEnredadera'));
-        this.Plants.add(new Platform(this,this.player,1500,200,'platformEnredadera'));
+        //this.Plants.add(new Platform(this,this.player,550,200,'platformEnredadera'));
+        //this.Plants.add(new Platform(this,this.player,1500,200,'platformEnredadera'));
 
         this.BloqueRebota = this.add.group();
-        this.BloqueRebota.add(new Platform(this,this.player,900,300,'platformRebote'));
+        //this.BloqueRebota.add(new Platform(this,this.player,900,300,'platformRebote'));
         //this.BloqueRebota.add(new Platform(this,this.player,1200,300,'platformRebote'));
 
         this.BloqueBreak = this.add.group();
-        this.BloqueBreak.add(new Platform(this,this.player,1200,300,'platformRompe'));
+        //this.BloqueBreak.add(new Platform(this,this.player,1200,300,'platformRompe'));
         //this.BloqueBreak.add(new Platform(this,this.player,850,400,'platformRompe'));
         this.BloqueBreak.children.each(block =>{
             block.anims.create({
