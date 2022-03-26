@@ -7,6 +7,17 @@ export default class Batalla extends Phaser.Scene {
         super({ key: 'batalla' });
         
     }
+
+    /*init(data){
+        this.mainScene = this.scene.get("sceneA name");
+        this.i = 0;
+        while(i < data.nPersonajes){
+            if(data.listaIds[i] === 'mapache') //crear mapache con vida data.listaVidas[i]
+            else if(data.listaIds[i] === 'gato') // crear gato con vida data.listaVidas[i]
+            //y asi con todos los demás
+            i++;
+        }
+    }*/
     create() {
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
 

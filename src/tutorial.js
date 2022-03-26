@@ -117,6 +117,8 @@ export default class Cosa extends Phaser.Scene {
     }
 
     combatir() {
+        //aqui habria que hacer un if else dependiendo de cuantos animales tengamos
+        //entonces los datos a pasar serían {nPersonajes = (digamos 3), listaVidas= lista con las vidas de los animales, listaIds = lista de strings con el nombre de los animales}
         this.scene.launch('batalla');
         this.scene.pause();
     }
