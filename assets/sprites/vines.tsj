@@ -1,0 +1,14 @@
+{ "columns":1,
+ "image":"..\/..\/..\/DVI_Gatetes-main\/assets\/sprites\/vines.png",
+ "imageheight":30,
+ "imagewidth":50,
+ "margin":0,
+ "name":"vines",
+ "spacing":0,
+ "tilecount":1,
+ "tiledversion":"1.8.2",
+ "tileheight":30,
+ "tilewidth":30,
+ "type":"tileset",
+ "version":"1.8"
+}

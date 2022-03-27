@@ -15,6 +15,7 @@ export default class Nivel1 extends Phaser.Scene {
     preload(){
         this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
         this.load.image('aaaa','assets/sprites/ventana.png');
+        this.load.image('bbbb','assets/sprites/toldo.png');
     }
 
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
@@ -27,11 +28,18 @@ export default class Nivel1 extends Phaser.Scene {
             tileHeight: 30
         });
         const tileset1 = this.map.addTilesetImage('ventana','aaaa'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
-        this.capa = this.map.createLayer('balcones', tileset1);
-        // this.capa.setCollisionByProperty({collides: true});
-        this.capa.setCollisionBetween(0,99)
+        const tileset2 = this.map.addTilesetImage('toldo','bbbb');
+        this.capa = this.map.createLayer('balcones', [tileset1,tileset2]);
+        this.capa.setCollisionByProperty({collides: true});
+        //this.capa.setCollisionBetween(0,99);
         this.physics.add.collider(this.player,this.capa);
-
+        const debug = this.add.graphics().setAlpha(0.7)
+        this.capa.renderDebug(debug,{
+            tileColor: null,
+            collidingTileColor: new Phaser.Display.Color(243,234,48,255),
+            faceColor: new Phaser.Display.Color(40,39,37,255)
+        })
+        
         
         let c = this.cameras.main;
         const lerpValue = 0.1
@@ -54,12 +62,29 @@ export default class Nivel1 extends Phaser.Scene {
     }
     update(t, dt){
         //Bloques trasparentes permiten que el jugador los atraviese desde la zona inferior o pulsando la tecla S
-        this.BloqueTras.children.each(block =>{
-            if(this.player.body.y > block.body.y) block.body.enable = false;
-            else if(this.player.keyS.isDown) block.body.enable = false;
-            else block.body.enable = true;
+        this.capa.forEachTile(tile=>{
+            if(tile.properties.type === 'ventana') {
+                if(this.player.body.y > tile.getTop()) tile.setCollision(false,false,false,false);
+                else if(this.player.keyS.isDown) tile.setCollision(false,false,false,false);
+                else tile.setCollision(true,true,true,true);
+            }
+            else if(tile.properties.type === 'toldo'){
+                //PODRIA SER QUE ESTO NO SEA NI UN IMAN NI UN VENTILADOR
+                //QUEREMOS UN TOLDO... :(
+                if(this.player.body.bottom+1 > tile.getTop() &&(
+                    (this.player.body.x >= tile.getLeft() && this.player.body.x <= tile.getRight()) || (this.player.body.x+80 <= tile.getRight() &&this.player.body.x+80 >= tile.getLeft()))){
+                
+                    this.player.body.setVelocityY(this.player.jumpSpeed);
+                }
+            }
         });
+        // this.BloqueTras.children.each(block =>{
+        //     if(this.player.body.y > block.body.y) block.body.enable = false;
+        //     else if(this.player.keyS.isDown) block.body.enable = false;
+        //     else block.body.enable = true;
+        // });
         //Bloques que hacen rebotar al jugador con una determinada velocidad
+
         this.physics.collide(this.player,this.BloqueRebota,()=>{
             this.BloqueRebota.children.each(block =>{
                 if(this.player.body.bottom-1 < block.body.y){

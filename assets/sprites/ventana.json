@@ -1,14 +1,20 @@
 { "columns":1,
- "image":"ventana.png",
+ "image":"..\/..\/..\/DVI_Gatetes-main\/assets\/sprites\/ventana.png",
  "imageheight":30,
  "imagewidth":50,
  "margin":0,
  "name":"ventana",
+ "properties":[
+        {
+         "name":"collides",
+         "type":"bool",
+         "value":true
+        }],
  "spacing":0,
  "tilecount":1,
- "tiledversion":"1.7.1",
+ "tiledversion":"1.8.2",
  "tileheight":30,
  "tilewidth":30,
  "type":"tileset",
- "version":"1.6"
+ "version":"1.8"
 }
