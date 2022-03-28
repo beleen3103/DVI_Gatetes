@@ -27,6 +27,14 @@ export default class Nivel1 extends Phaser.Scene {
             tileWidth: 30,
             tileHeight: 30
         });
+        this.capaO = this.map.createFromObjects('cosas');
+        console.log(this.capaO);
+        this.capaO.forEach(o=>{
+            this.physics.world.enable(o);
+            o.body.setImmovable(true);
+            o.body.setAllowGravity(false);
+        });
+
         const tileset1 = this.map.addTilesetImage('ventana','aaaa'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
         const tileset2 = this.map.addTilesetImage('toldo','bbbb');
         this.capa = this.map.createLayer('balcones', [tileset1,tileset2]);
@@ -62,7 +70,18 @@ export default class Nivel1 extends Phaser.Scene {
     }
     update(t, dt){
         //Bloques trasparentes permiten que el jugador los atraviese desde la zona inferior o pulsando la tecla S
-        this.capa.forEachTile(tile=>{
+        this.capaO.forEach(o=>{
+            if(o.name === 'salto'){
+
+                this.physics.collide(this.player,o,()=>{
+                    
+                    if(this.player.body.bottom-1 < o.body.y) {
+                        this.player.body.setVelocityY(this.player.jumpSpeed);
+                    }
+                })
+            }
+        })
+        this.capa.forEachTile(tile=>{ 
             if(tile.properties.type === 'ventana') {
                 if(this.player.body.y > tile.getTop()) tile.setCollision(false,false,false,false);
                 else if(this.player.keyS.isDown) tile.setCollision(false,false,false,false);
@@ -71,11 +90,11 @@ export default class Nivel1 extends Phaser.Scene {
             else if(tile.properties.type === 'toldo'){
                 //PODRIA SER QUE ESTO NO SEA NI UN IMAN NI UN VENTILADOR
                 //QUEREMOS UN TOLDO... :(
-                if(this.player.body.bottom+1 > tile.getTop() &&(
-                    (this.player.body.x >= tile.getLeft() && this.player.body.x <= tile.getRight()) || (this.player.body.x+80 <= tile.getRight() &&this.player.body.x+80 >= tile.getLeft()))){
+                // if(this.player.body.bottom+1 < tile.getTop() &&(
+                //     (this.player.body.x >= tile.getLeft() && this.player.body.x <= tile.getRight()) || (this.player.body.x+80 <= tile.getRight() &&this.player.body.x+80 >= tile.getLeft()))){
                 
-                    this.player.body.setVelocityY(this.player.jumpSpeed);
-                }
+                //     this.player.body.setVelocityY(this.player.jumpSpeed);
+                // }
             }
         });
         // this.BloqueTras.children.each(block =>{
@@ -92,9 +111,7 @@ export default class Nivel1 extends Phaser.Scene {
                 }
             });
         });
-        this.physics.collide(this.player,this.a,()=>{
         //Bloques que se destruyen tras terminar la animación
-        })
         this.BloqueBreak.children.each(block=>{
             if(this.physics.collide(this.player,block) && this.player.body.y < block.body.y) {
                 if(!block.anims.hasStarted) block.play('romper');
