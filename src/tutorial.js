@@ -1,12 +1,14 @@
 import Basura from './basura.js';
 import Platform from './platform.js';
+import Mapache from './mapache.js';
 import Gato from './gato.js';
 import Npc from './npc.js';
 
 export default class Cosa extends Phaser.Scene {
-
+    
     constructor() {
         super({ key: 'tutorial' });
+        
     }
     preload(){
         this.load.image('background', 'assets/background/fondo.png');
@@ -20,15 +22,25 @@ export default class Cosa extends Phaser.Scene {
         this.musica1 = this.sound.add('DVI_01');
         this.musica2 = this.sound.add('DVI_02');
         this.musica2.play({loop:true, volume:0.3});
-        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+        this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
+        this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
+        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
 
-        this.player = new Gato(this, 100, 450, true);
+        //animales que el player lleva, se le asigna gato
+        this.listaAnimales = this.add.group();
+        this.m = new Mapache(this, 100, 450, true);
+        this.g = new Gato(this, 100, 450, true);
+        this.listaAnimales.add(this.g);
+        this.listaAnimales.add(this.m);
+        this.g.setVisible(false);    
+        this.player = this.m;    
 
-        let c = this.cameras.main;
+
+        this.c = this.cameras.main;
         const lerpValue = 0.1
-        c.setLerp(lerpValue,lerpValue);
+        this.c.setLerp(lerpValue,lerpValue);
         const xIni = 0, yIni = 0, xSize = 2000, ySize = 500;
-        c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
+        this.c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
 
         this.createEnemies();
@@ -43,7 +55,7 @@ export default class Cosa extends Phaser.Scene {
             this.scene.start('tutorial');
         });
         
-        c.startFollow(this.player);
+        this.c.startFollow(this.player);
 
     }
     createEnemies(){
@@ -78,8 +90,8 @@ export default class Cosa extends Phaser.Scene {
         })
     }
     
-    update(){
-        
+    update(t,dt){
+        this.c.startFollow(this.player); //para que siga a los nuevos animales cuando cambiamos
         if(Phaser.Input.Keyboard.JustDown(this.keyE)){
             if(this.musica1.isPlaying){
                 this.musictime = this.musica1.seek;
@@ -90,7 +102,33 @@ export default class Cosa extends Phaser.Scene {
                 this.musictime = this.musica2.seek;
                 this.musica2.stop();
                 this.musica1.play({loop:true,seek:this.musictime,volume:0.3});
+                
+            }
+        }
+        
+        if(this.keyOne.isDown){ //mapache
+            if(this.player != this.m){ 
+                let auxX = this.player.getX();
+                let auxY = this.player.getY();
 
+                this.player.setVisible(false);
+                this.player.body = this.m.body;
+                this.player = this.m;
+                this.player.setPosition(auxX,auxY);
+                this.m.setVisible(true);
+
+            }
+        }
+        if(this.keyTwo.isDown){ //gato
+            if(this.player != this.g){
+                let auxX = this.player.getX();
+                let auxY = this.player.getY();
+                
+                this.player.setVisible(false);
+                this.player.body = this.g.body;
+                this.player = this.g;
+                this.player.setPosition(auxX,auxY);
+                this.g.setVisible(true);
             }
         }
         /*
