@@ -2,10 +2,11 @@ import Enemigos from './Enemigos.js';
 import Ataque from './ataque.js';
 export default class Npc extends Enemigos {
   
-  constructor(scene, m, xIni, xFin, y, f) {
-    super(scene, m, xIni, y, f, 'emo', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
+  constructor(scene, listaAnim, xIni, xFin, y, f) {
+    super(scene, listaAnim, xIni, y, f, 'emo', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
     this.xIni = xIni;
     this.xFin = xFin;
+    this.listaAnim = listaAnim;
     this.flipX = false;
     this.speed = 100;
     this.fisicas = f;
@@ -56,7 +57,7 @@ export default class Npc extends Enemigos {
         this.body.setVelocityX(this.speed*this.xDirection); //se actualiza la posicion del objeto pa que colisione bien
 
         //si colisiona con nuestro personaje
-        if (this.scene.physics.overlap(this.mapache, this)) {
+        if (this.scene.physics.overlap(this.listaAnim, this)) {
             this.scene.combatir();
             this.destroy();
         }

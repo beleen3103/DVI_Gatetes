@@ -32,7 +32,7 @@ export default class Cosa extends Phaser.Scene {
         this.g = new Gato(this, 100, 450, true);
         this.listaAnimales.add(this.g);
         this.listaAnimales.add(this.m);
-        this.m.setActive(false).setVisible(false);    
+        this.m.setActive(false).setVisible(false);  
         this.player = this.g;    
 
 
@@ -50,7 +50,7 @@ export default class Cosa extends Phaser.Scene {
         let fin = this.add.zone(1950,0,100,1000);
         this.physics.world.enable(fin);
         fin.body.setAllowGravity(false);
-        this.physics.add.overlap(this.player,fin,()=>{
+        this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
             this.scene.start('tutorial');
         });
@@ -59,10 +59,10 @@ export default class Cosa extends Phaser.Scene {
 
     }
     createEnemies(){
-        new Npc(this, this.player, 1500, 940, 430, true);
+        new Npc(this, this.listaAnimales.getChildren(), 1500, 940, 430, true);
     }
     createPlatforms(){
-        new Basura(this, this.player, 600, 450);
+        new Basura(this, this.listaAnimales.getChildren(), 600, 450);
     }
     
     tutorialText(){
@@ -75,7 +75,7 @@ export default class Cosa extends Phaser.Scene {
         let cambio1 = this.add.zone(300,0,10,1000);
         this.physics.world.enable(cambio1);
         cambio1.body.setAllowGravity(false);
-        this.physics.add.overlap(this.player,cambio1,()=>{
+        this.physics.add.overlap(this.listaAnimales.getChildren(),cambio1,()=>{
             elli.setPosition(500,220);
             fle.setText("Utiliza el espacio o W\npara saltar");
             fle.setPosition(420,200);
@@ -84,7 +84,7 @@ export default class Cosa extends Phaser.Scene {
         let cambio2 = this.add.zone(650,0,10,1000);
         this.physics.world.enable(cambio2);
         cambio2.body.setAllowGravity(false);
-        this.physics.add.overlap(this.player,cambio2,()=>{
+        this.physics.add.overlap(this.listaAnimales.getChildren(),cambio2,()=>{
             this.container.destroy();
             cambio2.destroy();
         })
@@ -110,14 +110,13 @@ export default class Cosa extends Phaser.Scene {
             if(this.player != this.m){ 
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
-
-                this.player.setActive(false).setVisible(false);
-                this.player = null;
-                this.player = this.m;
-                this.player.body = this.m.body;
+                
+                this.player.setActive(false).setVisible(false); //quitamos el animal actual
+                
+                this.player = this.m; //cambiamos al nuevo
                 this.player.setPosition(auxX,auxY);
-                this.m.setActive(true).setVisible(true);
-
+                
+                this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
             }
         }
         if(this.keyTwo.isDown){ //gato
@@ -126,11 +125,9 @@ export default class Cosa extends Phaser.Scene {
                 let auxY = this.player.getY();
                 
                 this.player.setActive(false).setVisible(false);
-                this.player = null;
-                this.player = this.g;
-                this.player.body = this.g.body;
+                this.player = this.g;                
                 this.player.setPosition(auxX,auxY);
-                this.g.setActive(true).setVisible(true);
+                this.player.setActive(true).setVisible(true);
             }
         }
         /*

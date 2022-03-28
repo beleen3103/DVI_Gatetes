@@ -4,7 +4,7 @@ export default class Enemigos extends Personajes {
   
   constructor(scene, m, x, y, f, npc, vida) {
     super(scene, x, y, f, npc, vida, 110);   
-    this.mapache = m;
+    //this.mapache = m;
   }
 
 }
