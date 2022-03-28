@@ -32,8 +32,8 @@ export default class Cosa extends Phaser.Scene {
         this.g = new Gato(this, 100, 450, true);
         this.listaAnimales.add(this.g);
         this.listaAnimales.add(this.m);
-        this.g.setVisible(false);    
-        this.player = this.m;    
+        this.m.setActive(false).setVisible(false);    
+        this.player = this.g;    
 
 
         this.c = this.cameras.main;
@@ -111,11 +111,12 @@ export default class Cosa extends Phaser.Scene {
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
 
-                this.player.setVisible(false);
-                this.player.body = this.m.body;
+                this.player.setActive(false).setVisible(false);
+                this.player = null;
                 this.player = this.m;
+                this.player.body = this.m.body;
                 this.player.setPosition(auxX,auxY);
-                this.m.setVisible(true);
+                this.m.setActive(true).setVisible(true);
 
             }
         }
@@ -124,11 +125,12 @@ export default class Cosa extends Phaser.Scene {
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
                 
-                this.player.setVisible(false);
-                this.player.body = this.g.body;
+                this.player.setActive(false).setVisible(false);
+                this.player = null;
                 this.player = this.g;
+                this.player.body = this.g.body;
                 this.player.setPosition(auxX,auxY);
-                this.g.setVisible(true);
+                this.g.setActive(true).setVisible(true);
             }
         }
         /*
