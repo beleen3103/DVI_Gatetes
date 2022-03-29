@@ -14,103 +14,64 @@ export default class Nivel1 extends Phaser.Scene {
 
     preload(){
         this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
-        this.load.image('aaaa','assets/sprites/ventana.png');
-        this.load.image('bbbb','assets/sprites/toldo.png');
+        this.load.image('plataformas', 'assets/sprites/tiles.png');
     }
 
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
-        this.add.rectangle(1000,250,2000,500,0xffffff,100);
-        this.player = new Gato(this, 100, 300, true);
-        this.map = this.make.tilemap({
-            key:'mapa',
-            tileWidth: 30,
-            tileHeight: 30
-        });
-        this.capaO = this.map.createFromObjects('cosas');
-        console.log(this.capaO);
-        this.capaO.forEach(o=>{
-            this.physics.world.enable(o);
-            o.body.setImmovable(true);
-            o.body.setAllowGravity(false);
-        });
-
-        const tileset1 = this.map.addTilesetImage('ventana','aaaa'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
-        const tileset2 = this.map.addTilesetImage('toldo','bbbb');
-        this.capa = this.map.createLayer('balcones', [tileset1,tileset2]);
-        this.capa.setCollisionByProperty({collides: true});
-        //this.capa.setCollisionBetween(0,99);
-        this.physics.add.collider(this.player,this.capa);
-        const debug = this.add.graphics().setAlpha(0.7)
-        this.capa.renderDebug(debug,{
-            tileColor: null,
-            collidingTileColor: new Phaser.Display.Color(243,234,48,255),
-            faceColor: new Phaser.Display.Color(40,39,37,255)
-        })
+        this.add.rectangle(1000,250,5000,5000,0xffffff,100); // FONDO
+        this.player = new Gato(this, 100, 1000, true); // Personaje
         
+        this.createMap();
+        this.configureCamera();
+        this.createEnemies();
         
-        let c = this.cameras.main;
-        const lerpValue = 0.1
-        c.setLerp(lerpValue,lerpValue);
-        const xIni = 0, yIni = 0, xSize = 2000, ySize = 500;
-        c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
-        //this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
+        this.createPlatforms(); //SOBRARA
         
-       // this.mapache = new Mapache(this, 200, 300, true); //
-       // this.gato = new gato(this, 200, 300, true)//
-       // this.gato.setActive(false).setVisible(false); //
-       // this.player = this.mapache; //
-        
-        c.startFollow(this.player);
-        this.createEnemies()
-        this.createPlatforms();
-        
-       // this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
-        //new Pincho(this, this.mapache, 500, 450);
+        // this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
     update(t, dt){
-        //Bloques trasparentes permiten que el jugador los atraviese desde la zona inferior o pulsando la tecla S
+        //PLATAFORMAS OBJETO
         this.capaO.forEach(o=>{
-            if(o.name === 'salto'){
+            //Bloques que hacen rebotar al jugador con una determinada velocidad
+            switch(o.name){
+                case 'salto':
+                    this.physics.collide(this.player,o,()=>{
+                        if(this.player.body.bottom-1 < o.body.y) {
+                            this.player.body.setVelocityY(this.player.jumpSpeed*1.1);
+                        }
+                    })
 
-                this.physics.collide(this.player,o,()=>{
-                    
-                    if(this.player.body.bottom-1 < o.body.y) {
-                        this.player.body.setVelocityY(this.player.jumpSpeed);
-                    }
-                })
-            }
+                break;
+                case 'trepar':
+                    if(this.player.getName() === 'Anime2')
+                    this.physics.overlap(this.player,o,()=>{
+                        if(this.player.keyW.isDown)  {
+                            this.player.body.velocity.y = -300/2;
+                        }
+                        else if(this.player.keyS.isDown) {
+                            this.player.body.velocity.y = 300/2;
+                        }
+                        else if((!this.player.keyW.isDown && !this.player.keyS.isDown)) {
+                          this.player.body.gravity.y = 0;
+                          this.player.body.velocity.y = 0;
+                        }
+                    });
+                break;
+            };
         })
+        //PLATAFORMAS TILE
         this.capa.forEachTile(tile=>{ 
-            if(tile.properties.type === 'ventana') {
-                if(this.player.body.y > tile.getTop()) tile.setCollision(false,false,false,false);
-                else if(this.player.keyS.isDown) tile.setCollision(false,false,false,false);
-                else tile.setCollision(true,true,true,true);
-            }
-            else if(tile.properties.type === 'toldo'){
-                //PODRIA SER QUE ESTO NO SEA NI UN IMAN NI UN VENTILADOR
-                //QUEREMOS UN TOLDO... :(
-                // if(this.player.body.bottom+1 < tile.getTop() &&(
-                //     (this.player.body.x >= tile.getLeft() && this.player.body.x <= tile.getRight()) || (this.player.body.x+80 <= tile.getRight() &&this.player.body.x+80 >= tile.getLeft()))){
-                
-                //     this.player.body.setVelocityY(this.player.jumpSpeed);
-                // }
+            //Bloques trasparentes permiten que el jugador los atraviese desde la zona inferior o pulsando la tecla S
+            switch(tile.properties.type){
+                case 'ventana':
+                    if(this.player.body.y > tile.getTop()) tile.setCollision(false,false,false,false);
+                    else if(this.player.keyS.isDown) tile.setCollision(false,false,false,false);
+                    else tile.setCollision(true,true,true,true);
+                    break;
             }
         });
-        // this.BloqueTras.children.each(block =>{
-        //     if(this.player.body.y > block.body.y) block.body.enable = false;
-        //     else if(this.player.keyS.isDown) block.body.enable = false;
-        //     else block.body.enable = true;
-        // });
-        //Bloques que hacen rebotar al jugador con una determinada velocidad
-
-        this.physics.collide(this.player,this.BloqueRebota,()=>{
-            this.BloqueRebota.children.each(block =>{
-                if(this.player.body.bottom-1 < block.body.y){
-                    this.player.body.setVelocityY(this.player.jumpSpeed);
-                }
-            });
-        });
+        
         //Bloques que se destruyen tras terminar la animación
         this.BloqueBreak.children.each(block=>{
             if(this.physics.collide(this.player,block) && this.player.body.y < block.body.y) {
@@ -131,28 +92,51 @@ export default class Nivel1 extends Phaser.Scene {
         }*/
 
     }
+    configureCamera(){
+        let c = this.cameras.main;
+        const lerpValue = 0.1
+        c.setLerp(lerpValue,lerpValue);
+        const xIni = 0, yIni = 0, xSize = 3000, ySize = 1200;
+        c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
+        this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
+        c.startFollow(this.player);
+    }
+    createMap(){
+        this.map = this.make.tilemap({
+            key:'mapa',
+            tileWidth: 30,
+            tileHeight: 30
+        });
+        this.capaO = this.map.createFromObjects('colisiones');
+        this.capaO.forEach(o=>{
+            this.physics.world.enable(o);
+            o.body.setImmovable(true);
+            o.body.setAllowGravity(false);
+        });
+
+        const tileset1 = this.map.addTilesetImage('tiles','plataformas'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
+        this.capa = this.map.createLayer('balcones', tileset1);
+        this.capa.setCollisionByProperty({colisiona: true});
+        this.physics.add.collider(this.player,this.capa);
+        
+        if(this.physics.getConfig().debug){
+            const debug = this.add.graphics().setAlpha(0.7)
+            this.capa.renderDebug(debug,{
+                tileColor: null,
+                collidingTileColor: new Phaser.Display.Color(243,234,48,255),
+                faceColor: new Phaser.Display.Color(40,39,37,255)
+            });
+        }
+    }
     createEnemies(){
         //new Npc(this, this.player, 1300, 700, 430, true);
     }
+    // Sobrará
     createPlatforms(){
         this.Bloque = this.add.group();
         this.physics.add.collider(this.player,this.Bloque);
         //this.Bloque.add(new Platform(this,this.player,300,450,'platformBasica'));
         //this.Bloque.add(new Platform(this,this.player,300,200,'platformBasica'));
-
-        this.BloqueTras = this.add.group();
-        this.physics.add.collider(this.player,this.BloqueTras);
-        //this.BloqueTras.add(new Platform(this,this.player,300,300,'platformAtravesable'));
-        //this.BloqueTras.add(new Platform(this,this.player,600,300,'platformAtravesable'));
-
-        this.Plants = this.add.group();
-        this.physics.add.overlap(this.player,this.Plants);
-        //this.Plants.add(new Platform(this,this.player,550,200,'platformEnredadera'));
-        //this.Plants.add(new Platform(this,this.player,1500,200,'platformEnredadera'));
-
-        this.BloqueRebota = this.add.group();
-        //this.BloqueRebota.add(new Platform(this,this.player,900,300,'platformRebote'));
-        //this.BloqueRebota.add(new Platform(this,this.player,1200,300,'platformRebote'));
 
         this.BloqueBreak = this.add.group();
         //this.BloqueBreak.add(new Platform(this,this.player,1200,300,'platformRompe'));
@@ -165,13 +149,15 @@ export default class Nivel1 extends Phaser.Scene {
             });
         });
     }
+
+
     goHub(){
         this.scene.start('hub');
         this.scene.pause();
     }
 
     combatir() {
-        this.scene.launch('batalla');
+        this.scene.launch('batalla', {numeroAnimales: 1, animal1: this.player.getName(), animal1Vida: this.player.vida, animal2: '', animal2Vida: 0, animal3: '', animal3Vida: 0});
         this.scene.pause();
     }
 

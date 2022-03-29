@@ -29,6 +29,6 @@ export default class Ini extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('tutorial');
+        this.scene.start('nivel1');
     }
 }
