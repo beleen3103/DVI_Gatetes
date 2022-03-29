@@ -16,15 +16,12 @@ export default class Batalla extends Phaser.Scene {
             if(eval("data.animal"+(i+1)) === "Anime1"){ //mapache = this.animal1
                 
                 this.animal = new Mapache(this,200,300,false); //creamos mapache
-                let vidaAux = 50;//eval("data.animal"+(i+1)+"Vida");
+                let vidaAux = eval("data.animal"+(i+1)+"Vida");
                 this.animal.setVida(vidaAux); //asignamos la vida del animal
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
                 //this.listaAnimales.add(this.animal); // DESCOMENTAR ESTO CUANDO HAYA QUE HACER EL BUCLE PARA QUE VARIOSANIMALES ATAQUEN
                 eval("this.animal"+(i+1)+"=this.animal");
-                /*eval("this.animal"+(i+1)+" = new Mapache(this,200,300,false)"); //creamos mapache
-                this.animal1.setVida(eval("data.animal"+(i+1)+"Vida")); //asignamos la vida del animal
-                this.listaAnimales.add(this.animal)*/
                
             }
            // else if( eval(.....) === "Anime2")
