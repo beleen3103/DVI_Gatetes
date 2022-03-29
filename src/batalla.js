@@ -29,8 +29,15 @@ export default class Batalla extends Phaser.Scene {
            //............
         }
     }
+
+    preload(){
+        this.load.audio('MusicaBatalla', 'audio/MusicaBatalla.ogg'); //Precargar el audio
+    }
+
     create() {
-       
+
+        this.musica1 = this.sound.add('MusicaBatalla');
+        this.musica1.play({loop:true, volume:0.5});
 
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -172,6 +179,7 @@ export default class Batalla extends Phaser.Scene {
             this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
         }
         if(this.animal1.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
+            this.musica1.stop();
             this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
