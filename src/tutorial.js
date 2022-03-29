@@ -14,11 +14,12 @@ export default class Cosa extends Phaser.Scene {
         this.load.image('background', 'assets/background/fondo.png');
         this.load.audio('DVI_01', 'audio/DVI_01.ogg'); //Precargar el audio
         this.load.audio('DVI_02', 'audio/DVI_02.ogg'); //Precargar el audio
+        this.load.image('suelo','assets/background/suelo.png');
     }
 
     create() {
         this.add.image(0,0,'background').setOrigin(0);
-
+        this.add.image(0,500,'suelo').setOrigin(0);
         this.musica1 = this.sound.add('DVI_01');
         this.musica2 = this.sound.add('DVI_02');
         this.musica2.play({loop:true, volume:0.3});
@@ -53,7 +54,7 @@ export default class Cosa extends Phaser.Scene {
         fin.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
-            this.scene.start('tutorial');
+            this.scene.start('nivel1');
         });
         
         this.c.startFollow(this.player);
@@ -67,7 +68,7 @@ export default class Cosa extends Phaser.Scene {
     }
     
     tutorialText(){
-        this.add.rectangle(1000,550,2000,100,0x00ff00);
+        //this.add.rectangle(1000,550,2000,100,0x00ff00);
         let elli = this.add.ellipse(140,220,200,80,0x32A8A3);
         elli.setStrokeStyle(2,0x2B908C);
         let fle = this.add.text(50,200,"Utiliza A D \nde direccion para mover", { font: "15px Verdana", align: "center"});

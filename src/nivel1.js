@@ -20,13 +20,13 @@ export default class Nivel1 extends Phaser.Scene {
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
         this.add.rectangle(1000,250,5000,5000,0xffffff,100); // FONDO
-        this.player = new Gato(this, 100, 1000, true); // Personaje
-        
+        this.player = new Gato(this, 100, 1200, true); // Personaje
+        this.player.setDepth(100);
         this.createMap();
         this.configureCamera();
         this.createEnemies();
         
-        this.createPlatforms(); //SOBRARA
+        this.createPlatforms(); //SOBRARÁ
         
         // this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
