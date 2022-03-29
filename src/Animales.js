@@ -1,9 +1,8 @@
 import Personajes from './Personajes.js';
-import Barra from './healthBar.js';
 export default class Animales extends Personajes {
 
-    constructor(scene, x, y, f, name, vida, speed, jumpSpeed) {
-        super(scene, x, y, f, name, vida, 60);
+    constructor(scene, x, y, f, name, maxvida, speed, jumpSpeed) {
+        super(scene, x, y, f, name, maxvida, 60);
         this.flipX = true;
         this.move = false;
         this.parar = false;
@@ -45,7 +44,10 @@ export default class Animales extends Personajes {
     setY(pos){
         this.y = pos;
     }
-
+    setVida(x){
+        this.vida = x;
+        
+    }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
         if(this.fisicas){

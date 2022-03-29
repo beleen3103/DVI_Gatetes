@@ -27,13 +27,14 @@ export default class Cosa extends Phaser.Scene {
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
 
         //animales que el player lleva, se le asigna gato
+        //habria que tener un this.animal3 vacio si solo llevamos 2 animales, con un getName() que devolviese ''
         this.listaAnimales = this.add.group();
-        this.m = new Mapache(this, 100, 450, true);
-        this.g = new Gato(this, 100, 450, true);
-        this.listaAnimales.add(this.g);
-        this.listaAnimales.add(this.m);
-        this.m.setActive(false).setVisible(false);  
-        this.player = this.g;    
+        this.animal1 = new Gato(this, 100, 450, true);
+        this.animal2 = new Mapache(this, 100, 450, true);
+        this.listaAnimales.add(this.animal1);
+        this.listaAnimales.add(this.animal2);
+        this.animal2.setActive(false).setVisible(false);  
+        this.player = this.animal1;    
 
 
         this.c = this.cameras.main;
@@ -107,27 +108,33 @@ export default class Cosa extends Phaser.Scene {
         }
         
         if(this.keyOne.isDown){ //mapache
-            if(this.player != this.m){ 
+            if(this.player != this.animal1){ 
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
                 
-                this.player.setActive(false).setVisible(false); //quitamos el animal actual
+                this.player.body.enable=false; //quitamos el animal actual
+                this.player.setActive(false).setVisible(false); 
                 
-                this.player = this.m; //cambiamos al nuevo
+                this.player = this.animal1; //cambiamos al nuevo
                 this.player.setPosition(auxX,auxY);
                 
                 this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                this.player.body.enable=true;
             }
         }
         if(this.keyTwo.isDown){ //gato
-            if(this.player != this.g){
+            if(this.player != this.animal2){
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
                 
+                
+                console.log(this.variable1);
+                this.player.body.enable= false;
                 this.player.setActive(false).setVisible(false);
-                this.player = this.g;                
+                this.player = this.animal2;                
                 this.player.setPosition(auxX,auxY);
                 this.player.setActive(true).setVisible(true);
+                this.player.body.enable=true;
             }
         }
         /*
@@ -154,9 +161,9 @@ export default class Cosa extends Phaser.Scene {
     }
 
     combatir() {
-        //aqui habria que hacer un if else dependiendo de cuantos animales tengamos
         //entonces los datos a pasar serían {nPersonajes = (digamos 3), listaVidas= lista con las vidas de los animales, listaIds = lista de strings con el nombre de los animales}
-        this.scene.launch('batalla');
+        //para cuando falte alguno de los 3 animales habria que hacer una estructura con un getName() vacío y una vida = 0
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal2.getName(), animal1Vida: this.animal2.vida, animal2: this.animal1.getName(), animal2Vida: this.animal1.vida, animal3: '', animal3Vida: 0});
         this.scene.pause();
     }
 

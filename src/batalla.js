@@ -8,18 +8,32 @@ export default class Batalla extends Phaser.Scene {
         
     }
 
-    /*init(data){
+    init(data){
         this.mainScene = this.scene.get("sceneA name");
-        this.i = 0;
-        while(i < data.nPersonajes){
-            if(data.listaIds[i] === 'mapache') //crear mapache con vida data.listaVidas[i]
-            else if(data.listaIds[i] === 'gato') // crear gato con vida data.listaVidas[i]
-            //y asi con todos los demás
-            i++;
-        }
-    }*/
-    create() {
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
+        this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
+        for(let i=0; i<data.numeroAnimales; i++){
+            if(eval("data.animal"+(i+1)) === "Anime1"){ //mapache = this.animal1
+                
+                this.animal = new Mapache(this,200,300,false); //creamos mapache
+                let vidaAux = 50;//eval("data.animal"+(i+1)+"Vida");
+                this.animal.setVida(vidaAux); //asignamos la vida del animal
+                this.animal.barra.setHealth(vidaAux);
+                this.animal.updateScore();
+                //this.listaAnimales.add(this.animal); // DESCOMENTAR ESTO CUANDO HAYA QUE HACER EL BUCLE PARA QUE VARIOSANIMALES ATAQUEN
+                eval("this.animal"+(i+1)+"=this.animal");
+                /*eval("this.animal"+(i+1)+" = new Mapache(this,200,300,false)"); //creamos mapache
+                this.animal1.setVida(eval("data.animal"+(i+1)+"Vida")); //asignamos la vida del animal
+                this.listaAnimales.add(this.animal)*/
+               
+            }
+           // else if( eval(.....) === "Anime2")
+           //else if(eval(.....) === "cuervo")
+           //............
+        }
+    }
+    create() {
+       
 
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
@@ -31,28 +45,29 @@ export default class Batalla extends Phaser.Scene {
         
         
         this.fallo = this.add.text(400,70,"", { font: "60px Verdana"});
-        this.mapache = new Mapache(this, 200, 300, false);
+        // this.animal1 = new Mapache(this, 200, 300, false);
+        //this.mapache = this.animal1;
         this.auxDT = 0;
         this.turn = 0;
         //this.seleccion = 0;
-
-        let xM = this.mapache.getX();
-        let yM = this.mapache.getY();
+        
+        let xM = this.animal1.getX();
+        let yM = this.animal1.getY();
         //cuando tengamos mas animales en batalla esto va a fallar
         this.listaAtaques = this.add.group();
-        this.mapache.ataque1.setInteractive();
-        this.listaAtaques.add(this.mapache.ataque1);
-        this.mapache.ataque2.setInteractive();
-        this.listaAtaques.add(this.mapache.ataque2);
-        this.mapache.ataque3.setInteractive();
-        this.listaAtaques.add(this.mapache.ataque3);
+        this.animal1.ataque1.setInteractive();
+        this.listaAtaques.add(this.animal1.ataque1);
+        this.animal1.ataque2.setInteractive();
+        this.listaAtaques.add(this.animal1.ataque2);
+        this.animal1.ataque3.setInteractive();
+        this.listaAtaques.add(this.animal1.ataque3);
 
         this.listaMalos = this.add.group();
         this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
         let xNpc = 600;
         const yNpc = 250;
         while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
-            this.npc = new Npc(this, this.mapache, xNpc, xNpc, yNpc, false);
+            this.npc = new Npc(this, this.animal1, xNpc, xNpc, yNpc, false);
             //this.npc.setInteractive();
             this.listaMalos.add(this.npc);
             xNpc += 150;
@@ -86,7 +101,7 @@ export default class Batalla extends Phaser.Scene {
                     }
                     else if(this.a.getTarget() != 1){//curacion
                         if(this.click){
-                            this.a.attack(this.mapache);
+                            this.a.attack(this.animal1);
                             this.turn = 2;
                             this.click = false;
                         }
@@ -143,7 +158,7 @@ export default class Batalla extends Phaser.Scene {
                             else{
                                 /*if(!this.ataqueMalo().esBarrido()) this.target = //todos los animales;
                                 else this.target = randomAnimal (uno de los que tengamos);*/
-                                this.target = this.mapache;
+                                this.target = this.animal1;
                             }
                             this.ataqueMalo.attack(this.target);
                         }
@@ -159,7 +174,7 @@ export default class Batalla extends Phaser.Scene {
             this.listaMalos.getFirstAlive().barra.getBar().setVisible(false);
             this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
         }
-        if(this.mapache.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
+        if(this.animal1.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
             this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }

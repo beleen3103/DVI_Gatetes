@@ -12,7 +12,10 @@ export default class HealthBar {
     getBar(){
         return this.bar;
     }
-
+    setHealth(x){
+        this.health = x;
+        this.draw();
+    }
     decrease(x){
         
         if(this.health > 0) this.health -= x;

@@ -2,10 +2,10 @@ import Barra from './healthBar.js';
 
 export default class Personajes extends Phaser.GameObjects.Sprite {
   
-  constructor(scene, x, y, f, name, vida, posBarra) { //posBarra hay que quitarlo pero ahora mismo se queda para que las barras de vida se vean bien
+  constructor(scene, x, y, f, name, maxvida, posBarra) { //posBarra hay que quitarlo pero ahora mismo se queda para que las barras de vida se vean bien
     super(scene, x, y, name);     
-    this.maxVida = vida;
-    this.vida = vida;
+    this.maxVida = maxvida;
+    this.vida = maxvida;
     this.name = name; //para saber que animal/enemigo es
     this.scene.add.existing(this); 
 
@@ -19,6 +19,10 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
       this.barra = new Barra(scene, x-40, y+posBarra, this.vida);
       this.updateScore();
     }
+  }
+
+  getName(){
+    return this.name;
   }
   isDead(){
     return this.vida ===0;

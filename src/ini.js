@@ -12,7 +12,6 @@ export default class Ini extends Phaser.Scene {
         this.load.image('platformRebote','platformR.png');
         this.load.spritesheet('platformRompe', 'platformA.png', { frameWidth: 256, frameHeight: 64 });
         this.load.image('mapache', 'mapachop.png');
-        this.load.image('gato', 'gato.png');
         this.load.image('queso', 'queso.png');
         this.load.image('emo', 'emo.png');
         this.load.image('basura','basura.png');
