@@ -21,9 +21,9 @@ export default class Nivel1 extends Phaser.Scene {
     create() {
         this.add.rectangle(1000,250,5000,5000,0xffffff,100); // FONDO
         this.player = new Gato(this, 100, 1200, true); // Personaje
-        this.player.setDepth(100);
-        this.createMap();
-        this.configureCamera();
+        this.player.setDepth(100);  // Personaje por delante de los objetos
+        this.createMap();   // Creacion mapa desde Tiled
+        this.configureCamera(); // Camara que sigue al jugador
         this.createEnemies();
         
         this.createPlatforms(); //SOBRARÁ
@@ -33,8 +33,8 @@ export default class Nivel1 extends Phaser.Scene {
     update(t, dt){
         //PLATAFORMAS OBJETO
         this.capaO.forEach(o=>{
-            //Bloques que hacen rebotar al jugador con una determinada velocidad
             switch(o.name){
+                //Bloques que hacen rebotar al jugador con una determinada velocidad
                 case 'salto':
                     this.physics.collide(this.player,o,()=>{
                         if(this.player.body.bottom-1 < o.body.y) {
@@ -43,6 +43,7 @@ export default class Nivel1 extends Phaser.Scene {
                     })
 
                 break;
+                //Bloques que permiten al gato escalar
                 case 'trepar':
                     if(this.player.getName() === 'Anime2')
                     this.physics.overlap(this.player,o,()=>{
@@ -129,7 +130,8 @@ export default class Nivel1 extends Phaser.Scene {
         }
     }
     createEnemies(){
-        //new Npc(this, this.player, 1300, 700, 430, true);
+        new Npc(this, this.player, 600, 1170, 1200, true); //1-2 Enemigos en combate
+        new Npc(this, this.player, 2160, 1620, 1200, true); //1-2 Enemigos en combate
     }
     // Sobrará
     createPlatforms(){
