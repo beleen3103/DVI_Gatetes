@@ -16,16 +16,46 @@ export default class Nivel1 extends Phaser.Scene {
         this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
         this.load.image('plataformas', 'assets/sprites/tiles.png');
     }
-
+    init(data){
+        this.x = data.x
+        this.y = data.y;
+    }
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
         this.add.rectangle(1000,250,5000,5000,0xffffff,100); // FONDO
-        this.player = new Gato(this, 100, 1200, true); // Personaje
+        this.player = new Gato(this, this.x, this.y, true); // Personaje
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.createMap();   // Creacion mapa desde Tiled
         this.configureCamera(); // Camara que sigue al jugador
         this.createEnemies();
         
+        let toTuto = this.add.zone(0,0,10,5000);
+        this.physics.world.enable(toTuto);
+        toTuto.body.setAllowGravity(false);
+        this.physics.add.overlap(this.player,toTuto,()=>{
+            this.scene.pause();
+            this.scene.start('tutorial', {x: 1800, y: 450});
+        });
+
+        let toCallaoA = this.add.zone(3000, 0, 10, 800);
+        this.physics.world.enable(toCallaoA);
+        toCallaoA.body.setAllowGravity(false);
+        this.physics.add.overlap(this.player,toCallaoA,()=>{
+            this.scene.pause();
+            this.scene.start('nivel1', {x: 100,y:450});
+        })
+
+
+        let toCallaoB = this.add.zone(3000,1000,10,800);
+        this.physics.world.enable(toCallaoB);
+        toCallaoB.body.setAllowGravity(false);
+        this.physics.add.overlap(this.player,toCallaoB,()=>{
+            this.scene.pause();
+            this.scene.start('nivel1', {x: 100,y: 1200});
+        })
+
+
+
         this.createPlatforms(); //SOBRARÁ
         
         // this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);

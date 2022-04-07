@@ -17,6 +17,11 @@ export default class Cosa extends Phaser.Scene {
         this.load.image('suelo','assets/background/suelo.png');
     }
 
+    init(data){
+        this.x = data.x
+        this.y = data.y;
+    }
+
     create() {
         this.add.image(0,0,'background').setOrigin(0);
         this.add.image(0,500,'suelo').setOrigin(0);
@@ -30,8 +35,8 @@ export default class Cosa extends Phaser.Scene {
         //animales que el player lleva, se le asigna gato
         //habria que tener un this.animal3 vacio si solo llevamos 2 animales, con un getName() que devolviese ''
         this.listaAnimales = this.add.group();
-        this.animal1 = new Gato(this, 100, 450, true);
-        this.animal2 = new Mapache(this, 100, 450, true);
+        this.animal1 = new Gato(this, this.x, this.y, true);
+        this.animal2 = new Mapache(this, this.x, this.y, true);
         this.listaAnimales.add(this.animal1);
         this.listaAnimales.add(this.animal2);
         this.animal2.setActive(false).setVisible(false);  
@@ -54,7 +59,7 @@ export default class Cosa extends Phaser.Scene {
         fin.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
-            this.scene.start('nivel1');
+            this.scene.start('nivel1', {x: 100, y: 1200});
         });
         
         this.c.startFollow(this.player);
@@ -166,7 +171,7 @@ export default class Cosa extends Phaser.Scene {
         //para cuando falte alguno de los 3 animales habria que hacer una estructura con un getName() vacío y una vida = 0
         this.musica1.stop();
         this.musica2.stop();
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal2.getName(), animal1Vida: this.animal2.vida, animal2: this.animal1.getName(), animal2Vida: this.animal1.vida, animal3: '.', animal3Vida: 0});
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal2.getName(), animal1Vida: this.animal2.vida, animal2: this.animal1.getName(), animal2Vida: this.animal1.vida, animal3: '.', animal3Vida: 0, numEnemigos: 1});
         this.scene.pause();
     }
 
