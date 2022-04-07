@@ -6,6 +6,7 @@ import Pincho from './pincho.js';
 import Queso from './queso.js';
 import PuertaCombate from './puertaCombate.js';
 import PuertaPlataformeo from './puertaPlataformeo.js';
+import Dialogo from "./dialogo.js";
 
 export default class Hub extends Phaser.Scene {
 
@@ -15,7 +16,6 @@ export default class Hub extends Phaser.Scene {
 
 
     create() {
-        //Miquel: Añadir textos
         this.add.text(440,70,"HUB", { font: "60px Verdana"});
         this.add.text(230,150,"Dirígete hacia un lado u otro para probar diferentes funcionalidades", { font: "16px Verdana"});
         this.add.text(120,250,"Combate", { font: "32px Verdana"});
@@ -52,8 +52,7 @@ export default class Hub extends Phaser.Scene {
 
     overlapCombate(){
         if(this.keyE.isDown){
-            this.scene.start('nivel1');
-            this.scene.pause();
+            this.scene.launch('dialogo');
         }
     }
 
