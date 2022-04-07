@@ -8,9 +8,13 @@ export default class Mapache extends Animales {
         this.y = y;
         this.fisicas = f;
         if(!this.fisicas){
-            this.ataque1 = new Ataque(this.scene, 1, 10, 0, 0, false, 'mordisco',this.x-50, this.y+120);
-            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'curacion', this.x +50, this.y+120);
-            this.ataque3 = new Ataque(this.scene, 1, 50, 0, 0, true, 'cola',this.x +150,this.y+120); //Cambiar daño a 15
+            let ataque1 = new Ataque(this.scene, 1, 10, 0, 0, false, 'mordisco',this.x-50, this.y+120);
+            let ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'curacion', this.x +50, this.y+120);
+            let ataque3 = new Ataque(this.scene, 1, 50, 0, 0, true, 'cola',this.x +150,this.y+120); //Cambiar daño a 15
+            this.listaAtaques = this.scene.add.group();
+            this.listaAtaques.add(ataque1);
+            this.listaAtaques.add(ataque2);
+            this.listaAtaques.add(ataque3);
 
         }
         this.anims.create({

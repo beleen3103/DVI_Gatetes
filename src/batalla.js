@@ -1,6 +1,6 @@
 import Mapache from './mapache.js';
 import Npc from './npc.js';
-import Ataque from './ataque.js';
+import Gato from './gato.js';
 export default class Batalla extends Phaser.Scene {
 
     constructor() {
@@ -12,21 +12,35 @@ export default class Batalla extends Phaser.Scene {
         this.mainScene = this.scene.get("sceneA name");
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
-        for(let i=0; i<data.numeroAnimales; i++){
-            if(eval("data.animal"+(i+1)) === "Anime1"){ //mapache = this.animal1
-                
-                this.animal = new Mapache(this,200,300,false); //creamos mapache
+        for(let i=0; i<3; i++){
+           // console.log(eval("data.animal"+(i+1)));
+            
+            if(eval("data.animal"+(i+1)) === "."){
+                //this.animal = new animalVacio();
+                //eval("this.animal"+(i+1)+"=this.animal");
+            }
+            else{
+                if(eval("data.animal"+(i+1)) === "Anime1"){
+                    this.animal = new Mapache(this,100,300,false); //creamos mapache                    
+                }
+                else if(eval("data.animal"+(i+1)) === "Anime2"){
+                    this.animal = new Gato(this,200,300,false); //creamos gato
+                }
                 let vidaAux = eval("data.animal"+(i+1)+"Vida");
                 this.animal.setVida(vidaAux); //asignamos la vida del animal
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
-                //this.listaAnimales.add(this.animal); // DESCOMENTAR ESTO CUANDO HAYA QUE HACER EL BUCLE PARA QUE VARIOSANIMALES ATAQUEN
+                this.animal.setActive(false);
+                this.animal.listaAtaques.children.each(ataque=>{
+                    ataque.setActive(false).setVisible(false);
+                });
                 eval("this.animal"+(i+1)+"=this.animal");
-               
+
+                this.listaAnimales.add(eval("this.animal"+(i+1))); // DESCOMENTAR ESTO CUANDO HAYA QUE HACER EL BUCLE PARA QUE VARIOSANIMALES ATAQUEN
             }
-           // else if( eval(.....) === "Anime2")
-           //else if(eval(.....) === "cuervo")
-           //............
+                // else if( eval(.....) === "Anime2")
+            //else if(eval(.....) === "cuervo")
+            //............
         }
     }
 
@@ -55,7 +69,7 @@ export default class Batalla extends Phaser.Scene {
         this.turn = 0;
         //this.seleccion = 0;
         
-        let xM = this.animal1.getX();
+        /*let xM = this.animal1.getX();
         let yM = this.animal1.getY();
         //cuando tengamos mas animales en batalla esto va a fallar
         this.listaAtaques = this.add.group();
@@ -65,6 +79,15 @@ export default class Batalla extends Phaser.Scene {
         this.listaAtaques.add(this.animal1.ataque2);
         this.animal1.ataque3.setInteractive();
         this.listaAtaques.add(this.animal1.ataque3);
+*/
+        this.atacado = false;
+        this.i = 0;
+        this.anim = eval("this.animal"+(this.i+1));
+        console.log(this.i);
+        this.anim.listaAtaques.children.each(ataque=>{
+            ataque.setActive(true).setVisible(true).setInteractive();
+        });
+
 
         this.listaMalos = this.add.group();
         this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
@@ -72,7 +95,6 @@ export default class Batalla extends Phaser.Scene {
         const yNpc = 250;
         while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
             this.npc = new Npc(this, this.animal1, xNpc, xNpc, yNpc, false);
-            //this.npc.setInteractive();
             this.listaMalos.add(this.npc);
             xNpc += 150;
         }
@@ -83,13 +105,34 @@ export default class Batalla extends Phaser.Scene {
         super.update(t,dt);
 
         if(this.turn === 0){
+            if(this.atacado){
+                this.atacado = false;
+                this.anim.listaAtaques.children.each(ataque=>{
+                    ataque.setActive(false).setVisible(false).disableInteractive();
+                });
+                
+                console.log(" NUEVO ANIMAL i antes de aumentar: "+ this.i);
+                
+                if(this.i+1 === this.listaAnimales.getLength()) this.i = 0;
+                else this.i++;
+                console.log(this.i);
+                this.anim = eval("this.animal"+(this.i+1));
+                console.log("i despues de asignar animal: "+ this.i);
+                console.log(this.anim.getName());
+                this.anim.listaAtaques.children.each(ataque=>{
+                    ataque.setActive(true).setVisible(true).setInteractive();
+                });
+            }
             this.click = true;
             if(this.pointer.leftButtonDown()) { //comprobamos qué ataque es
                 this.a = null;
-                this.listaAtaques.children.each(ataque=>{
-                    this.i = this.pointer.downX;
-                    this.j = this.pointer.downY;
-                    if(this.i >= ataque.x-40 && this.i <= ataque.x+40 &&
+                this.anim.listaAtaques.children.each(ataque=>{
+                   /* ataque.on('pointerdown', ()=>{
+                        this.a = ataque;
+                    });*/
+                    this.in = this.pointer.x;
+                    this.j = this.pointer.y;
+                    if(this.in >= ataque.x-40 && this.in <= ataque.x+40 &&
                         this.j >= ataque.y-40 && this.j <= ataque.y+40) {
                         this.a = ataque; //nos quedamos con ese ataque
                     }
@@ -99,21 +142,25 @@ export default class Batalla extends Phaser.Scene {
                     if(this.a.getTarget() === 1 && !this.a.esBarrido()){
                         if(this.click){
                         this.turn = 1;
+                        this.atacado = true;
                         this.click = false;   
                         
                         }                   
                     }
                     else if(this.a.getTarget() != 1){//curacion
                         if(this.click){
-                            this.a.attack(this.animal1);
-                            this.turn = 2;
+                            this.a.attack(this.anim);
+                            if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
+                            this.atacado = true;
                             this.click = false;
                         }
                     }
                     else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
                         if(this.click){
                             this.a.attack(this.listaMalos);
-                            this.turn = 2;
+                            console.log("BARRIDO");
+                            if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
+                            this.atacado = true;
                             this.click = false;
                         }
                     }
@@ -131,7 +178,8 @@ export default class Batalla extends Phaser.Scene {
                         malo.on('pointerdown', () => {
                             if(this.click){
                                 this.a.attack(malo);
-                                this.turn = 2;
+                                if(this.i+1 === this.listaAnimales.getLength()) this.turn = 2;
+                                else this.turn = 0;
                                 this.click = false;
                                 this.listaMalos.children.each(malo1 => { //ya no se pueden clickar
                                     malo1.disableInteractive();
@@ -178,7 +226,12 @@ export default class Batalla extends Phaser.Scene {
             this.listaMalos.getFirstAlive().barra.getBar().setVisible(false);
             this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
         }
-        if(this.animal1.barra.isDead() || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
+        //para ver si quedan animales vivos
+        let siguenVivos = false;
+        this.listaAnimales.children.each(anim=>{
+            if(!anim.isDead()) siguenVivos = true;
+        });
+        if(!siguenVivos || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
             this.musica1.stop();
             this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
