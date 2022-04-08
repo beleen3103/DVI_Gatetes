@@ -6,13 +6,7 @@ export default class gato extends Animales {
         this.scene = scene;
         this.fisicas = f;
         if(!this.fisicas){
-            let ataque1 = new Ataque(this.scene, 1, 15, 0, 0, false, 'zarpazo',this.x-50, this.y+120);            
-            let ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'elAfilador', this.x +50, this.y+120);
-            let ataque3 = new Ataque(this.scene, 1, 30, 0, 0, false, 'sangrado',this.x +150,this.y+120);
-            this.listaAtaques = this.scene.add.group();
-            this.listaAtaques.add(ataque1);
-            this.listaAtaques.add(ataque2);
-            this.listaAtaques.add(ataque3);
+            
 
         }
 
@@ -35,6 +29,23 @@ export default class gato extends Animales {
             repeat: 0
         })
     }
+
+    crearAtaques(){
+        this.ataque1 = new Ataque(this.scene, 1, 15, 0, 0, false, 'zarpazo',this.x-50, this.y+120).setInteractive();            
+            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'elAfilador', this.x +50, this.y+120).setInteractive();
+            this.ataque3 = new Ataque(this.scene, 1, 30, 0, 0, false, 'sangrado',this.x +150,this.y+120).setInteractive();
+            this.listaAtaques = this.scene.add.group();
+            this.listaAtaques.add(this.ataque1);
+            this.listaAtaques.add(this.ataque2);
+            this.listaAtaques.add(this.ataque3);
+    }
+    eliminarAtaques(){
+        this.ataque1.destroy();
+        this.ataque2.destroy();
+        this.ataque3.destroy();
+        this.listaAtaques.destroy();
+    }
+
     preUpdate(t, dt){ //el gato puede trepar
         super.preUpdate(t,dt);
     }

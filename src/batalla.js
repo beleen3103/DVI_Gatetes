@@ -12,6 +12,7 @@ export default class Batalla extends Phaser.Scene {
         this.mainScene = this.scene.get("sceneA name");
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
+        this.numEnemigos = data.numEnemigos;
         for(let i=0; i<3; i++){
            // console.log(eval("data.animal"+(i+1)));
             
@@ -31,12 +32,13 @@ export default class Batalla extends Phaser.Scene {
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
                 this.animal.setActive(false);
-                this.animal.listaAtaques.children.each(ataque=>{
+                /*this.animal.listaAtaques.children.each(ataque=>{
                     ataque.setActive(false).setVisible(false);
-                });
+                });*/
                 eval("this.animal"+(i+1)+"=this.animal");
-
+                
                 this.listaAnimales.add(eval("this.animal"+(i+1))); // DESCOMENTAR ESTO CUANDO HAYA QUE HACER EL BUCLE PARA QUE VARIOSANIMALES ATAQUEN
+                console.log(this.listaAnimales.getLength());
             }
                 // else if( eval(.....) === "Anime2")
             //else if(eval(.....) === "cuervo")
@@ -67,30 +69,18 @@ export default class Batalla extends Phaser.Scene {
         //this.mapache = this.animal1;
         this.auxDT = 0;
         this.turn = 0;
-        //this.seleccion = 0;
         
-        /*let xM = this.animal1.getX();
-        let yM = this.animal1.getY();
-        //cuando tengamos mas animales en batalla esto va a fallar
-        this.listaAtaques = this.add.group();
-        this.animal1.ataque1.setInteractive();
-        this.listaAtaques.add(this.animal1.ataque1);
-        this.animal1.ataque2.setInteractive();
-        this.listaAtaques.add(this.animal1.ataque2);
-        this.animal1.ataque3.setInteractive();
-        this.listaAtaques.add(this.animal1.ataque3);
-*/
         this.atacado = false;
         this.i = 0;
         this.anim = eval("this.animal"+(this.i+1));
         console.log(this.i);
-        this.anim.listaAtaques.children.each(ataque=>{
+        /*this.anim.listaAtaques.children.each(ataque=>{
             ataque.setActive(true).setVisible(true).setInteractive();
-        });
-
-
+        });*/
+        this.anim.crearAtaques();
+       
         this.listaMalos = this.add.group();
-        this.listaMalos.maxSize = Phaser.Math.Between(1, 3);
+        this.listaMalos.maxSize = this.numEnemigos;
         let xNpc = 600;
         const yNpc = 250;
         while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
@@ -103,32 +93,35 @@ export default class Batalla extends Phaser.Scene {
     }
     update(t,dt){
         super.update(t,dt);
-
+        
         if(this.turn === 0){
             if(this.atacado){
                 this.atacado = false;
-                this.anim.listaAtaques.children.each(ataque=>{
-                    ataque.setActive(false).setVisible(false).disableInteractive();
-                });
                 
+                this.anim.eliminarAtaques();
+                //this.time.events.add(Phaser.Timer.SECOND * 4);
+                this.pointer.active = false;
                 console.log(" NUEVO ANIMAL i antes de aumentar: "+ this.i);
-                
                 if(this.i+1 === this.listaAnimales.getLength()) this.i = 0;
                 else this.i++;
                 console.log(this.i);
+                
                 this.anim = eval("this.animal"+(this.i+1));
                 console.log("i despues de asignar animal: "+ this.i);
                 console.log(this.anim.getName());
-                this.anim.listaAtaques.children.each(ataque=>{
-                    ataque.setActive(true).setVisible(true).setInteractive();
-                });
+                this.anim.crearAtaques();
+                
+                
             }
             this.click = true;
+
+            
             if(this.pointer.leftButtonDown()) { //comprobamos qué ataque es
                 this.a = null;
                 this.anim.listaAtaques.children.each(ataque=>{
-                   /* ataque.on('pointerdown', ()=>{
+                   /* ataque.on('pointerdown', () => {
                         this.a = ataque;
+                        console.log(this.a != null);
                     });*/
                     this.in = this.pointer.x;
                     this.j = this.pointer.y;
@@ -136,9 +129,11 @@ export default class Batalla extends Phaser.Scene {
                         this.j >= ataque.y-40 && this.j <= ataque.y+40) {
                         this.a = ataque; //nos quedamos con ese ataque
                     }
+                    
 
                 });
                 if(this.a != null){
+                    console.log("llega");
                     if(this.a.getTarget() === 1 && !this.a.esBarrido()){
                         if(this.click){
                         this.turn = 1;
