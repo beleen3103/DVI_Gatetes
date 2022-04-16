@@ -101,67 +101,54 @@ export default class Batalla extends Phaser.Scene {
                 this.anim.eliminarAtaques();
                 //this.time.events.add(Phaser.Timer.SECOND * 4);
                 this.pointer.active = false;
-                console.log(" NUEVO ANIMAL i antes de aumentar: "+ this.i);
+                
                 if(this.i+1 === this.listaAnimales.getLength()) this.i = 0;
                 else this.i++;
-                console.log(this.i);
+                
                 
                 this.anim = eval("this.animal"+(this.i+1));
-                console.log("i despues de asignar animal: "+ this.i);
-                console.log(this.anim.getName());
                 this.anim.crearAtaques();
                 
                 
+                this.a = null;
             }
             this.click = true;
 
-            
-            if(this.pointer.leftButtonDown()) { //comprobamos qué ataque es
-                this.a = null;
-                this.anim.listaAtaques.children.each(ataque=>{
-                   /* ataque.on('pointerdown', () => {
-                        this.a = ataque;
-                        console.log(this.a != null);
-                    });*/
-                    this.in = this.pointer.x;
-                    this.j = this.pointer.y;
-                    if(this.in >= ataque.x-40 && this.in <= ataque.x+40 &&
-                        this.j >= ataque.y-40 && this.j <= ataque.y+40) {
-                        this.a = ataque; //nos quedamos con ese ataque
-                    }
-                    
-
+            this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
+                ataque.on('pointerdown', () => {
+                    this.a = ataque;
                 });
-                if(this.a != null){
-                    console.log("llega");
-                    if(this.a.getTarget() === 1 && !this.a.esBarrido()){
-                        if(this.click){
-                        this.turn = 1;
+            });
+            
+            if(this.a != null){
+                if(this.a.getTarget() === 1 && !this.a.esBarrido()){
+                    if(this.click){
+                    this.turn = 1;
+                    this.atacado = true;
+                    this.click = false;   
+                    
+                    }                   
+                }
+                else if(this.a.getTarget() != 1){//curacion
+                    if(this.click){
+                        this.a.attack(this.anim);
+                        if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
                         this.atacado = true;
-                        this.click = false;   
-                        
-                        }                   
+                        this.click = false;
                     }
-                    else if(this.a.getTarget() != 1){//curacion
-                        if(this.click){
-                            this.a.attack(this.anim);
-                            if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
-                            this.atacado = true;
-                            this.click = false;
-                        }
+                }
+                else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
+                    if(this.click){
+                        this.a.attack(this.listaMalos);
+                        console.log("BARRIDO");
+                        if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
+                        this.atacado = true;
+                        this.click = false;
                     }
-                    else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
-                        if(this.click){
-                            this.a.attack(this.listaMalos);
-                            console.log("BARRIDO");
-                            if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
-                            this.atacado = true;
-                            this.click = false;
-                        }
-                    }
-                    this.auxDT = 0;
+                }
+                this.auxDT = 0;
             }
-            }
+            
         }
         else if(this.turn === 1){ //seleccion de enemigo si es necesario
             this.click = true;
@@ -203,9 +190,17 @@ export default class Batalla extends Phaser.Scene {
                                 else this.target = this.listaMalos;
                             }
                             else{
-                                /*if(!this.ataqueMalo().esBarrido()) this.target = //todos los animales;
-                                else this.target = randomAnimal (uno de los que tengamos);*/
-                                this.target = this.animal1;
+                                if(this.ataqueMalo.esBarrido()) this.target = this.listaAnimales //todos los animales;
+                                else { //random
+                                    let rand = Phaser.Math.Between(0, this.listaAnimales.getLength()-1);
+                                    let index = 0;
+                                    this.listaAnimales.children.each(animal => {
+                                        if(rand === index){
+                                            this.target = animal;
+                                        }
+                                        index++;
+                                    });
+                                }                  
                             }
                             this.ataqueMalo.attack(this.target);
                         }
