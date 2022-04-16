@@ -6,7 +6,6 @@ export default class Mapache extends Animales {
         this.scene = scene;
         this.x = x;
         this.y = y;
-        this.fisicas = f;
         
         this.anims.create({
             key: 'andar',

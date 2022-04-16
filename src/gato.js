@@ -4,12 +4,7 @@ export default class gato extends Animales {
     constructor(scene, x, y, f) {
         super(scene, x, y, f, 'Anime2', 100, 300, -600);
         this.scene = scene;
-        this.fisicas = f;
-        if(!this.fisicas){
-            
-
-        }
-
+        
         this.anims.create({
             key: 'andar',
             frames: this.anims.generateFrameNumbers('Anime2', { start: 0, end: 5 }),

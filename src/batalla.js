@@ -1,6 +1,8 @@
 import Mapache from './mapache.js';
 import Npc from './npc.js';
 import Gato from './gato.js';
+import Animales from './Animales.js';
+
 export default class Batalla extends Phaser.Scene {
 
     constructor() {
@@ -17,8 +19,8 @@ export default class Batalla extends Phaser.Scene {
            // console.log(eval("data.animal"+(i+1)));
             
             if(eval("data.animal"+(i+1)) === "."){
-                //this.animal = new animalVacio();
-                //eval("this.animal"+(i+1)+"=this.animal");
+                this.animal= new Animales(this, null, null, null,'.', 0, null,null);
+                eval("this.animal"+(i+1)+"=this.animal");
             }
             else{
                 if(eval("data.animal"+(i+1)) === "Anime1"){
@@ -32,13 +34,10 @@ export default class Batalla extends Phaser.Scene {
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
                 this.animal.setActive(false);
-                /*this.animal.listaAtaques.children.each(ataque=>{
-                    ataque.setActive(false).setVisible(false);
-                });*/
-                eval("this.animal"+(i+1)+"=this.animal");
+
                 
-                this.listaAnimales.add(eval("this.animal"+(i+1))); // DESCOMENTAR ESTO CUANDO HAYA QUE HACER EL BUCLE PARA QUE VARIOSANIMALES ATAQUEN
-                console.log(this.listaAnimales.getLength());
+                eval("this.animal"+(i+1)+"=this.animal");               
+                this.listaAnimales.add(eval("this.animal"+(i+1)));
             }
                 // else if( eval(.....) === "Anime2")
             //else if(eval(.....) === "cuervo")

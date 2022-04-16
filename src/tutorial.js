@@ -1,8 +1,8 @@
 import Basura from './basura.js';
-import Platform from './platform.js';
 import Mapache from './mapache.js';
 import Gato from './gato.js';
 import Npc from './npc.js';
+import Animales from './Animales.js';
 
 export default class Cosa extends Phaser.Scene {
     
@@ -18,12 +18,45 @@ export default class Cosa extends Phaser.Scene {
     }
 
     init(data){
+        //posicion del animal
         this.x = data.x
         this.y = data.y;
+
+        //lista de animales que tenemos disponibles
+        this.listaAnimales = this.add.group();
+
+        for(let i=0; i<3; i++){
+
+             if(eval("data.animal"+(i+1)) === "."){ //animal vacio
+                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
+                 eval("this.animal"+(i+1)+"=this.animal");
+             }
+             else{
+                 if(eval("data.animal"+(i+1)) === "Anime1"){
+                     this.animal = new Mapache(this,data.x,data.y,true); //creamos mapache                    
+                 }
+                 else if(eval("data.animal"+(i+1)) === "Anime2"){
+                     this.animal = new Gato(this,data.x,data.y,true); //creamos gato
+                 }
+                 let vidaAux = eval("data.animal"+(i+1)+"Vida");
+                 this.animal.setVida(vidaAux); //asignamos la vida del animal
+                 //this.animal.barra.setHealth(vidaAux);
+                 //this.animal.updateScore();
+
+                 //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
+                 if(this.animal.getName() != data.actual) this.animal.setActive(false).setVisible(false);
+                 else this.player = this.animal;
+                 
+                 eval("this.animal"+(i+1)+"=this.animal");               
+                 this.listaAnimales.add(eval("this.animal"+(i+1)));
+                 console.log(this.listaAnimales.getLength());
+             }
+        }
+        
     }
 
     create() {
-        this.add.image(0,0,'background').setOrigin(0);
+        this.add.image(0,0,'background').setOrigin(0).setDepth(-1);
         this.add.image(0,500,'suelo').setOrigin(0);
         this.musica1 = this.sound.add('DVI_01');
         this.musica2 = this.sound.add('DVI_02');
@@ -34,14 +67,14 @@ export default class Cosa extends Phaser.Scene {
 
         //animales que el player lleva, se le asigna gato
         //habria que tener un this.animal3 vacio si solo llevamos 2 animales, con un getName() que devolviese ''
-        this.listaAnimales = this.add.group();
-        this.animal1 = new Gato(this, this.x, this.y, true);
-        this.animal2 = new Mapache(this, this.x, this.y, true);
-        this.listaAnimales.add(this.animal1);
-        this.listaAnimales.add(this.animal2);
-        this.animal2.setActive(false).setVisible(false);  
-        this.player = this.animal1;    
-
+        //this.listaAnimales = this.add.group();
+       // this.animal1 = new Gato(this, this.x, this.y, true);
+       // this.animal2 = new Mapache(this, this.x, this.y, true);
+       // this.listaAnimales.add(this.animal1);
+       // this.listaAnimales.add(this.animal2);
+       // this.animal2.setActive(false).setVisible(false);  
+       // this.player = this.animal1;    
+            console.log(this.listaAnimales.getLength());
 
         this.c = this.cameras.main;
         const lerpValue = 0.1
@@ -129,12 +162,10 @@ export default class Cosa extends Phaser.Scene {
             }
         }
         if(this.keyTwo.isDown){ //gato
-            if(this.player != this.animal2){
+            if(this.listaAnimales >= 2 && this.player != this.animal2){
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
                 
-                
-                console.log(this.variable1);
                 this.player.body.enable= false;
                 this.player.setActive(false).setVisible(false);
                 this.player = this.animal2;                
@@ -171,7 +202,7 @@ export default class Cosa extends Phaser.Scene {
         //para cuando falte alguno de los 3 animales habria que hacer una estructura con un getName() vacío y una vida = 0
         this.musica1.stop();
         this.musica2.stop();
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal2.getName(), animal1Vida: this.animal2.vida, animal2: this.animal1.getName(), animal2Vida: this.animal1.vida, animal3: '.', animal3Vida: 0, numEnemigos: 1});
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1});
         this.scene.pause();
     }
 
