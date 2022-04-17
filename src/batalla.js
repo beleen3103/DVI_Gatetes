@@ -1,5 +1,5 @@
 import Mapache from './mapache.js';
-import Npc from './npc.js';
+import emo from './emo.js';
 import Gato from './gato.js';
 import Animales from './Animales.js';
 
@@ -15,6 +15,7 @@ export default class Batalla extends Phaser.Scene {
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
         this.numEnemigos = data.numEnemigos;
+        this.tipoEnemigo = data.tipoEnemigo;
         for(let i=0; i<3; i++){
            // console.log(eval("data.animal"+(i+1)));
             
@@ -72,23 +73,24 @@ export default class Batalla extends Phaser.Scene {
         this.atacado = false;
         this.i = 0;
         this.anim = eval("this.animal"+(this.i+1));
-        console.log(this.i);
-        /*this.anim.listaAtaques.children.each(ataque=>{
-            ataque.setActive(true).setVisible(true).setInteractive();
-        });*/
         this.anim.crearAtaques();
        
+        
+        this.generarEnemigos();
+       
+    }
+
+    generarEnemigos(){
         this.listaMalos = this.add.group();
         this.listaMalos.maxSize = this.numEnemigos;
         let xNpc = 600;
         const yNpc = 250;
-        while(!this.listaMalos.isFull()){ //random de 1 a 3 enemigos
-            this.npc = new Npc(this, this.animal1, xNpc, xNpc, yNpc, false);
+        while(!this.listaMalos.isFull()){
+            //se genera el tipo de enemigo con el que te hayas chocado
+            eval("this.npc = new "+this.tipoEnemigo+"(this, this.listaAnimales.getChildren(), xNpc, xNpc, yNpc, false)");
             this.listaMalos.add(this.npc);
             xNpc += 150;
         }
-       
-       
     }
     update(t,dt){
         super.update(t,dt);

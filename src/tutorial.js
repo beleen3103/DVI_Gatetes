@@ -1,7 +1,7 @@
 import Basura from './basura.js';
 import Mapache from './mapache.js';
 import Gato from './gato.js';
-import Npc from './npc.js';
+import Npc from './emo.js';
 import Animales from './Animales.js';
 
 export default class Cosa extends Phaser.Scene {
@@ -197,12 +197,12 @@ export default class Cosa extends Phaser.Scene {
         this.scene.start('hub');
     }
 
-    combatir() {
+    combatir(nombre) {
         //entonces los datos a pasar serían {nPersonajes = (digamos 3), listaVidas= lista con las vidas de los animales, listaIds = lista de strings con el nombre de los animales}
         //para cuando falte alguno de los 3 animales habria que hacer una estructura con un getName() vacío y una vida = 0
         this.musica1.stop();
         this.musica2.stop();
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1});
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre});
         this.scene.pause();
     }
 

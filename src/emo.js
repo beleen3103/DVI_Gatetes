@@ -1,6 +1,6 @@
 import Enemigos from './Enemigos.js';
 import Ataque from './ataque.js';
-export default class Npc extends Enemigos {
+export default class emo extends Enemigos {
   
   constructor(scene, listaAnim, xIni, xFin, y, f) {
     super(scene, listaAnim, xIni, y, f, 'emo', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
@@ -58,7 +58,7 @@ export default class Npc extends Enemigos {
 
         //si colisiona con nuestro personaje
         if (this.scene.physics.overlap(this.listaAnim, this)) {
-            this.scene.combatir();
+            this.scene.combatir('emo');
             this.destroy();
         }
       }

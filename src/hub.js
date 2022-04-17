@@ -1,7 +1,7 @@
 //Miquel: Crear la escena Hub
 import Platform from './platform.js';
 import Mapache from './mapache.js';
-import Npc from './npc.js';
+import Npc from './emo.js';
 import Pincho from './pincho.js';
 import Queso from './queso.js';
 import PuertaCombate from './puertaCombate.js';
