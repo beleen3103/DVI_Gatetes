@@ -64,7 +64,7 @@ export default class Batalla extends Phaser.Scene {
         
         
         
-        this.fallo = this.add.text(400,70,"", { font: "60px Verdana"});
+        this.feedback = this.add.text(600,400,"", { font: "20px Verdana"});
         // this.animal1 = new Mapache(this, 200, 300, false);
         //this.mapache = this.animal1;
         this.auxDT = 0;
@@ -176,11 +176,12 @@ export default class Batalla extends Phaser.Scene {
         
         else{
             this.auxDT += dt;
-            this.fallo.text = "";
             if(this.auxDT >= 2000) {
                 this.turn = 0;
+                let numEnem = 1;
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
                     if(malo.active){ //si no esta muerto ya, ataca
+                        this.feedback.text = "";
                         //primero actualizamos cooldown
                         malo.advance();
                         this.ataqueMalo = malo.selectAttack();
@@ -203,11 +204,16 @@ export default class Batalla extends Phaser.Scene {
                                     });
                                 }                  
                             }
+                            
+                            this.feedback.text = malo.textoAtaque(numEnem, this.target, this.a.esBarrido());
                             this.ataqueMalo.attack(this.target);
                         }
                         else{
-                            this.fallo.text = "FALLO"; //estaria guay indicar cual de los dos falla
+                            this.feedback.text = "¡El enemigo";
+                            if(this.listaMalos.getLength() > 1) this.feedback.text +=  " " +numEnem; //si hay mas de un enemigo indica cual falla
+                            this.feedback.text += " ha fallado!";
                         }
+                        numEnem++;
                     }
                 });                
             }

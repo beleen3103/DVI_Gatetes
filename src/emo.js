@@ -44,10 +44,16 @@ export default class emo extends Enemigos {
     return this.ataque;
   }
 
+  textoAtaque(index, target, varios){
+    if(varios) return "¡El enemigo " + index + " ha golpeado a todos los animales!";
+    else{
+      if(target === this) return "El " + target.getName() + " se ha curado";
+      else return "El enemigo " + index + " ha golpeado al " + target.getName();
+    }
+  }
   preUpdate(t, dt) {
       super.preUpdate(t, dt);
       //movimiento automatico
-      
       if(this.fisicas){
        // Esta mal y a medias, como Espanha
         if(this.body.position.x <= this.xFin || this.body.position.x >= this.xIni) { //limites de movimiento
