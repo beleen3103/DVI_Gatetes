@@ -27,21 +27,25 @@ export default class Cosa extends Phaser.Scene {
 
         for(let i=0; i<3; i++){
 
-             if(eval("data.animal"+(i+1)) === "."){ //animal vacio
+             if(eval("data.animal"+(i+1)) === "."){ //animal vacio, es decir, no tenemos 3 animales
                  this.animal= new Animales(this, null, null, null,'.', 0, null,null);
                  eval("this.animal"+(i+1)+"=this.animal");
              }
              else{
+                 /*Si los animales se llamaran Mapache o Gato se podría quitar todo el encadenamiento if else
+                
+                    let nombre = eval("data.animal"+(i+1));
+                    eval("this.animal = new " + nombre +"(this,data.x,data.y,true)");   
+                 */
                  if(eval("data.animal"+(i+1)) === "Anime1"){
-                     this.animal = new Mapache(this,data.x,data.y,true); //creamos mapache                    
+                     this.animal = new Mapache(this,data.x,data.y,true); //creamos mapache                 
                  }
                  else if(eval("data.animal"+(i+1)) === "Anime2"){
                      this.animal = new Gato(this,data.x,data.y,true); //creamos gato
                  }
+                 //asignamos la vida del animal
                  let vidaAux = eval("data.animal"+(i+1)+"Vida");
-                 this.animal.setVida(vidaAux); //asignamos la vida del animal
-                 //this.animal.barra.setHealth(vidaAux);
-                 //this.animal.updateScore();
+                 this.animal.setVida(vidaAux);
 
                  //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
                  if(this.animal.getName() != data.actual) this.animal.setActive(false).setVisible(false);

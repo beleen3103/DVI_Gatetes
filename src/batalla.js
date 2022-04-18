@@ -19,7 +19,7 @@ export default class Batalla extends Phaser.Scene {
         for(let i=0; i<3; i++){
            // console.log(eval("data.animal"+(i+1)));
             
-            if(eval("data.animal"+(i+1)) === "."){
+            if(eval("data.animal"+(i+1)) === "."){ //no hay animal
                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
                 eval("this.animal"+(i+1)+"=this.animal");
             }
@@ -35,7 +35,6 @@ export default class Batalla extends Phaser.Scene {
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
                 this.animal.setActive(false);
-
                 
                 eval("this.animal"+(i+1)+"=this.animal");               
                 this.listaAnimales.add(eval("this.animal"+(i+1)));
@@ -100,7 +99,6 @@ export default class Batalla extends Phaser.Scene {
                 this.atacado = false;
                 
                 this.anim.eliminarAtaques();
-                //this.time.events.add(Phaser.Timer.SECOND * 4);
                 this.pointer.active = false;
                 
                 if(this.i+1 === this.listaAnimales.getLength()) this.i = 0;
