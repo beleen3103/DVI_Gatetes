@@ -2,26 +2,26 @@ import Animales from './Animales.js'
 import Ataque from './ataque.js';
 export default class Mapache extends Animales {
     constructor(scene, x, y, f) {
-        super(scene, x, y, f, 'Anime1', 100, 300, -600);
+        super(scene, x, y, f, 'Mapache', 100, 300, -600);
         this.scene = scene;
         this.x = x;
         this.y = y;
         
         this.anims.create({
             key: 'andar',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 0, end: 4 }),
+            frames: this.anims.generateFrameNumbers('Mapache', { start: 0, end: 4 }),
             frameRate: 10,
             repeat: -1
         });
         this.anims.create({
             key: 'parar',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 5, end: 10 }),
+            frames: this.anims.generateFrameNumbers('Mapache', { start: 5, end: 10 }),
             frameRate: 15,
             repeat: 0
         })
         this.anims.create({
             key: 'levantarse',
-            frames: this.anims.generateFrameNumbers('Anime1', { start: 10, end: 5 }),
+            frames: this.anims.generateFrameNumbers('Mapache', { start: 10, end: 5 }),
             frameRate: 20,
             repeat: 0
         })

@@ -11,12 +11,11 @@ export default class Ini extends Phaser.Scene {
         this.load.image('platformEnredadera','platformE.png');
         this.load.image('platformRebote','platformR.png');
         this.load.spritesheet('platformRompe', 'platformA.png', { frameWidth: 256, frameHeight: 64 });
-        this.load.image('mapache', 'mapachop.png');
         this.load.image('queso', 'queso.png');
         this.load.image('emo', 'emo.png');
         this.load.image('basura','basura.png');
-        this.load.spritesheet('Anime1', 'Anime1.png', { frameWidth: 150, frameHeight: 71 });
-        this.load.spritesheet('Anime2', 'Anime2.png', { frameWidth: 150, frameHeight: 70 });
+        this.load.spritesheet('Mapache', 'Mapache.png', { frameWidth: 150, frameHeight: 71 });
+        this.load.spritesheet('Gato', 'Gato.png', { frameWidth: 150, frameHeight: 70 });
 
         this.load.image('puertaCombate', 'puertaCombate.png');
         this.load.image('puertaPlataformeo', 'puertaPlataformeo.png');
@@ -32,6 +31,6 @@ export default class Ini extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('hub', {x:100,y:450, numeroAnimales: 1, animal1: 'Anime2', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Anime2'});
+        this.scene.start('tutorial', {x:100,y:450, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato'});
     }
 }

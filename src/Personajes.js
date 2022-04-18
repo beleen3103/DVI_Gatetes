@@ -20,7 +20,7 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
       this.updateScore();
     }
   }
-
+  
   getName(){
     return this.name;
   }

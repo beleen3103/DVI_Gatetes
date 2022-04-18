@@ -12,36 +12,35 @@ export default class Batalla extends Phaser.Scene {
 
     init(data){
         this.mainScene = this.scene.get("sceneA name");
+        this.escena = data.escena;
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
         this.numEnemigos = data.numEnemigos;
         this.tipoEnemigo = data.tipoEnemigo;
+        let x = 110;
         for(let i=0; i<3; i++){
-           // console.log(eval("data.animal"+(i+1)));
-            
             if(eval("data.animal"+(i+1)) === "."){ //no hay animal
                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
                 eval("this.animal"+(i+1)+"=this.animal");
             }
             else{
-                if(eval("data.animal"+(i+1)) === "Anime1"){
-                    this.animal = new Mapache(this,100,300,false); //creamos mapache                    
-                }
-                else if(eval("data.animal"+(i+1)) === "Anime2"){
-                    this.animal = new Gato(this,200,300,false); //creamos gato
-                }
+                //creamos el animal que sea
+                let nombre = eval("data.animal"+(i+1));
+                this.animal = eval("new " + nombre +"(this,x,300,false)"); 
+                
+                //asignamos la vida del animal
                 let vidaAux = eval("data.animal"+(i+1)+"Vida");
-                this.animal.setVida(vidaAux); //asignamos la vida del animal
+                this.animal.setVida(vidaAux); 
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
                 this.animal.setActive(false);
                 
+                //lo añadimos al grupo
                 eval("this.animal"+(i+1)+"=this.animal");               
                 this.listaAnimales.add(eval("this.animal"+(i+1)));
+                //posicion para el siguiente animal
+                x+=100;
             }
-                // else if( eval(.....) === "Anime2")
-            //else if(eval(.....) === "cuervo")
-            //............
         }
     }
 
@@ -50,6 +49,10 @@ export default class Batalla extends Phaser.Scene {
     }
 
     create() {
+
+        this.listaAnimales.children.each(animal =>{
+            animal.setScale(0.8,0.8);
+        })
 
         this.musica1 = this.sound.add('MusicaBatalla');
         this.musica1.play({loop:true, volume:0.5});
@@ -228,7 +231,7 @@ export default class Batalla extends Phaser.Scene {
         });
         if(!siguenVivos || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
             this.musica1.stop();
-            this.scene.resume('tutorial'); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.resume(this.escena); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
     }

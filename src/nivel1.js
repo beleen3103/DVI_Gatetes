@@ -5,6 +5,7 @@ import Npc from './emo.js';
 import Pincho from './pincho.js';
 import Queso from './queso.js';
 import Gato from './gato.js';
+import Animales from './Animales.js';
 
 export default class Nivel1 extends Phaser.Scene {
     
@@ -12,18 +13,51 @@ export default class Nivel1 extends Phaser.Scene {
         super({ key: 'nivel1' });
     }
 
+    init(data){
+        //posicion del animal
+        this.x = data.x
+        this.y = data.y;
+
+        //lista de animales que tenemos disponibles
+        this.listaAnimales = this.add.group();
+
+        for(let i=0; i<3; i++){
+
+             if(eval("data.animal"+(i+1)) === "."){ //animal vacio, es decir, no tenemos 3 animales
+                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
+                 eval("this.animal"+(i+1)+"=this.animal");
+             }
+             else{
+                //creamos el animal que sea
+                let nombre = eval("data.animal"+(i+1));
+                eval("this.animal = new " + nombre +"(this,data.x,data.y,true)");   
+                
+                 //asignamos la vida del animal
+                 let vidaAux = eval("data.animal"+(i+1)+"Vida");
+                 this.animal.setVida(vidaAux);
+
+                 //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
+                 if(this.animal.getName() != data.actual) this.animal.setActive(false).setVisible(false);
+                 else this.player = this.animal;
+                 
+                 eval("this.animal"+(i+1)+"=this.animal");               
+                 this.listaAnimales.add(eval("this.animal"+(i+1)));
+             }
+        }
+        
+    }
+
+
+
     preload(){
         this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
         this.load.image('plataformas', 'assets/sprites/tiles.png');
     }
-    init(data){
-        this.x = data.x
-        this.y = data.y;
-    }
+    
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
         this.add.rectangle(1000,250,5000,5000,0xffffff,100); // FONDO
-        this.player = new Gato(this, this.x, this.y, true); // Personaje
+        //this.player = new Gato(this, this.x, this.y, true); // Personaje
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.createMap();   // Creacion mapa desde Tiled
         this.configureCamera(); // Camara que sigue al jugador
@@ -75,7 +109,7 @@ export default class Nivel1 extends Phaser.Scene {
                 break;
                 //Bloques que permiten al gato escalar
                 case 'trepar':
-                    if(this.player.getName() === 'Anime2')
+                    if(this.player.getName() === 'Gato')
                     this.physics.overlap(this.player,o,()=>{
                         if(this.player.keyW.isDown)  {
                             this.player.body.velocity.y = -300/2;
@@ -188,8 +222,8 @@ export default class Nivel1 extends Phaser.Scene {
         this.scene.pause();
     }
 
-    combatir() {
-        this.scene.launch('batalla', {numeroAnimales: 1, animal1: this.player.getName(), animal1Vida: this.player.vida, animal2: '', animal2Vida: 0, animal3: '', animal3Vida: 0});
+    combatir(nombre) {
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena:'nivel1'});
         this.scene.pause();
     }
 

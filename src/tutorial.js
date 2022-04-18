@@ -4,7 +4,7 @@ import Gato from './gato.js';
 import Npc from './emo.js';
 import Animales from './Animales.js';
 
-export default class Cosa extends Phaser.Scene {
+export default class Tutorial extends Phaser.Scene {
     
     constructor() {
         super({ key: 'tutorial' });
@@ -32,17 +32,10 @@ export default class Cosa extends Phaser.Scene {
                  eval("this.animal"+(i+1)+"=this.animal");
              }
              else{
-                 /*Si los animales se llamaran Mapache o Gato se podría quitar todo el encadenamiento if else
+                //creamos el animal que sea
+                let nombre = eval("data.animal"+(i+1));
+                eval("this.animal = new " + nombre +"(this,data.x,data.y,true)");   
                 
-                    let nombre = eval("data.animal"+(i+1));
-                    eval("this.animal = new " + nombre +"(this,data.x,data.y,true)");   
-                 */
-                 if(eval("data.animal"+(i+1)) === "Anime1"){
-                     this.animal = new Mapache(this,data.x,data.y,true); //creamos mapache                 
-                 }
-                 else if(eval("data.animal"+(i+1)) === "Anime2"){
-                     this.animal = new Gato(this,data.x,data.y,true); //creamos gato
-                 }
                  //asignamos la vida del animal
                  let vidaAux = eval("data.animal"+(i+1)+"Vida");
                  this.animal.setVida(vidaAux);
@@ -53,7 +46,6 @@ export default class Cosa extends Phaser.Scene {
                  
                  eval("this.animal"+(i+1)+"=this.animal");               
                  this.listaAnimales.add(eval("this.animal"+(i+1)));
-                 console.log(this.listaAnimales.getLength());
              }
         }
         
@@ -68,18 +60,8 @@ export default class Cosa extends Phaser.Scene {
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
-
-        //animales que el player lleva, se le asigna gato
-        //habria que tener un this.animal3 vacio si solo llevamos 2 animales, con un getName() que devolviese ''
-        //this.listaAnimales = this.add.group();
-       // this.animal1 = new Gato(this, this.x, this.y, true);
-       // this.animal2 = new Mapache(this, this.x, this.y, true);
-       // this.listaAnimales.add(this.animal1);
-       // this.listaAnimales.add(this.animal2);
-       // this.animal2.setActive(false).setVisible(false);  
-       // this.player = this.animal1;    
-            console.log(this.listaAnimales.getLength());
-
+ 
+        
         this.c = this.cameras.main;
         const lerpValue = 0.1
         this.c.setLerp(lerpValue,lerpValue);
@@ -96,7 +78,7 @@ export default class Cosa extends Phaser.Scene {
         fin.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
-            this.scene.start('nivel1', {x: 100, y: 1200});
+            this.scene.start('nivel1', {x:100, y:this.player.getY(), numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         });
         
         this.c.startFollow(this.player);
@@ -206,7 +188,7 @@ export default class Cosa extends Phaser.Scene {
         //para cuando falte alguno de los 3 animales habria que hacer una estructura con un getName() vacío y una vida = 0
         this.musica1.stop();
         this.musica2.stop();
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre});
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena: 'tutorial'});
         this.scene.pause();
     }
 
