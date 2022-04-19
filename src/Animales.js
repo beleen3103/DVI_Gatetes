@@ -59,8 +59,7 @@ export default class Animales extends Personajes {
         this.y = pos;
     }
     setVida(x){
-        this.vida = x;
-        
+        this.vida = x;       
     }
     preUpdate(t, dt) {
         super.preUpdate(t, dt);

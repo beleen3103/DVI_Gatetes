@@ -67,6 +67,7 @@ export default class Batalla extends Phaser.Scene {
         this.auxDT = 0;
         this.turn = 0;
         
+        this.a = null;
         this.atacado = false;
         this.i = 0;
         this.anim = eval("this.animal"+(this.i+1));
@@ -201,7 +202,7 @@ export default class Batalla extends Phaser.Scene {
                                 }                  
                             }
                             
-                            this.feedback.text = malo.textoAtaque(numEnem, this.target, this.a.esBarrido());
+                            this.feedback.text = malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido());
                             this.ataqueMalo.attack(this.target);
                         }
                         else{

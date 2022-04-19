@@ -44,7 +44,10 @@ export default class Tutorial extends Phaser.Scene {
                  this.animal.label.setDepth(100);
 
                  //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
-                 if(this.animal.getName() != data.actual) this.animal.setActive(false).setVisible(false);
+                 if(this.animal.getName() != data.actual) {
+                    this.animal.setActive(false).setVisible(false);
+                    this.animal.barraVisible(false);
+                    }
                  else this.player = this.animal;
                  
                  eval("this.animal"+(i+1)+"=this.animal");               
@@ -149,7 +152,7 @@ export default class Tutorial extends Phaser.Scene {
             }
         }
         
-        if(this.keyOne.isDown){ //mapache
+        if(this.keyOne.isDown){
             if(this.player != this.animal1){ 
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
@@ -181,21 +184,6 @@ export default class Tutorial extends Phaser.Scene {
                 this.player.barraVisible(true);
             }
         }
-        /*
-                if(this.keyE.isDown){
-            if(this.musica1.isPlaying && !this.musica2.isPlaying){
-                this.musictime = this.musica1.seek;
-                this.musica1.stop();
-                this.musica2.play({loop:true,seek:this.musictime});
-            }
-            else if(!this.musica1.isPlaying && this.musica2.isPlaying){
-                this.musictime = this.musica2.seek;
-                this.musica2.stop();
-                this.musica1.play({loop:true,seek:this.musictime});
-
-            }
-        }
-        */
         
     }
 
