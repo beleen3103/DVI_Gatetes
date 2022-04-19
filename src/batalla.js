@@ -12,7 +12,7 @@ export default class Batalla extends Phaser.Scene {
 
     init(data){
         this.mainScene = this.scene.get("sceneA name");
-        this.escena = data.escena;
+        this.escena = data.escena; //nomre de la escena a la que volver
         this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
         this.numEnemigos = data.numEnemigos;
@@ -27,7 +27,7 @@ export default class Batalla extends Phaser.Scene {
                 //creamos el animal que sea
                 let nombre = eval("data.animal"+(i+1));
                 this.animal = eval("new " + nombre +"(this,x,300,false)"); 
-                
+                this.animal.setScale(0.9,0.9);
                 //asignamos la vida del animal
                 let vidaAux = eval("data.animal"+(i+1)+"Vida");
                 this.animal.setVida(vidaAux); 
@@ -49,11 +49,6 @@ export default class Batalla extends Phaser.Scene {
     }
 
     create() {
-
-        this.listaAnimales.children.each(animal =>{
-            animal.setScale(0.8,0.8);
-        })
-
         this.musica1 = this.sound.add('MusicaBatalla');
         this.musica1.play({loop:true, volume:0.5});
 
@@ -231,8 +226,17 @@ export default class Batalla extends Phaser.Scene {
         });
         if(!siguenVivos || this.listaMalos.countActive() === 0) { //ahora mismo solo comprueba que el npc al que podemos pegar esta vivo
             this.musica1.stop();
-            this.scene.resume(this.escena); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            let losed = false;
+            if(!siguenVivos) losed = true;
+            console.log(this.animal1.vida);
+            this.scene.resume(this.escena, {losed: losed, animal1Vida: this.animal1.vida, animal2Vida: this.animal2.vida, animal3Vida: this.animal3.vida}); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
+    }
+
+
+    getVidas(i){
+        let vida = eval("this.animal"+(i+1)+".vida");
+        return vida;
     }
 }

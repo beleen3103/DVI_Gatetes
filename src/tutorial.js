@@ -60,7 +60,24 @@ export default class Tutorial extends Phaser.Scene {
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
- 
+        
+
+        
+       /* this.events.on('resume', data =>{
+            //si ha perdido, fin del juego
+            if(data.losed){}
+            else{//sino, actualizamos vida
+                console.log(this.animal1.vida);
+                for(let i=0; i<3; i++){
+                    if(eval("data.animal"+(i+1)+"Vida") != "."){ //si hay un animal, le asignamos la vida que le queda
+                        let auxVida = eval("data.animal"+(i+1)+"Vida");
+                        console.log(auxVida);
+                        eval("this.animal"+(i+1)+".setVida(auxVida)");
+                    }
+                }
+                console.log(this.animal1.vida);
+            }
+        });*/
         
         this.c = this.cameras.main;
         const lerpValue = 0.1
@@ -83,6 +100,21 @@ export default class Tutorial extends Phaser.Scene {
         
         this.c.startFollow(this.player);
 
+
+        //ESTO EN TODAS LAS ESCENAS
+        let auxthis = this;
+        this.events.on('resume',function(esc,data){
+            //si ha perdido, fin del juego
+            if(data.losed){}
+            else{//sino, actualizamos vida
+                for(let i=0; i<3; i++){
+                    if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
+                        let auxVida = eval("data.animal"+(i+1)+"Vida");
+                        eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
+                    }
+                }
+            }
+       });
     }
     createEnemies(){
         new Npc(this, this.listaAnimales.getChildren(), 1500, 940, 430, true);
@@ -186,6 +218,8 @@ export default class Tutorial extends Phaser.Scene {
     combatir(nombre) {
         //entonces los datos a pasar serían {nPersonajes = (digamos 3), listaVidas= lista con las vidas de los animales, listaIds = lista de strings con el nombre de los animales}
         //para cuando falte alguno de los 3 animales habria que hacer una estructura con un getName() vacío y una vida = 0
+        
+        console.log(this.animal1.vida);
         this.musica1.stop();
         this.musica2.stop();
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena: 'tutorial'});

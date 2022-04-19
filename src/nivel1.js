@@ -68,7 +68,7 @@ export default class Nivel1 extends Phaser.Scene {
         toTuto.body.setAllowGravity(false);
         this.physics.add.overlap(this.player,toTuto,()=>{
             this.scene.pause();
-            this.scene.start('tutorial', {x: 1800, y: 450});
+            this.scene.start('tutorial', {x: 1800, y: 450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         });
 
         let toCallaoA = this.add.zone(3000, 0, 10, 800);
@@ -76,7 +76,7 @@ export default class Nivel1 extends Phaser.Scene {
         toCallaoA.body.setAllowGravity(false);
         this.physics.add.overlap(this.player,toCallaoA,()=>{
             this.scene.pause();
-            this.scene.start('nivel1', {x: 100,y:450});
+            this.scene.start('nivel1', {x: 100,y:450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         })
 
 
@@ -85,14 +85,28 @@ export default class Nivel1 extends Phaser.Scene {
         toCallaoB.body.setAllowGravity(false);
         this.physics.add.overlap(this.player,toCallaoB,()=>{
             this.scene.pause();
-            this.scene.start('nivel1', {x: 100,y: 1200});
+            this.scene.start('nivel1', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         })
 
 
 
         this.createPlatforms(); //SOBRARÁ
         
-        // this.keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
+
+        //PARA DESPUES DE CADA COMBATE QUE SE ACTUALICE LA VIDA
+        let auxthis = this;
+        this.events.on('resume',function(esc,data){
+            //si ha perdido, fin del juego
+            if(data.losed){}
+            else{//sino, actualizamos vida
+                for(let i=0; i<3; i++){
+                    if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
+                        let auxVida = eval("data.animal"+(i+1)+"Vida");
+                        eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
+                    }
+                }
+            }
+       });
     }
     update(t, dt){
         //PLATAFORMAS OBJETO
