@@ -35,6 +35,9 @@ export default class Nivel1 extends Phaser.Scene {
                  //asignamos la vida del animal
                  let vidaAux = eval("data.animal"+(i+1)+"Vida");
                  this.animal.setVida(vidaAux);
+                 this.animal.setDepth(100);
+                 this.animal.barra.getBar().setDepth(100);
+                 this.animal.label.setDepth(100);
 
                  //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
                  if(this.animal.getName() != data.actual) this.animal.setActive(false).setVisible(false);
@@ -62,6 +65,8 @@ export default class Nivel1 extends Phaser.Scene {
         this.createMap();   // Creacion mapa desde Tiled
         this.configureCamera(); // Camara que sigue al jugador
         this.createEnemies();
+        this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
+        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);1
         
         let toTuto = this.add.zone(0,0,10,5000);
         this.physics.world.enable(toTuto);
@@ -109,6 +114,7 @@ export default class Nivel1 extends Phaser.Scene {
        });
     }
     update(t, dt){
+        this.c.startFollow(this.player);
         //PLATAFORMAS OBJETO
         this.capaO.forEach(o=>{
             switch(o.name){
@@ -159,26 +165,48 @@ export default class Nivel1 extends Phaser.Scene {
             if(block.anims.getProgress()===1) block.destroy(true);
         });
         
-        /*if (this.keyC.isDown){ //cambiar personaje
-            if(this.player.name == 'mapache') {
-                this.mapache.setActive(false).setVisible(false);
-                this.gato.setX(this.player.getX());
-                this.gato.setY(this.player.getY());
-                this.gato.setActive(true).setVisible(true);
-                this.player = this.gato;
+        if(this.keyOne.isDown){ 
+            if(this.player != this.animal1){ 
+                let auxX = this.player.getX();
+                let auxY = this.player.getY();
+                
+                this.player.body.enable=false; //quitamos el animal actual
+                this.player.setActive(false).setVisible(false); 
+                this.player.barraVisible(false);
+                
+                this.player = this.animal1; //cambiamos al nuevo
+                this.player.setPosition(auxX,auxY);
+                
+                this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                this.player.body.enable=true;
+                this.player.barraVisible(true);
             }
-           // if(this.player.name == 'gato') this.player = new Mapache(this, this.player.getX(), this.player.getY(), true);
-        }*/
+        }
+        if(this.keyTwo.isDown){ 
+            if(this.listaAnimales.getLength() >= 2 && this.player != this.animal2){
+                let auxX = this.player.getX();
+                let auxY = this.player.getY();
+                
+                this.player.body.enable= false;
+                this.player.setActive(false).setVisible(false);
+                this.player.barraVisible(false);
+                this.player = this.animal2;                
+                this.player.setPosition(auxX,auxY);
+                this.player.setActive(true).setVisible(true);
+                this.player.body.enable=true;
+                this.player.barraVisible(true);
+            }
+        }
 
     }
     configureCamera(){
-        let c = this.cameras.main;
+        this.c = this.cameras.main;
         const lerpValue = 0.1
-        c.setLerp(lerpValue,lerpValue);
+        this.c.setLerp(lerpValue,lerpValue);
         const xIni = 0, yIni = 0, xSize = 3000, ySize = 1200;
-        c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
+        this.c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
-        c.startFollow(this.player);
+        //this.c.startFollow(this.player);
     }
     createMap(){
         this.map = this.make.tilemap({
@@ -196,7 +224,7 @@ export default class Nivel1 extends Phaser.Scene {
         const tileset1 = this.map.addTilesetImage('tiles','plataformas'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
         this.capa = this.map.createLayer('balcones', tileset1);
         this.capa.setCollisionByProperty({colisiona: true});
-        this.physics.add.collider(this.player,this.capa);
+        this.physics.add.collider(this.listaAnimales,this.capa);
         
         if(this.physics.getConfig().debug){
             const debug = this.add.graphics().setAlpha(0.7)
@@ -208,13 +236,13 @@ export default class Nivel1 extends Phaser.Scene {
         }
     }
     createEnemies(){
-        new Npc(this, this.player, 600, 1170, 1200, true); //1-2 Enemigos en combate
-        new Npc(this, this.player, 2160, 1620, 1200, true); //1-2 Enemigos en combate
+        new Npc(this, this.listaAnimales.getChildren(), 600, 1170, 1200, true); //1-2 Enemigos en combate
+        new Npc(this, this.listaAnimales.getChildren(), 2160, 1620, 1200, true); //1-2 Enemigos en combate
     }
     // Sobrará
     createPlatforms(){
         this.Bloque = this.add.group();
-        this.physics.add.collider(this.player,this.Bloque);
+        this.physics.add.collider(this.listaAnimales,this.Bloque);
         //this.Bloque.add(new Platform(this,this.player,300,450,'platformBasica'));
         //this.Bloque.add(new Platform(this,this.player,300,200,'platformBasica'));
 
@@ -231,10 +259,6 @@ export default class Nivel1 extends Phaser.Scene {
     }
 
 
-    goHub(){
-        this.scene.start('hub');
-        this.scene.pause();
-    }
 
     combatir(nombre) {
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena:'nivel1'});

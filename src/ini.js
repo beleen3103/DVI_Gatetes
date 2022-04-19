@@ -31,6 +31,6 @@ export default class Ini extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('tutorial', {x:100,y:450, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato'});
+        this.scene.start('tutorial', {x:100,y:450, numeroAnimales: 2, animal1: 'Gato', animal1Vida: 100, animal2: 'Mapache', animal2Vida: 100, animal3: '.', animal3Vida: 0, actual: 'Gato'});
     }
 }

@@ -1,4 +1,5 @@
 import Personajes from './Personajes.js';
+import Barra from './healthBar.js';
 export default class Animales extends Personajes {
 
     constructor(scene, x, y, f, name, maxvida, speed, jumpSpeed) {
@@ -10,12 +11,16 @@ export default class Animales extends Personajes {
         if(this.fisicas){
             this.cursors = this.scene.input.keyboard.createCursorKeys();
             this.body.setSize(80,65,true);
-            this.label = this.scene.add.text(10, 10, "");
+            //this.label = this.scene.add.text(10, 10, "");
+            this.label = this.scene.add.text(160, 40, "");
+            this.barra = new Barra(scene, 50, 40, this.vida);
+            this.label.setScrollFactor(0,0).setDepth(100);
+            this.barra.getBar().setScrollFactor(0,0).setDepth(100);
+            super.updateScore();
         }
         else{
            // this.label = this.scene.add.text(x+70, y+60, "");
            // this.barra = new Barra(scene, x-40, y+60, this.vida);
-            this.updateScore();
         }
         this.speed = speed;
         this.jumpSpeed = jumpSpeed;
@@ -30,7 +35,16 @@ export default class Animales extends Personajes {
       
     }
 
-
+    barraVisible(visible){
+        if(visible){
+            this.label.setVisible(true);
+            this.barra.getBar().setVisible(true);
+        }
+        else{
+            this.label.setVisible(false);
+            this.barra.getBar().setVisible(false);
+        }
+    }
     //los getters y setters estan aqui y no en personajes porque belen ha estado probando lo de cambiar de animal
     getX(){
         return this.x;
@@ -87,6 +101,8 @@ export default class Animales extends Personajes {
                     this.parar = true;
                 }
             }
+            super.updateScore();
+            this.barra.draw();
         }
     }
 
