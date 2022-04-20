@@ -2,21 +2,19 @@ import Platform from './platform.js';
 import PlatformT from './platformT.js';
 import Mapache from './mapache.js';
 import Npc from './emo.js';
-import Pincho from './pincho.js';
-import Queso from './queso.js';
 import Gato from './gato.js';
 import Animales from './Animales.js';
 
-export default class Nivel1 extends Phaser.Scene {
+export default class GranVia extends Phaser.Scene {
     
     constructor() {
-        super({ key: 'nivel1' });
+        super({ key: 'GranVia' });
     }
 
     init(data){
         //posicion del animal
-        this.x = data.x
-        this.y = data.y;
+       // this.x = data.x
+       // this.y = data.y;
 
         //lista de animales que tenemos disponibles
         this.listaAnimales = this.add.group();
@@ -84,7 +82,7 @@ export default class Nivel1 extends Phaser.Scene {
         toCallaoA.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoA,()=>{
             this.scene.pause();
-            this.scene.start('nivel1', {x: 100,y:450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
+            this.scene.start('GranVia', {x: 100,y:450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         })
 
 
@@ -93,7 +91,7 @@ export default class Nivel1 extends Phaser.Scene {
         toCallaoB.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoB,()=>{
             this.scene.pause();
-            this.scene.start('nivel1', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
+            this.scene.start('GranVia', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         })
 
 
@@ -264,7 +262,7 @@ export default class Nivel1 extends Phaser.Scene {
 
 
     combatir(nombre) {
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena:'nivel1'});
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena:'GranVia'});
         this.scene.pause();
     }
 

@@ -3,7 +3,7 @@ import Personajes from './Personajes.js';
 export default class Enemigos extends Personajes {
   
   constructor(scene, m, x, y, f, npc, vida) {
-    super(scene, x, y, f, npc, vida, 110);
+    super(scene, x, y, f, npc, vida, 40, 110, 70);
   }
 
 }

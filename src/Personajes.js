@@ -2,7 +2,7 @@ import Barra from './healthBar.js';
 
 export default class Personajes extends Phaser.GameObjects.Sprite {
   
-  constructor(scene, x, y, f, name, maxvida, posBarra) { //posBarra hay que quitarlo pero ahora mismo se queda para que las barras de vida se vean bien
+  constructor(scene, x, y, f, name, maxvida, posBarraX, posBarraY, posLabel) { //posBarra hay que quitarlo pero ahora mismo se queda para que las barras de vida se vean bien
     super(scene, x, y, name);     
     this.maxVida = maxvida;
     this.vida = maxvida;
@@ -15,8 +15,8 @@ export default class Personajes extends Phaser.GameObjects.Sprite {
         this.body.setCollideWorldBounds(true);
     }   
     else{
-      this.label = this.scene.add.text(x+70, y+posBarra, "");
-      this.barra = new Barra(scene, x-40, y+posBarra, this.vida);
+      this.label = this.scene.add.text(x+posLabel, y+posBarraY, "");
+      this.barra = new Barra(scene, x-posBarraX, y+posBarraY, this.vida);
       this.updateScore();
     }
   }

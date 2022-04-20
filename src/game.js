@@ -1,5 +1,5 @@
 import ClaseEscenaInicial from './ini.js';
-import ClaseEscenaNivel1 from './nivel1.js';
+import ClaseEscenaNivel1 from './GranVia.js';
 import Batalla from './batalla.js';
 import Tutorial from './tutorial.js';
 import Hub from './hub.js';

@@ -83,7 +83,7 @@ export default class Tutorial extends Phaser.Scene {
         fin.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
-            this.scene.start('nivel1', {x:100, y:this.player.getY(), numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
+            this.scene.start('GranVia', {x:100, y:1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
         });
         
         this.c.startFollow(this.player);

@@ -3,7 +3,7 @@ import Barra from './healthBar.js';
 export default class Animales extends Personajes {
 
     constructor(scene, x, y, f, name, maxvida, speed, jumpSpeed) {
-        super(scene, x, y, f, name, maxvida, 60);
+        super(scene, x, y, f, name, maxvida,60, 60, 50);
         this.flipX = true;
         this.move = false;
         this.parar = false;

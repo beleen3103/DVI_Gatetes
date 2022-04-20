@@ -39,7 +39,7 @@ export default class Batalla extends Phaser.Scene {
                 eval("this.animal"+(i+1)+"=this.animal");               
                 this.listaAnimales.add(eval("this.animal"+(i+1)));
                 //posicion para el siguiente animal
-                x+=100;
+                x+=150;
             }
         }
     }
@@ -138,7 +138,6 @@ export default class Batalla extends Phaser.Scene {
                 else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
                     if(this.click){
                         this.a.attack(this.listaMalos);
-                        console.log("BARRIDO");
                         if(this.i+1 === this.listaAnimales.getLength())this.turn = 2;
                         this.atacado = true;
                         this.click = false;
