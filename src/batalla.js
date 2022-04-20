@@ -19,7 +19,8 @@ export default class Batalla extends Phaser.Scene {
         this.tipoEnemigo = data.tipoEnemigo;
         let x = 110;
         for(let i=0; i<3; i++){
-            if(eval("data.animal"+(i+1)) === "."){ //no hay animal
+            console.log(eval("data.animal"+(i+1)+"Vida"));
+            if(eval("data.animal"+(i+1)) === "." || eval("data.animal"+(i+1)+"Vida") === 0){ //no hay animal o esta muerto
                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
                 eval("this.animal"+(i+1)+"=this.animal");
             }
@@ -62,8 +63,6 @@ export default class Batalla extends Phaser.Scene {
         
         
         this.feedback = this.add.text(600,400,"", { font: "20px Verdana"});
-        // this.animal1 = new Mapache(this, 200, 300, false);
-        //this.mapache = this.animal1;
         this.auxDT = 0;
         this.turn = 0;
         
@@ -92,7 +91,6 @@ export default class Batalla extends Phaser.Scene {
     }
     update(t,dt){
         super.update(t,dt);
-        
         if(this.turn === 0){
             if(this.atacado){
                 this.atacado = false;

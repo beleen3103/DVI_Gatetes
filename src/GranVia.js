@@ -68,7 +68,7 @@ export default class GranVia extends Phaser.Scene {
         this.configureCamera(); // Camara que sigue al jugador
         this.createEnemies();
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
-        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);1
+        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         
         let toTuto = this.add.zone(0,0,10,5000);
         this.physics.world.enable(toTuto);
@@ -83,7 +83,7 @@ export default class GranVia extends Phaser.Scene {
         toCallaoA.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoA,()=>{
             this.scene.pause();
-            this.scene.start('GranVia', {x: 100,y:450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
+            this.scene.start('GranVia', {x: 100,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
         })
 
 
@@ -110,6 +110,7 @@ export default class GranVia extends Phaser.Scene {
                     if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
                         let auxVida = eval("data.animal"+(i+1)+"Vida");
                         eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
+                        eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
                     }
                 }
             }

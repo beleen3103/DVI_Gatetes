@@ -26,7 +26,6 @@ export default class Tutorial extends Phaser.Scene {
         this.listaAnimales = this.add.group();
 
         for(let i=0; i<3; i++){
-
              if(eval("data.animal"+(i+1)) === "."){ //animal vacio, es decir, no tenemos 3 animales
                  this.animal= new Animales(this, null, null, null,'.', 0, null,null);
                  eval("this.animal"+(i+1)+"=this.animal");
@@ -68,6 +67,9 @@ export default class Tutorial extends Phaser.Scene {
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         
+        this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
+        this.feedback.setScrollFactor(0,0).setDepth(101);
+
         this.c = this.cameras.main;
         const lerpValue = 0.1
         this.c.setLerp(lerpValue,lerpValue);
@@ -87,10 +89,7 @@ export default class Tutorial extends Phaser.Scene {
             this.scene.start('GranVia', {x:110, y:1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip: true});
         });
         
-        this.c.startFollow(this.player);
-
-
-        //ESTO EN TODAS LAS ESCENAS
+        ////////////////////ESTO EN TODAS LAS ESCENAS/////////////////////
         let auxthis = this;
         this.events.on('resume',function(esc,data){
             //si ha perdido, fin del juego
@@ -100,10 +99,12 @@ export default class Tutorial extends Phaser.Scene {
                     if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
                         let auxVida = eval("data.animal"+(i+1)+"Vida");
                         eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
+                        eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
                     }
                 }
             }
        });
+       //////////////////////////////////////////////////////////////////
     }
     createEnemies(){
         new Npc(this, this.listaAnimales.getChildren(), 1500, 940, 430, true);
@@ -135,10 +136,20 @@ export default class Tutorial extends Phaser.Scene {
             this.container.destroy();
             cambio2.destroy();
         })
+        this.auxDT = 0;
     }
     
+
+    animalMuerto(nombre, dt){
+        this.auxDT = dt;
+        this.feedback = "¡El " +nombre+ " no tiene vida!";
+        //if(this.auxDT >= 3000) this.feedback="";
+    }
+
     update(t,dt){
         this.c.startFollow(this.player); //para que siga a los nuevos animales cuando cambiamos
+
+        if(this.auxDT > 2000) this.feedback.text = "";
         if(Phaser.Input.Keyboard.JustDown(this.keyE)){
             if(this.musica1.isPlaying){
                 this.musictime = this.musica1.seek;
@@ -172,6 +183,7 @@ export default class Tutorial extends Phaser.Scene {
         }
         if(this.keyTwo.isDown){ 
             if(this.listaAnimales.getLength() >= 2 && this.player != this.animal2){
+                if(this.animal2.vida > 0){
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
                 
@@ -183,10 +195,21 @@ export default class Tutorial extends Phaser.Scene {
                 this.player.setActive(true).setVisible(true);
                 this.player.body.enable=true;
                 this.player.barraVisible(true);
+                }
+                else {
+                    this.feedback.text = "¡El " +this.animal2.getName()+ " no tiene vida!";
+                    this.auxDT = 0;
+                }
             }
         }
+        if(this.auxDT < 2000){
+            this.auxDT+=dt;
+        }
+        else this.feedback.text = "";
+        
         
     }
+
 
     combatir(nombre) {
        this.musica1.stop();
