@@ -49,6 +49,7 @@ export default class GranVia extends Phaser.Scene {
              }
         }
         
+        if(!data.flip) this.player.flipX = false;
     }
 
 
@@ -74,7 +75,7 @@ export default class GranVia extends Phaser.Scene {
         toTuto.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toTuto,()=>{
             this.scene.pause();
-            this.scene.start('tutorial', {x: 1800, y: 450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
+            this.scene.start('tutorial', {x: 1800, y: 490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:false});
         });
 
         let toCallaoA = this.add.zone(3000, 0, 10, 800);
@@ -82,7 +83,7 @@ export default class GranVia extends Phaser.Scene {
         toCallaoA.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoA,()=>{
             this.scene.pause();
-            this.scene.start('GranVia', {x: 100,y:450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
+            this.scene.start('GranVia', {x: 100,y:450, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
         })
 
 
@@ -91,7 +92,7 @@ export default class GranVia extends Phaser.Scene {
         toCallaoB.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoB,()=>{
             this.scene.pause();
-            this.scene.start('GranVia', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName()});
+            this.scene.start('GranVia', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(),flip:true});
         })
 
 
