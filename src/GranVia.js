@@ -13,8 +13,8 @@ export default class GranVia extends Phaser.Scene {
 
     init(data){
         //posicion del animal
-       // this.x = data.x
-       // this.y = data.y;
+        this.x = data.x
+        this.y = data.y;
 
         //lista de animales que tenemos disponibles
         this.listaAnimales = this.add.group();
@@ -35,7 +35,8 @@ export default class GranVia extends Phaser.Scene {
                  this.animal.setVida(vidaAux);
                  this.animal.setDepth(100);
                  this.animal.barra.getBar().setDepth(100);
-                 this.animal.label.setDepth(100);
+                 this.animal.label.setDepth(100);               
+                 this.animal.barra.setHealth(vidaAux);
 
                  //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
                  if(this.animal.getName() != data.actual) {
@@ -70,6 +71,10 @@ export default class GranVia extends Phaser.Scene {
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         
+        this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
+        this.feedback.setScrollFactor(0,0).setDepth(101);
+
+
         let toTuto = this.add.zone(0,0,10,5000);
         this.physics.world.enable(toTuto);
         toTuto.body.setAllowGravity(false);
@@ -106,15 +111,42 @@ export default class GranVia extends Phaser.Scene {
             //si ha perdido, fin del juego
             if(data.losed){}
             else{//sino, actualizamos vida
+                let changePlayer = false;
                 for(let i=0; i<3; i++){
                     if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
                         let auxVida = eval("data.animal"+(i+1)+"Vida");
                         eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
                         eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
+                        //if(auxVida === 0) eval("auxthis.animal"+(i+1)+".setActive(false)");
+                        if(auxthis.player.getName() === eval("auxthis.animal"+(i+1)+".getName()") && auxVida === 0) changePlayer = true;
                     }
+                    
+                }
+                if(changePlayer){
+                    let changed = false;
+                    auxthis.listaAnimales.children.each(animal =>{
+                        if(animal.vida > 0 && !changed){
+                            let auxX = auxthis.player.getX();
+                            let auxY = auxthis.player.getY();
+                            
+                            auxthis.player.body.enable=false; //quitamos el animal actual
+                            auxthis.player.setActive(false).setVisible(false); 
+                            auxthis.player.barraVisible(false);
+                            
+                            auxthis.player = animal; //cambiamos al nuevo
+                            auxthis.player.setPosition(auxX,auxY);
+                            
+                            auxthis.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                            auxthis.player.body.enable=true;
+                            auxthis.player.barraVisible(true);
+
+                            changed = true;
+                        }
+                    });
                 }
             }
        });
+       //////////////////////////////////////////////////////////////////
     }
     update(t, dt){
         this.c.startFollow(this.player);
@@ -168,25 +200,32 @@ export default class GranVia extends Phaser.Scene {
             if(block.anims.getProgress()===1) block.destroy(true);
         });
         
-        if(this.keyOne.isDown){ 
+        if(this.keyOne.isDown){
             if(this.player != this.animal1){ 
-                let auxX = this.player.getX();
-                let auxY = this.player.getY();
-                
-                this.player.body.enable=false; //quitamos el animal actual
-                this.player.setActive(false).setVisible(false); 
-                this.player.barraVisible(false);
-                
-                this.player = this.animal1; //cambiamos al nuevo
-                this.player.setPosition(auxX,auxY);
-                
-                this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
-                this.player.body.enable=true;
-                this.player.barraVisible(true);
+                if(this.animal1.vida > 0){
+                    let auxX = this.player.getX();
+                    let auxY = this.player.getY();
+                    
+                    this.player.body.enable=false; //quitamos el animal actual
+                    this.player.setActive(false).setVisible(false); 
+                    this.player.barraVisible(false);
+                    
+                    this.player = this.animal1; //cambiamos al nuevo
+                    this.player.setPosition(auxX,auxY);
+                    
+                    this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                    this.player.body.enable=true;
+                    this.player.barraVisible(true);
+                }
+                else {
+                    this.feedback.text = "¡El " +this.animal1.getName()+ " no tiene vida!";
+                    this.auxDT = 0;
+                }
             }
         }
         if(this.keyTwo.isDown){ 
             if(this.listaAnimales.getLength() >= 2 && this.player != this.animal2){
+                if(this.animal2.vida > 0){
                 let auxX = this.player.getX();
                 let auxY = this.player.getY();
                 
@@ -198,8 +237,17 @@ export default class GranVia extends Phaser.Scene {
                 this.player.setActive(true).setVisible(true);
                 this.player.body.enable=true;
                 this.player.barraVisible(true);
+                }
+                else {
+                    this.feedback.text = "¡El " +this.animal2.getName()+ " no tiene vida!";
+                    this.auxDT = 0;
+                }
             }
         }
+        if(this.auxDT < 2000){
+            this.auxDT+=dt;
+        }
+        else this.feedback.text = "";
 
     }
     configureCamera(){

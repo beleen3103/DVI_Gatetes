@@ -41,7 +41,7 @@ export default class Tutorial extends Phaser.Scene {
                  this.animal.setDepth(100);
                  this.animal.barra.getBar().setDepth(100);
                  this.animal.label.setDepth(100);
-
+                this.animal.barra.setHealth(vidaAux);
                  //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
                  if(this.animal.getName() != data.actual) {
                     this.animal.setActive(false).setVisible(false);
@@ -95,12 +95,38 @@ export default class Tutorial extends Phaser.Scene {
             //si ha perdido, fin del juego
             if(data.losed){}
             else{//sino, actualizamos vida
+                let changePlayer = false;
                 for(let i=0; i<3; i++){
                     if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
                         let auxVida = eval("data.animal"+(i+1)+"Vida");
                         eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
                         eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
+                        //if(auxVida === 0) eval("auxthis.animal"+(i+1)+".setActive(false)");
+                        if(auxthis.player.getName() === eval("auxthis.animal"+(i+1)+".getName()") && auxVida === 0) changePlayer = true;
                     }
+                    
+                }
+                if(changePlayer){
+                    let changed = false;
+                    auxthis.listaAnimales.children.each(animal =>{
+                        if(animal.vida > 0 && !changed){
+                            let auxX = auxthis.player.getX();
+                            let auxY = auxthis.player.getY();
+                            
+                            auxthis.player.body.enable=false; //quitamos el animal actual
+                            auxthis.player.setActive(false).setVisible(false); 
+                            auxthis.player.barraVisible(false);
+                            
+                            auxthis.player = animal; //cambiamos al nuevo
+                            auxthis.player.setPosition(auxX,auxY);
+                            
+                            auxthis.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                            auxthis.player.body.enable=true;
+                            auxthis.player.barraVisible(true);
+
+                            changed = true;
+                        }
+                    });
                 }
             }
        });
@@ -140,12 +166,6 @@ export default class Tutorial extends Phaser.Scene {
     }
     
 
-    animalMuerto(nombre, dt){
-        this.auxDT = dt;
-        this.feedback = "¡El " +nombre+ " no tiene vida!";
-        //if(this.auxDT >= 3000) this.feedback="";
-    }
-
     update(t,dt){
         this.c.startFollow(this.player); //para que siga a los nuevos animales cuando cambiamos
 
@@ -166,19 +186,25 @@ export default class Tutorial extends Phaser.Scene {
         
         if(this.keyOne.isDown){
             if(this.player != this.animal1){ 
-                let auxX = this.player.getX();
-                let auxY = this.player.getY();
-                
-                this.player.body.enable=false; //quitamos el animal actual
-                this.player.setActive(false).setVisible(false); 
-                this.player.barraVisible(false);
-                
-                this.player = this.animal1; //cambiamos al nuevo
-                this.player.setPosition(auxX,auxY);
-                
-                this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
-                this.player.body.enable=true;
-                this.player.barraVisible(true);
+                if(this.animal1.vida > 0){
+                    let auxX = this.player.getX();
+                    let auxY = this.player.getY();
+                    
+                    this.player.body.enable=false; //quitamos el animal actual
+                    this.player.setActive(false).setVisible(false); 
+                    this.player.barraVisible(false);
+                    
+                    this.player = this.animal1; //cambiamos al nuevo
+                    this.player.setPosition(auxX,auxY);
+                    
+                    this.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                    this.player.body.enable=true;
+                    this.player.barraVisible(true);
+                }
+                else {
+                    this.feedback.text = "¡El " +this.animal1.getName()+ " no tiene vida!";
+                    this.auxDT = 0;
+                }
             }
         }
         if(this.keyTwo.isDown){ 
