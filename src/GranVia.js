@@ -49,7 +49,7 @@ export default class GranVia extends Phaser.Scene {
              }
         }
         
-        if(!data.flip) this.player.flipX = false;
+        this.player.flipX = data.flip;
     }
 
 

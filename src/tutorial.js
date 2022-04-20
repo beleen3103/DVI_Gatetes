@@ -54,7 +54,7 @@ export default class Tutorial extends Phaser.Scene {
                  this.listaAnimales.add(eval("this.animal"+(i+1)));
              }
         }
-        if(!data.flip) this.player.flipX = false;
+        this.player.flipX = data.flip;
         
     }
 
