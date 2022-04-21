@@ -178,8 +178,8 @@ export default class Batalla extends Phaser.Scene {
                 this.turn = 0;
                 let numEnem = 1;
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
+                    if(numEnem === 1) this.feedback.text = "";
                     if(malo.active){ //si no esta muerto ya, ataca
-                        this.feedback.text = "";
                         //primero actualizamos cooldown
                         malo.advance();
                         this.ataqueMalo = malo.selectAttack();
@@ -214,14 +214,16 @@ export default class Batalla extends Phaser.Scene {
                                 }                  
                             }
                             
-                            this.feedback.text = malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido());
+                            this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido());
                             this.ataqueMalo.attack(this.target);
                         }
                         else{
-                            this.feedback.text = "¡El enemigo";
+                            this.feedback.text += "¡El " + malo.getName();
                             if(this.listaMalos.getLength() > 1) this.feedback.text +=  " " +numEnem; //si hay mas de un enemigo indica cual falla
                             this.feedback.text += " ha fallado!";
+
                         }
+                        this.feedback.text += "\n";
                         numEnem++;
                     }
                 });                
@@ -261,8 +263,8 @@ export default class Batalla extends Phaser.Scene {
     }
 
 
-    getVidas(i){
+   /* getVidas(i){
         let vida = eval("this.animal"+(i+1)+".vida");
         return vida;
-    }
+    }*/
 }
