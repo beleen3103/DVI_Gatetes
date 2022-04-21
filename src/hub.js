@@ -52,7 +52,7 @@ export default class Hub extends Phaser.Scene {
 
     overlapCombate(){
         if(this.keyE.isDown){
-            this.scene.launch('dialogo');
+            this.scene.launch('dialogo', {nombreJSON: 'dialogo1.json'});
         }
     }
 

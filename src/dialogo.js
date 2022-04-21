@@ -4,9 +4,14 @@ export default class Dialogo extends Phaser.Scene {
         super({ key: 'dialogo' });
     }
 
+    init(data){
+        this.nombreJSON = data.nombreJSON;
+        console.log(typeof(this.nombreJSON))
+    }
+
     preload(){
         //Cargamos el archivo
-        this.load.json('dialogoJSON', 'dialogos/dialogo1.json');
+        this.load.json(this.nombreJSON, 'dialogos/' + this.nombreJSON);
     }
 
     create(){
@@ -18,8 +23,6 @@ export default class Dialogo extends Phaser.Scene {
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.cursor = this.input.keyboard.createCursorKeys();
         this.textoMostrado;
-        this.texto1="Dialogo de prueba. quiero ponerlo en el centro";
-        this.texto2="Funciona bien jeje";
 
         this.screenCenterX = this.cameras.main.worldView.x + this.cameras.main.width / 2; //Centro de la pantalla en X
         this.screenCenterY = this.cameras.main.worldView.y + this.cameras.main.height / 2; //Centro de la pantalla en Y
@@ -27,7 +30,7 @@ export default class Dialogo extends Phaser.Scene {
         //Recogemos el archivo JSON en una variable para poder operar con ella:
         //      variable[i] --> posición del array
         //      variable.propiedad --> entrar en una de las propiedades
-        this.dialogos = this.cache.json.get('dialogoJSON');
+        this.dialogos = this.cache.json.get(this.nombreJSON);
         console.log(this.dialogos);
 
         this.contDialogo = 1;
