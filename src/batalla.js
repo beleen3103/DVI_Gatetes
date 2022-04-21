@@ -257,7 +257,7 @@ export default class Batalla extends Phaser.Scene {
             let losed = false;
             if(!siguenVivos) losed = true;
             console.log(this.animal1.vida);
-            this.scene.resume(this.escena, {losed: losed, animal1Vida: this.animal1.vida, animal2Vida: this.animal2.vida, animal3Vida: this.animal3.vida}); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+            this.scene.resume(this.escena, {dialogo:false, losed: losed, animal1Vida: this.animal1.vida, animal2Vida: this.animal2.vida, animal3Vida: this.animal3.vida}); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
     }
