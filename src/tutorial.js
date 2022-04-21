@@ -71,7 +71,8 @@ export default class Tutorial extends Phaser.Scene {
         this.musica2.play({loop:true, volume:0.3});
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
-        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
+        this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);       
+        this.keyThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
         
         this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
         this.feedback.setScrollFactor(0,0).setDepth(101);
@@ -234,6 +235,27 @@ export default class Tutorial extends Phaser.Scene {
                 }
                 else {
                     this.feedback.text = "¡El " +this.animal2.getName()+ " no tiene vida!";
+                    this.auxDT = 0;
+                }
+            }
+        }
+        if(this.keyThree.isDown){ 
+            if(this.listaAnimales.getLength() >= 3 && this.player != this.animal3){
+                if(this.animal3.vida > 0){
+                let auxX = this.player.getX();
+                let auxY = this.player.getY();
+                
+                this.player.body.enable= false;
+                this.player.setActive(false).setVisible(false);
+                this.player.barraVisible(false);
+                this.player = this.animal3;                
+                this.player.setPosition(auxX,auxY);
+                this.player.setActive(true).setVisible(true);
+                this.player.body.enable=true;
+                this.player.barraVisible(true);
+                }
+                else {
+                    this.feedback.text = "¡El " +this.animal3.getName()+ " no tiene vida!";
                     this.auxDT = 0;
                 }
             }
