@@ -6,7 +6,8 @@ export default class Dialogo extends Phaser.Scene {
 
     init(data){
         this.nombreJSON = data.nombreJSON;
-        console.log(typeof(this.nombreJSON))
+        console.log(typeof(this.nombreJSON));
+        this.prevScene = data.prevScene;
     }
 
     preload(){
@@ -33,8 +34,6 @@ export default class Dialogo extends Phaser.Scene {
         //      variable.propiedad --> entrar en una de las propiedades
         this.dialogos = this.cache.json.get(this.nombreJSON);
         console.log(this.dialogos);
-
-        console.log(this.dialogos[1]);
 
         this.listaPersonajes = [];//Lista de personajes que van a hablar para cargar su imagen de dialogos
         this.listaLength = 0;
@@ -76,6 +75,7 @@ export default class Dialogo extends Phaser.Scene {
                     this.contDialogo = this.contDialogo + 1;
                 }
                 else{
+                    this.scene.resume(this.prevScene,{dialogo:true});
                     this.scene.stop();
                 }
 

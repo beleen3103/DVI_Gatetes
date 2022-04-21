@@ -22,6 +22,12 @@ export default class Tutorial extends Phaser.Scene {
         this.x = data.x
         this.y = data.y;
 
+        //
+        this.first = true;
+        if(this.x === 1800){
+            this.first = false;
+        }
+
         //lista de animales que tenemos disponibles
         this.listaAnimales = this.add.group();
 
@@ -79,7 +85,9 @@ export default class Tutorial extends Phaser.Scene {
 
         this.createEnemies();
         this.createPlatforms();
-        this.tutorialText();
+        if(this.first){
+            this.tutorialText();
+        }
 
         let fin = this.add.zone(1950,0,100,1000);
         this.physics.world.enable(fin);
@@ -92,41 +100,43 @@ export default class Tutorial extends Phaser.Scene {
         ////////////////////ESTO EN TODAS LAS ESCENAS/////////////////////
         let auxthis = this;
         this.events.on('resume',function(esc,data){
-            //si ha perdido, fin del juego
-            if(data.losed){}
-            else{//sino, actualizamos vida
-                let changePlayer = false;
-                for(let i=0; i<3; i++){
-                    if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
-                        let auxVida = eval("data.animal"+(i+1)+"Vida");
-                        eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
-                        eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
-                        //if(auxVida === 0) eval("auxthis.animal"+(i+1)+".setActive(false)");
-                        if(auxthis.player.getName() === eval("auxthis.animal"+(i+1)+".getName()") && auxVida === 0) changePlayer = true;
-                    }
-                    
-                }
-                if(changePlayer){
-                    let changed = false;
-                    auxthis.listaAnimales.children.each(animal =>{
-                        if(animal.vida > 0 && !changed){
-                            let auxX = auxthis.player.getX();
-                            let auxY = auxthis.player.getY();
-                            
-                            auxthis.player.body.enable=false; //quitamos el animal actual
-                            auxthis.player.setActive(false).setVisible(false); 
-                            auxthis.player.barraVisible(false);
-                            
-                            auxthis.player = animal; //cambiamos al nuevo
-                            auxthis.player.setPosition(auxX,auxY);
-                            
-                            auxthis.player.setActive(true).setVisible(true); //hacemos visible el nuevo
-                            auxthis.player.body.enable=true;
-                            auxthis.player.barraVisible(true);
-
-                            changed = true;
+            if(!data.dialogo){
+                //si ha perdido, fin del juego
+                if(data.losed){}
+                else{//sino, actualizamos vida
+                    let changePlayer = false;
+                    for(let i=0; i<3; i++){
+                        if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
+                            let auxVida = eval("data.animal"+(i+1)+"Vida");
+                            eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
+                            eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
+                            //if(auxVida === 0) eval("auxthis.animal"+(i+1)+".setActive(false)");
+                            if(auxthis.player.getName() === eval("auxthis.animal"+(i+1)+".getName()") && auxVida === 0) changePlayer = true;
                         }
-                    });
+                        
+                    }
+                    if(changePlayer){
+                        let changed = false;
+                        auxthis.listaAnimales.children.each(animal =>{
+                            if(animal.vida > 0 && !changed){
+                                let auxX = auxthis.player.getX();
+                                let auxY = auxthis.player.getY();
+                                
+                                auxthis.player.body.enable=false; //quitamos el animal actual
+                                auxthis.player.setActive(false).setVisible(false); 
+                                auxthis.player.barraVisible(false);
+                                
+                                auxthis.player = animal; //cambiamos al nuevo
+                                auxthis.player.setPosition(auxX,auxY);
+                                
+                                auxthis.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                                auxthis.player.body.enable=true;
+                                auxthis.player.barraVisible(true);
+
+                                changed = true;
+                            }
+                        });
+                    }
                 }
             }
        });
