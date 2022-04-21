@@ -18,7 +18,7 @@ export default class Hub extends Phaser.Scene {
     create() {
         this.add.text(440,70,"HUB", { font: "60px Verdana"});
         this.add.text(230,150,"Dirígete hacia un lado u otro para probar diferentes funcionalidades", { font: "16px Verdana"});
-        this.add.text(120,250,"Combate", { font: "32px Verdana"});
+        this.add.text(120,250,"Dialogo", { font: "32px Verdana"});
         this.add.text(700,250,"Plataformeo", { font: "32px Verdana"});
 
         //var puertaCombate = this.add.graphics();
@@ -39,7 +39,7 @@ export default class Hub extends Phaser.Scene {
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         this.cursor = this.input.keyboard.createCursorKeys();
 
-        this.textoPulsarE = this.add.text(470,180,"E (Entrar)", { font: "16px Verdana"});
+        this.textoPulsarE = this.add.text(370,180,"E (Probar) | Q (Siguiente Diálogo)", { font: "16px Verdana"});
 
         //new Platform(this, this.mapache, 500, 350);
         //new Platform(this, this.mapache, 850, 200);
@@ -51,7 +51,7 @@ export default class Hub extends Phaser.Scene {
     }
 
     overlapCombate(){
-        if(this.keyE.isDown){
+        if(Phaser.Input.Keyboard.JustDown(this.keyE)){
             this.scene.launch('dialogo', {nombreJSON: 'dialogo1.json'});
         }
     }

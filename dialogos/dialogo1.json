@@ -1,6 +1,23 @@
 {
-    "length":3,
-    "1":"abriendo json",
-    "2":"prueba",
-    "3":"estoy leyendo de un archivo JSON"
+    "length":4,
+    "1":
+    {
+        "animal":"mapache",
+        "texto":"Hola. Disculpe señor Gato. ¿Es efectivamente usted un gato que ha conseguido dominar el arte\nde la lengua castellana como medio de comunicación?"
+    },
+    "2":
+    {
+        "animal":"gato",
+        "texto":"Sí, soy un gato que habla."
+    },
+    "3":
+    {
+        "animal":"mapache",
+        "texto":"Suficiente por hoy. Me desaparesco."
+    },
+    "4":
+    {
+        "animal":"gato",
+        "texto":"Vete a tomar por culo."
+    }
 }
