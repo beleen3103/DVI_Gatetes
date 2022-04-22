@@ -18,10 +18,6 @@ export default class Animales extends Personajes {
             this.barra.getBar().setScrollFactor(0,0).setDepth(100);
             super.updateScore();
         }
-        else{
-           // this.label = this.scene.add.text(x+70, y+60, "");
-           // this.barra = new Barra(scene, x-40, y+60, this.vida);
-        }
         this.speed = speed;
         this.jumpSpeed = jumpSpeed;
         

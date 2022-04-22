@@ -147,7 +147,7 @@ export default class Tutorial extends Phaser.Scene {
         new Npc(this, this.listaAnimales.getChildren(), 1500, 940, 430, true);
     }
     createPlatforms(){
-        new Basura(this, this.listaAnimales.getChildren(), 600, 450);
+        new Basura(this, this.listaAnimales.getChildren(), this.player, 600, 450);
     }
     
     tutorialText(){

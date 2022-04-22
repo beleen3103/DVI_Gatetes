@@ -42,5 +42,20 @@ export default class Mapache extends Animales {
         this.ataque3.destroy();
         this.listaAtaques.destroy();
     }
+
+    rebuscar(index){
+        let frases = [];
+
+        if(this.scene === "GranVia"){
+            frases.push("una máscara de león");
+        }
+
+        frases.push("una lata de refresco vacía.");
+        frases.push("una camiseta rota.");
+        frases.push("unos restos de carne. Efectivamente, se los ha comido.");
+        let rand = Phaser.Math.Between(0, frases.length-1);
+        index = rand;
+        return "El mapache ha encontrado " + frases[rand];
+    }
 }
 
