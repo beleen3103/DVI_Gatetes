@@ -63,7 +63,7 @@ export default class GranVia extends Phaser.Scene {
     
     //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
-        this.add.rectangle(1000,250,5000,5000,0xffffff,100); // FONDO
+        this.add.image(0, 0, 'granviaB').setOrigin(0).setScale(1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.createMap();   // Creacion mapa desde Tiled
