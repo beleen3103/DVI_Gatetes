@@ -63,6 +63,7 @@ export default class Batalla extends Phaser.Scene {
         
         
         this.feedback = this.add.text(600,400,"", { font: "20px Verdana"});
+        this.damage = this.add.text(0,0,"", { font: "20px Verdana"});
         this.auxDT = 0;
         this.turn = 0;
         
@@ -96,6 +97,7 @@ export default class Batalla extends Phaser.Scene {
         super.update(t,dt);
         if(this.turn === 0){
             if(this.atacado){
+                //this.damage.setFontSize(20);
                 this.atacado = false;
                 
                 this.anim.eliminarAtaques();
@@ -131,10 +133,22 @@ export default class Batalla extends Phaser.Scene {
                 }
                 else if(this.a.getTarget() != 1){//curacion
                     if(this.click){
-                        this.a.attack(this.anim);
+                        if(!this.a.esBarrido()) {
+                            this.a.attack(this.anim);
+                            this.damage.setFontSize(20);
+                            this.damage.text = "+"+ Math.abs(this.a.damage) + "!";
+                            this.damage.setPosition(this.anim.x-10, this.anim.y-150);
+                        }
+                        else {
+                            this.a.attack(this.listaAnimales);
+                            this.damage.setFontSize(80);
+                            this.damage.text = "+" + Math.abs(this.a.damage) + "!";
+                            this.damage.setPosition(400, 50);
+                        }
                         if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
                         this.atacado = true;
                         this.click = false;
+                        
                     }
                 }
                 else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
@@ -143,8 +157,12 @@ export default class Batalla extends Phaser.Scene {
                         if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
                         this.atacado = true;
                         this.click = false;
+                        this.damage.setFontSize(80);
+                        this.damage.text = "-" + this.a.damage + "!";
+                        this.damage.setPosition(400, 50);
                     }
                 }
+                
                 this.auxDT = 0;
             }
             
@@ -159,6 +177,9 @@ export default class Batalla extends Phaser.Scene {
                         malo.on('pointerdown', () => {
                             if(this.click){
                                 this.a.attack(malo);
+                                this.damage.setFontSize(20);
+                                this.damage.text = "-"+this.a.damage + "!";
+                                this.damage.setPosition(malo.x-10, malo.y-150);
                                 if(this.i+1 === this.listaAnimales.getLength()) this.turn = 2;
                                 else this.turn = 0;
                                 this.click = false;
@@ -176,7 +197,9 @@ export default class Batalla extends Phaser.Scene {
             this.auxDT += dt;
             if(this.auxDT >= 2000) {
                 this.turn = 0;
+                let curacion = false;
                 let numEnem = 1;
+                this.damage.text = "";
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
                     if(numEnem === 1) this.feedback.text = "";
                     if(malo.active){ //si no esta muerto ya, ataca
@@ -186,11 +209,14 @@ export default class Batalla extends Phaser.Scene {
                         this.ataca = Phaser.Math.Between(0, 100);
                         if(this.ataca < 80) {
                             if(this.ataqueMalo.getTarget() === 1) {
+                                curacion = true;
                                 if(!this.ataqueMalo.esBarrido()) this.target = malo;
                                 else this.target = this.listaMalos;
+                                this.damage.text = "+";
+                                
                             }
                             else{
-                                if(this.ataqueMalo.esBarrido()) this.target = this.listaAnimales //todos los animales;
+                                if(this.ataqueMalo.esBarrido()) this.target = this.listaAnimales; //todos los animales;
                                 else { //random
                                     console.log(this.listaAnimales.countActive());
                                     let rand = Phaser.Math.Between(0, this.listaAnimales.getLength()-1);
@@ -212,9 +238,19 @@ export default class Batalla extends Phaser.Scene {
                                         this.target = primeroConVida;
                                     }
                                 }                  
+                                this.damage.text = "-";
+                                
                             }
-                            
-                            this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido());
+                            if(!this.ataqueMalo.esBarrido()) {
+                                this.damage.text += Math.abs(this.ataqueMalo.damage)+"!";
+                                this.damage.setPosition(this.target.x-10, this.target.y-150);
+                            }
+                            else{   
+                                this.damage.setFontSize(80);
+                                this.damage.text += Math.abs(this.ataqueMalo.damage) + "!";
+                                this.damage.setPosition(400, 50);
+                            }
+                            this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido(), curacion);
                             this.ataqueMalo.attack(this.target);
                         }
                         else{

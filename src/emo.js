@@ -12,8 +12,8 @@ export default class emo extends Enemigos {
     this.fisicas = f;
     this.xDirection = -1; //empezamos a la izq
     if(!this.fisicas){
-      this.ataque1 = new Ataque(this.scene, -1, 1, 0, 2, false, null,null, null); //menos prioritario       
-      this.ataque2 = new Ataque(this.scene, 1, -10, 2, 1, false, null,null, null); //curacion 
+      this.ataque1 = new Ataque(this.scene, -1, 1, 0, 2, true, null,null, null); //menos prioritario       
+      this.ataque2 = new Ataque(this.scene, 1, -10, 2, 1, true, null,null, null); //curacion 
       this.ataque3 = new Ataque(this.scene, -1, 15, 3, 0, false, null,null, null);
       this.listaAtaques = this.scene.add.group();
       this.listaAtaques.add(this.ataque1);
@@ -44,10 +44,13 @@ export default class emo extends Enemigos {
     return this.ataque;
   }
 
-  textoAtaque(index, target, varios){
-    if(varios) return "¡El "+ this.getName() + " " + index + " ha golpeado a todos los animales!";
+  textoAtaque(index, target, varios, curacion){
+    if(varios){
+      if(!curacion) return "¡El "+ this.getName() + " " + index + " ha golpeado a todos \nlos animales!";
+      else return "¡El "+ this.getName() + " " + index + " ha curado a todos \nsus aliados!";
+    } 
     else{
-      if(target === this) return "El " + target.getName() + " " + index+ " se ha curado";
+      if(curacion) return "El " + target.getName() + " " + index+ " se ha curado";
       else return "El "+ this.getName() + " " + index + " ha golpeado al " + target.getName();
     }
   }
