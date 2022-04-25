@@ -70,6 +70,7 @@ export default class Tutorial extends Phaser.Scene {
         this.add.image(0,500,'suelo').setOrigin(0);
         this.musica = this.sound.add('musicaTutorial');
         this.musica.play({loop:true, volume:0.3});
+        this.restartMusic = false;
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);       
@@ -100,6 +101,7 @@ export default class Tutorial extends Phaser.Scene {
         fin.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
+            this.musica.stop();
             this.scene.start('GranVia', {x:110, y:1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip: true});
         });
         
@@ -143,8 +145,10 @@ export default class Tutorial extends Phaser.Scene {
                             }
                         });
                     }
+                    auxthis.musica.resume();
                 }
             }
+            
        });
        //////////////////////////////////////////////////////////////////
 
@@ -215,6 +219,7 @@ export default class Tutorial extends Phaser.Scene {
     }*/
 
     update(t,dt){
+
         this.c.startFollow(this.player); //para que siga a los nuevos animales cuando cambiamos
 
         if(this.auxDT > 2000) this.feedback.text = "";
@@ -300,8 +305,7 @@ export default class Tutorial extends Phaser.Scene {
 
 
     combatir(nombre) {
-        this.musica.stop();
-        this.musica.stop();
+        this.musica.pause();
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena: 'tutorial'});
         this.scene.pause();
     }
