@@ -30,7 +30,7 @@ export default class GranVia extends Phaser.Scene {
              else{
                 //creamos el animal que sea
                 let nombre = eval("data.animal"+(i+1));
-                eval("this.animal = new " + nombre +"(this,data.x,data.y,true)");   
+                eval("this.animal = new " + nombre +"(this,data.x + 1,data.y,true)");   
                 
                  //asignamos la vida del animal
                  let vidaAux = eval("data.animal"+(i+1)+"Vida");
