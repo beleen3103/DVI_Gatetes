@@ -1,5 +1,6 @@
 import Mapache from './mapache.js';
 import emo from './emo.js';
+import rockero from './rockero.js';
 import Gato from './gato.js';
 import Animales from './Animales.js';
 
@@ -97,7 +98,6 @@ export default class Batalla extends Phaser.Scene {
         super.update(t,dt);
         if(this.turn === 0){
             if(this.atacado){
-                //this.damage.setFontSize(20);
                 this.atacado = false;
                 
                 this.anim.eliminarAtaques();
@@ -170,7 +170,7 @@ export default class Batalla extends Phaser.Scene {
         else if(this.turn === 1){ //seleccion de enemigo si es necesario
             this.click = true;
             this.listaMalos.children.each(malo => { //se pueden clickar enemigos
-                malo.flechaVisible(true);
+               if(malo.active) malo.flechaVisible(true);
                 malo.setInteractive();
             });  
                 this.listaMalos.children.each(malo => {
@@ -274,11 +274,7 @@ export default class Batalla extends Phaser.Scene {
                 malo.setActive(false).setVisible(false);
             }
         })
-        /*while(this.listaMalos.countActive() > 0 && this.listaMalos.getFirstAlive().isDead()){ //desactiva los que estan muertos
-            this.listaMalos.getFirstAlive().label.setVisible(false);
-            this.listaMalos.getFirstAlive().barra.getBar().setVisible(false);
-            this.listaMalos.getFirstAlive().setActive(false).setVisible(false);
-        }*/
+        
         //para ver si quedan animales vivos
         let siguenVivos = false;
         this.listaAnimales.children.each(anim=>{
@@ -294,15 +290,8 @@ export default class Batalla extends Phaser.Scene {
             this.musica1.stop();
             let losed = false;
             if(!siguenVivos) losed = true;
-            console.log(this.animal1.vida);
             this.scene.resume(this.escena, {dialogo:false, losed: losed, animal1Vida: this.animal1.vida, animal2Vida: this.animal2.vida, animal3Vida: this.animal3.vida}); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
             this.scene.stop();
         }
     }
-
-
-   /* getVidas(i){
-        let vida = eval("this.animal"+(i+1)+".vida");
-        return vida;
-    }*/
 }

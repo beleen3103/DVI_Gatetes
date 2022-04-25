@@ -30,7 +30,7 @@ export default class GranVia extends Phaser.Scene {
              else{
                 //creamos el animal que sea
                 let nombre = eval("data.animal"+(i+1));
-                eval("this.animal = new " + nombre +"(this,data.x + 1,data.y,true)");   
+                eval("this.animal = new " + nombre +"(this,data.x,1200,true)");   
                 
                  //asignamos la vida del animal
                  let vidaAux = eval("data.animal"+(i+1)+"Vida");
@@ -349,7 +349,7 @@ export default class GranVia extends Phaser.Scene {
         }
     }
     createEnemies(){
-        new Rock(this, this.listaAnimales, 1600, 1170, true); //1-2 Enemigos en combate
+        new Rock(this, this.listaAnimales,null, 1600, 1170, true); //1-2 Enemigos en combate
         new Npc(this, this.listaAnimales.getChildren(), 2160, 1620, 1200, true); //1-2 Enemigos en combate
     }
     // Sobrará
