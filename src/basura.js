@@ -4,7 +4,7 @@ export default class Basura extends Phaser.GameObjects.Sprite {
     this.player = player;
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this, true);
-    this.scene.physics.add.collider(this, listaAnim);
+    //this.scene.physics.add.collider(this, listaAnim);
     this.body.setSize(150, 90, true);
     this.keyE = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.feedback = this.scene.add.text(310,200,"", { font: "30px Verdana"});

@@ -64,6 +64,7 @@ export default class Tutorial extends Phaser.Scene {
     }
 
     create() {
+        this.name = 'tutorial';
         this.add.image(0,0,'background').setOrigin(0);
         this.add.image(0,500,'suelo').setOrigin(0);
         this.musica1 = this.sound.add('DVI_01');
@@ -74,8 +75,10 @@ export default class Tutorial extends Phaser.Scene {
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);       
         this.keyThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
         
+        this.basuraText = this.add.text(250, 420,"",{font: "20px Verdana"})
         this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
         this.feedback.setScrollFactor(0,0).setDepth(101);
+        this.basuraText.setScrollFactor(0,0).setDepth(1002);
 
         this.c = this.cameras.main;
         const lerpValue = 0.1
@@ -84,8 +87,9 @@ export default class Tutorial extends Phaser.Scene {
         this.c.setBounds(xIni,yIni,xSize,ySize+100) //Tamaño de la camara (minimo-maximo)
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
 
+        let auxthis = this;
         this.createEnemies();
-        this.createPlatforms();
+        this.createPlatforms(auxthis);
         if(this.first){
             this.tutorialText();
         }
@@ -99,7 +103,7 @@ export default class Tutorial extends Phaser.Scene {
         });
         
         ////////////////////ESTO EN TODAS LAS ESCENAS/////////////////////
-        let auxthis = this;
+        //let auxthis = this;
         this.events.on('resume',function(esc,data){
             if(!data.dialogo){
                 //si ha perdido, fin del juego
@@ -142,12 +146,28 @@ export default class Tutorial extends Phaser.Scene {
             }
        });
        //////////////////////////////////////////////////////////////////
+
+        
+        
     }
     createEnemies(){
         new Npc(this, this.listaAnimales.getChildren(), 1500, 940, 430, true);
     }
-    createPlatforms(){
-        new Basura(this, this.listaAnimales.getChildren(), this.player, 600, 450);
+    createPlatforms(auxthis){
+        let basura = new Basura(this, this.listaAnimales.getChildren(), 600, 450);
+        this.physics.add.collider(basura, this.listaAnimales.getChildren(), function(){
+            if(auxthis.player.getName() === 'Mapache'){
+                if(Phaser.Input.Keyboard.JustDown(auxthis.keyE)){
+                    let index = -1;
+                    //auxthis.scene.pause();
+                    //auxthis.scene.launch('dialogo', {nombreJSON: 'dialogoBasura.json', prevScene:auxthis.scene.name});
+                    auxthis.basuraText.text = "" + auxthis.player.rebuscar(index);
+                    auxthis.auxDTbasura = 0;
+                    //if(index === 0){} //dialogo de Hmmm... que raros son los humanos
+                }
+            }
+             
+        });
     }
     
     tutorialText(){
@@ -174,13 +194,30 @@ export default class Tutorial extends Phaser.Scene {
             cambio2.destroy();
         })
         this.auxDT = 0;
+        this.auxDTbasura = 0;
     }
     
+    /*rebuscar(index){
+        let frases = [];
+
+      /*  if(this.name === "GranVia"){
+            frases.push("una máscara de león");
+        }*/
+/*
+        frases.push("una lata de refresco vacía.");
+        frases.push("una camiseta rota.");
+        frases.push("unos restos de carne. \nEfectivamente, se los ha comido.");
+        frases.push("un calcetín sucio.");
+        let rand = Phaser.Math.Between(0, frases.length-1);
+        index = rand;
+        return "El mapache ha encontrado " + frases[rand];
+    }*/
 
     update(t,dt){
         this.c.startFollow(this.player); //para que siga a los nuevos animales cuando cambiamos
 
         if(this.auxDT > 2000) this.feedback.text = "";
+        if(this.auxDTbasura > 2000) this.basuraText.text = "";
         if(Phaser.Input.Keyboard.JustDown(this.keyE)){
             if(this.musica1.isPlaying){
                 this.musictime = this.musica1.seek;
@@ -262,6 +299,11 @@ export default class Tutorial extends Phaser.Scene {
         }
         if(this.auxDT < 2000){
             this.auxDT+=dt;
+        }
+        else this.feedback.text = "";
+
+        if(this.auxDTbasura < 2000){
+            this.auxDTbasura+=dt;
         }
         else this.feedback.text = "";
         
