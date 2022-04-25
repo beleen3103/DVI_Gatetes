@@ -37,8 +37,11 @@ export default class Mapache extends Animales {
             this.listaAtaques.add(this.ataque3);
     }
     eliminarAtaques(){
+        this.ataque1.nombreAtaque.destroy();
         this.ataque1.destroy();
+        this.ataque2.nombreAtaque.destroy();
         this.ataque2.destroy();
+        this.ataque3.nombreAtaque.destroy();
         this.ataque3.destroy();
         this.listaAtaques.destroy();
     }

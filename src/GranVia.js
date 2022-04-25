@@ -61,7 +61,6 @@ export default class GranVia extends Phaser.Scene {
         this.load.image('plataformas', 'assets/sprites/tiles.png');
     }
     
-    //Belén: todo lo comentado son cosas que he probado para cambiar de personajes, aun no funciona
     create() {
         this.add.image(0, 0, 'granviaB').setOrigin(0).setScale(1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
@@ -374,7 +373,8 @@ export default class GranVia extends Phaser.Scene {
 
 
     combatir(nombre) {
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena:'GranVia'});
+        let rand = Phaser.Math.Between(1, 2); //1 o 2 enemigos
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: rand, tipoEnemigo: nombre, escena:'GranVia'});
         this.scene.pause();
     }
 

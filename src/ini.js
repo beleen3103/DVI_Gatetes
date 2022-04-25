@@ -19,6 +19,7 @@ export default class Ini extends Phaser.Scene {
 
         this.load.image('puertaCombate', 'puertaCombate.png');
         this.load.image('puertaPlataformeo', 'puertaPlataformeo.png');
+        this.load.image('flecha', 'flecha.png');
         this.load.image('elAfilador', 'afilar.png');
         this.load.image('zarpazo','arañazo.png');
         this.load.image('sangrado', 'sangrado.png');

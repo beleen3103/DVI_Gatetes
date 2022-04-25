@@ -10,6 +10,8 @@ constructor (scene, target, damage, cooldown, priority, barrido, sprite, x, y){ 
     this.target = target;
     this.damage = damage;
     this.scene.add.existing(this);
+
+    this.nombreAtaque = this.scene.add.text(x-35, y+40,sprite,{font: "15px Verdana"})
 }
 getTarget(){
     return this.target;
