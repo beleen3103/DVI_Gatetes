@@ -2,7 +2,7 @@ export default class Nota extends Phaser.GameObjects.Sprite {
 
 
     constructor(scene, listaAnim, x, y, c) {
-        super(scene, x, y, 'zarpazo');
+        super(scene, x, y, 'nota');
         this.listaAnim = listaAnim;
         this.cooldown = c;
         this.scene.add.existing(this);
@@ -14,7 +14,8 @@ export default class Nota extends Phaser.GameObjects.Sprite {
     preUpdate(t, dt) {
         super.preUpdate(t, dt);
 
-        this.scene.physics.moveTo(this, this.x, 0, 240);
+        this.scene.physics.moveTo(this, this.x, 0, 350);
+
         this.cooldown--;
 
         if(this.cooldown <= 0){
@@ -22,7 +23,9 @@ export default class Nota extends Phaser.GameObjects.Sprite {
         }
         else{
             if (this.scene.physics.overlap(this.listaAnim, this)) {
-                //this.listaAnim.setVelocityY(-10);
+                this.listaAnim.children.each(animal => {
+                    animal.stun();
+                });
                 this.destroy();
             }
 

@@ -2,6 +2,7 @@ import Platform from './platform.js';
 import PlatformT from './platformT.js';
 import Mapache from './mapache.js';
 import Npc from './emo.js';
+import Rock from './rockero.js';
 import Gato from './gato.js';
 import Animales from './Animales.js';
 import Dialogo from "./dialogo.js";
@@ -348,7 +349,7 @@ export default class GranVia extends Phaser.Scene {
         }
     }
     createEnemies(){
-        new Npc(this, this.listaAnimales.getChildren(), 600, 1170, 1200, true); //1-2 Enemigos en combate
+        new Rock(this, this.listaAnimales, 1600, 1170, true); //1-2 Enemigos en combate
         new Npc(this, this.listaAnimales.getChildren(), 2160, 1620, 1200, true); //1-2 Enemigos en combate
     }
     // Sobrará

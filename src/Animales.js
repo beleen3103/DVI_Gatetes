@@ -41,6 +41,10 @@ export default class Animales extends Personajes {
             this.barra.getBar().setVisible(false);
         }
     }
+    stun() {
+        this.body.setVelocityY(900);
+        this.body.setVelocityX(0);
+    }
     //los getters y setters estan aqui y no en personajes porque belen ha estado probando lo de cambiar de animal
     getX(){
         return this.x;

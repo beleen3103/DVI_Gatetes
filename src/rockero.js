@@ -5,7 +5,7 @@ import Dron from './dron.js';
 export default class Rockero extends Enemigos {
   
   constructor(scene, listaAnim, x, y, f) {
-    super(scene, listaAnim, x, y, f, 'emo', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
+    super(scene, listaAnim, x, y, f, 'rockero', 100); //escena, nuestro personaje, x, y, fisicas, tipo de enemigo, vida del enemigo
     this.listaAnim = listaAnim;
     this.flipX = false;
     this.fisicas = f;
@@ -52,8 +52,7 @@ export default class Rockero extends Enemigos {
       if(this.fisicas){
         if(this.cA <= t){
             this.cA = (t + this.cd);
-            console.log('nota')
-            new Nota(this.scene, this.listaAnim, 2160, 1000, 100);
+            new Nota(this.scene, this.listaAnim, this.x, 1000, 150);
         }
 
         //si colisiona con nuestro personaje

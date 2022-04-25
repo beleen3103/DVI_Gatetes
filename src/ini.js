@@ -13,6 +13,8 @@ export default class Ini extends Phaser.Scene {
         this.load.spritesheet('platformRompe', 'platformA.png', { frameWidth: 256, frameHeight: 64 });
         this.load.image('queso', 'queso.png');
         this.load.image('emo', 'emo.png');
+        this.load.image('nota', 'nota.png');
+        this.load.image('rockero', 'rockero.png');
         this.load.image('basura','basura.png');
         this.load.spritesheet('Mapache', 'Mapache.png', { frameWidth: 150, frameHeight: 71 });
         this.load.spritesheet('Gato', 'Gato.png', { frameWidth: 150, frameHeight: 70 });
@@ -33,6 +35,6 @@ export default class Ini extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('tutorial', {x:100,y:490, numeroAnimales: 2, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+        this.scene.start('GranVia', {x:100,y:490, numeroAnimales: 2, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
     }
 }
