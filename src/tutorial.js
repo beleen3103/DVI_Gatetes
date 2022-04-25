@@ -12,8 +12,7 @@ export default class Tutorial extends Phaser.Scene {
     }
     preload(){
         this.load.image('background', 'assets/background/fondo.png');
-        this.load.audio('DVI_01', 'audio/DVI_01.ogg'); //Precargar el audio
-        this.load.audio('DVI_02', 'audio/DVI_02.ogg'); //Precargar el audio
+        this.load.audio('musicaTutorial', 'audio/DVI_01.ogg'); //Precargar el audio
         this.load.image('suelo','assets/background/suelo.png');
     }
 
@@ -64,12 +63,13 @@ export default class Tutorial extends Phaser.Scene {
     }
 
     create() {
+
+
         this.name = 'tutorial';
         this.add.image(0,0,'background').setOrigin(0);
         this.add.image(0,500,'suelo').setOrigin(0);
-        this.musica1 = this.sound.add('DVI_01');
-        this.musica2 = this.sound.add('DVI_02');
-        this.musica2.play({loop:true, volume:0.3});
+        this.musica = this.sound.add('musicaTutorial');
+        this.musica.play({loop:true, volume:0.3});
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);       
@@ -80,6 +80,7 @@ export default class Tutorial extends Phaser.Scene {
         this.feedback.setScrollFactor(0,0).setDepth(101);
         this.basuraText.setScrollFactor(0,0).setDepth(1002);
 
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         this.c = this.cameras.main;
         const lerpValue = 0.1
         this.c.setLerp(lerpValue,lerpValue);
@@ -218,19 +219,6 @@ export default class Tutorial extends Phaser.Scene {
 
         if(this.auxDT > 2000) this.feedback.text = "";
         if(this.auxDTbasura > 2000) this.basuraText.text = "";
-        if(Phaser.Input.Keyboard.JustDown(this.keyE)){
-            if(this.musica1.isPlaying){
-                this.musictime = this.musica1.seek;
-                this.musica1.stop();
-                this.musica2.play({loop:true,seek:this.musictime,volume:0.3});
-            }
-            else if(this.musica2.isPlaying){
-                this.musictime = this.musica2.seek;
-                this.musica2.stop();
-                this.musica1.play({loop:true,seek:this.musictime,volume:0.3});
-                
-            }
-        }
         
         if(this.keyOne.isDown){
             if(this.player != this.animal1){ 
@@ -312,8 +300,8 @@ export default class Tutorial extends Phaser.Scene {
 
 
     combatir(nombre) {
-       this.musica1.stop();
-        this.musica2.stop();
+        this.musica.stop();
+        this.musica.stop();
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 1, tipoEnemigo: nombre, escena: 'tutorial'});
         this.scene.pause();
     }
