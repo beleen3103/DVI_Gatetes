@@ -63,6 +63,9 @@ export default class GranVia extends Phaser.Scene {
     }
     
     create() {
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
         this.add.image(0, 0, 'granviaB').setOrigin(0).setScale(1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
         this.player.setDepth(100);  // Personaje por delante de los objetos
@@ -113,7 +116,9 @@ export default class GranVia extends Phaser.Scene {
         this.events.on('resume',function(esc,data){
             if(!data.dialogo){
                 //si ha perdido, fin del juego
-                if(data.losed){}
+                if(data.losed){
+                    auxthis.scene.start('gameover', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+                }
                 else{//sino, actualizamos vida
                     let changePlayer = false;
                     for(let i=0; i<3; i++){

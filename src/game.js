@@ -6,6 +6,7 @@ import Hub from './hub.js';
 import Dialogo from './dialogo.js';
 import Alcantarilla from './Alcantarilla.js';
 import PantallaInicio from './pantallaInicio.js';
+import GameOver from './gameover.js';
 
 
 new Phaser.Game({
@@ -16,7 +17,7 @@ new Phaser.Game({
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, PantallaInicio, Tutorial, Batalla, Hub, Dialogo, Alcantarilla],
+    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, PantallaInicio, Tutorial, Batalla, Hub, Dialogo, Alcantarilla, GameOver],
     physics: {
         default: 'arcade',
         arcade: {

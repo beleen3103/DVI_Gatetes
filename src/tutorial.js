@@ -102,7 +102,9 @@ export default class Tutorial extends Phaser.Scene {
         this.physics.add.overlap(this.listaAnimales.getChildren(),fin,()=>{
             this.scene.pause();
             this.musica.stop();
-            this.scene.start('GranVia', {x:110, y:1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip: true});
+            auxthis.cameras.main.fadeOut(1000, 0, 0, 0);
+            this.scene.start('GranVia', {x:110, y:1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip: true})
+
         });
         
         ////////////////////ESTO EN TODAS LAS ESCENAS/////////////////////
@@ -110,7 +112,13 @@ export default class Tutorial extends Phaser.Scene {
         this.events.on('resume',function(esc,data){
             if(!data.dialogo){
                 //si ha perdido, fin del juego
-                if(data.losed){}
+                if(data.losed){
+                    auxthis.cameras.main.fadeOut(1000, 0, 0, 0);
+
+                    auxthis.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+                    auxthis.scene.start('gameover', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+                    });
+                }
                 else{//sino, actualizamos vida
                     let changePlayer = false;
                     for(let i=0; i<3; i++){
