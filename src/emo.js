@@ -12,7 +12,7 @@ export default class emo extends Enemigos {
     this.fisicas = f;
     this.xDirection = -1; //empezamos a la izq
     if(!this.fisicas){
-      this.ataque1 = new Ataque(this.scene, -1, 100, 0, 2, true, null,null, null); //menos prioritario       
+      this.ataque1 = new Ataque(this.scene, -1, 1, 0, 2, true, null,null, null); //menos prioritario       
       this.ataque2 = new Ataque(this.scene, 1, -10, 2, 1, true, null,null, null); //curacion 
       this.ataque3 = new Ataque(this.scene, -1, 15, 3, 0, false, null,null, null);
       this.listaAtaques = this.scene.add.group();

@@ -87,6 +87,82 @@ export default class Callao extends Phaser.Scene {
             this.scene.start('GranVia', {x: 2900,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
         });
 
+
+        //PARA DESPUES DE CADA COMBATE QUE SE ACTUALICE LA VIDA
+        let auxthis = this;
+        this.events.on('resume',function(esc,data){
+            if(!data.dialogo){
+                //si ha perdido, fin del juego
+                if(data.losed){
+                    auxthis.scene.start('gameover', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+                }
+                else{//sino, actualizamos vida
+                    let changePlayer = false;
+                    for(let i=0; i<3; i++){
+                        if(eval("auxthis.animal"+(i+1)+".getName()") != "."){ //si hay un animal, le asignamos la vida que le queda
+                            let auxVida = eval("data.animal"+(i+1)+"Vida");
+                            eval("auxthis.animal"+(i+1)+".setVida(auxVida)");
+                            eval("auxthis.animal"+(i+1)+".barra.setHealth(auxVida)");
+                            //if(auxVida === 0) eval("auxthis.animal"+(i+1)+".setActive(false)");
+                            if(auxthis.player.getName() === eval("auxthis.animal"+(i+1)+".getName()") && auxVida === 0) changePlayer = true;
+                        }
+                        
+                    }
+                    if(changePlayer){
+                        let changed = false;
+                        auxthis.listaAnimales.children.each(animal =>{
+                            if(animal.vida > 0 && !changed){
+                                let auxX = auxthis.player.getX();
+                                let auxY = auxthis.player.getY();
+                                
+                                auxthis.player.body.enable=false; //quitamos el animal actual
+                                auxthis.player.setActive(false).setVisible(false); 
+                                auxthis.player.barraVisible(false);
+                                
+                                auxthis.player = animal; //cambiamos al nuevo
+                                auxthis.player.setPosition(auxX,auxY);
+                                
+                                auxthis.player.setActive(true).setVisible(true); //hacemos visible el nuevo
+                                auxthis.player.body.enable=true;
+                                auxthis.player.barraVisible(true);
+
+                                changed = true;
+                            }
+                        });
+                    }
+                }
+            }
+       });
+       //////////////////////////////////////////////////////////////////
+
+        /* EVENTO MAPACHE */
+        let tenemosMapache = false;
+        this.listaAnimales.children.each(animal => {
+            if(animal.getName() === "Mapache"){
+                tenemosMapache = true;
+            }
+        });
+
+
+        this.eventoDisponible = false;
+        if(!tenemosMapache){ //Solamente se podrá crear el evento si no tenemos el Mapache en el equipo
+            //Si se pasa cierta zona del mapa, empieza el evento
+            let colisionEvento = this.add.zone(515,560,20,80);
+            this.physics.world.enable(colisionEvento);
+            colisionEvento.body.setAllowGravity(false);
+            this.physics.add.overlap(this.listaAnimales.getChildren(),colisionEvento,()=>{
+                //Dialogo del Mapache pidiendo ayuda
+                //Dialogo de los "fotografos" pidiéndole al Mapache que pose y gritándole monerías
+                //Dialogo del gato diciendo: "Hmm debería ayudar a ese mapache"
+                //Si se pulsa "q" empieza la pelea
+                //Llamar al método eventoMapache
+                this.scene.pause();
+                this.scene.launch('dialogo', {nombreJSON: 'eventoMapache1.json', prevScene:'Callao'});
+                this.eventoDisponible = true;
+                colisionEvento.destroy();
+            });
+        }
+
         
     }
     update(t, dt){
@@ -162,6 +238,12 @@ export default class Callao extends Phaser.Scene {
         }
         else this.feedback.text = "";
 
+        /* EVENTO MAPACHE */
+        if(Phaser.Input.Keyboard.JustDown(this.keyE) && this.eventoDisponible){
+            this.eventoMapache();
+            this.eventoDisponible = false;
+        }
+
 
     }
     configureCamera(){
@@ -173,4 +255,17 @@ export default class Callao extends Phaser.Scene {
         this.physics.world.setBounds(xIni,yIni,xSize,ySize,true,true,true,true) //Tamaño de la escena
         //this.c.startFollow(this.player);
     }
+
+    eventoMapache(){
+        
+        //Crear el mapache
+        this.animal2 = new Mapache(this, this.player.x, this.player.y,true);
+        this.listaAnimales.add(this.animal2);
+        this.animal2.setActive(false).setVisible(false);
+        this.animal2.barraVisible(false);
+        //Pelea contra 3 emos Gato + Mapache
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'GranVia'});
+        //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
+    }
+
 }

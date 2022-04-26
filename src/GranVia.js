@@ -158,33 +158,6 @@ export default class GranVia extends Phaser.Scene {
        });
        //////////////////////////////////////////////////////////////////
 
-        /* EVENTO MAPACHE */
-        let tenemosMapache = false;
-        this.listaAnimales.children.each(animal => {
-            if(animal.getName() === "Mapache"){
-                tenemosMapache = true;
-            }
-        });
-
-
-        this.eventoDisponible = false;
-        if(!tenemosMapache){ //Solamente se podrá crear el evento si no tenemos el Mapache en el equipo
-            //Si se pasa cierta zona del mapa, empieza el evento
-            let colisionEvento = this.add.zone(2750,1100,20,300);
-            this.physics.world.enable(colisionEvento);
-            colisionEvento.body.setAllowGravity(false);
-            this.physics.add.overlap(this.listaAnimales.getChildren(),colisionEvento,()=>{
-                //Dialogo del Mapache pidiendo ayuda
-                //Dialogo de los "fotografos" pidiéndole al Mapache que pose y gritándole monerías
-                //Dialogo del gato diciendo: "Hmm debería ayudar a ese mapache"
-                //Si se pulsa "q" empieza la pelea
-                //Llamar al método eventoMapache
-                this.scene.pause();
-                this.scene.launch('dialogo', {nombreJSON: 'eventoMapache1.json', prevScene:'GranVia'});
-                this.eventoDisponible = true;
-                colisionEvento.destroy();
-            });
-        }
 
 
     }
@@ -310,12 +283,6 @@ export default class GranVia extends Phaser.Scene {
         }
         else this.feedback.text = "";
 
-        /* EVENTO MAPACHE */
-        if(Phaser.Input.Keyboard.JustDown(this.keyE) && this.eventoDisponible){
-            this.eventoMapache();
-            this.eventoDisponible = false;
-        }
-
     }
     configureCamera(){
         this.c = this.cameras.main;
@@ -382,18 +349,6 @@ export default class GranVia extends Phaser.Scene {
         let rand = Phaser.Math.Between(1, 2); //1 o 2 enemigos
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: rand, tipoEnemigo: nombre, escena:'GranVia'});
         this.scene.pause();
-    }
-
-    eventoMapache(){
-        
-        //Crear el mapache
-        this.animal2 = new Mapache(this, this.player.x, this.player.y,true);
-        this.listaAnimales.add(this.animal2);
-        this.animal2.setActive(false).setVisible(false);
-        this.animal2.barraVisible(false);
-        //Pelea contra 3 emos Gato + Mapache
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'GranVia'});
-        //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
     }
 
 }
