@@ -57,10 +57,7 @@ export default class Batalla extends Phaser.Scene {
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-        this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
-
-        this.pointer = this.input.activePointer;
-        
+        this.keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);        
         
         
         this.feedback = this.add.text(600,400,"", { font: "20px Verdana"});
@@ -101,7 +98,6 @@ export default class Batalla extends Phaser.Scene {
                 this.atacado = false;
                 
                 this.anim.eliminarAtaques();
-                this.pointer.active = false;
                 
                 if(this.i+1 >= this.listaAnimales.getLength()) this.i = 0;
                 else this.i++;
