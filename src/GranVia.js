@@ -81,7 +81,7 @@ export default class GranVia extends Phaser.Scene {
         this.feedback.setScrollFactor(0,0).setDepth(101);
 
 
-        let toTuto = this.add.zone(0,0,10,5000);
+        let toTuto = this.add.zone(0,1000,10,500);
         this.physics.world.enable(toTuto);
         toTuto.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toTuto,()=>{
@@ -103,7 +103,7 @@ export default class GranVia extends Phaser.Scene {
         toCallaoB.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoB,()=>{
             this.scene.pause();
-            this.scene.start('GranVia', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(),flip:true});
+            this.scene.start('Callao', {x: 100,y: 500, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(),flip:true});
         })
 
 
