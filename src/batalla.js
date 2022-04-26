@@ -262,8 +262,8 @@ export default class Batalla extends Phaser.Scene {
 
                         }
                         this.feedback.text += "\n";
-                        numEnem++;
                     }
+                    numEnem++;
                 });                
             }
         }

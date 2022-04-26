@@ -39,7 +39,7 @@ export default class Callao extends Phaser.Scene {
                  this.animal.barra.getBar().setDepth(100);
                  this.animal.label.setDepth(100);               
                  this.animal.barra.setHealth(vidaAux);
-
+                this.animal.setScale(0.5,0.5);
                  //si no es el animal que estabamos usando en la escena anterior, lo hacemos no visible
                  if(this.animal.getName() != data.actual) {
                     this.animal.setActive(false).setVisible(false); 
@@ -264,7 +264,7 @@ export default class Callao extends Phaser.Scene {
         this.animal2.setActive(false).setVisible(false);
         this.animal2.barraVisible(false);
         //Pelea contra 3 emos Gato + Mapache
-        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'GranVia'});
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'Callao'});
         //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
     }
 
