@@ -94,6 +94,11 @@ export default class Batalla extends Phaser.Scene {
     update(t,dt){
         super.update(t,dt);
         if(this.turn === 0){
+            this.listaMalos.children.each(malo => { //se pueden clickar enemigos
+                if(malo.active) {
+                    malo.alpha = 0.7;
+                }
+            }); 
             if(this.atacado){
                 this.atacado = false;
                 
@@ -168,6 +173,7 @@ export default class Batalla extends Phaser.Scene {
             this.listaMalos.children.each(malo => { //se pueden clickar enemigos
                 malo.setInteractive();
                 if(malo.active) {
+                    malo.alpha = 1;
                     malo.on('pointerover', () => {malo.flechaVisible(true);});
                     malo.on('pointerout', () => {malo.flechaVisible(false);}); 
                 }
