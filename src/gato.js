@@ -26,9 +26,9 @@ export default class Gato extends Animales {
     }
     
     crearAtaques(){
-        this.ataque1 = new Ataque(this.scene, 1, 15, 0, 0, false, 'zarpazo',90, 430).setInteractive();            
-            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'elAfilador', 190, 430).setInteractive();
-            this.ataque3 = new Ataque(this.scene, 1, 100, 0, 0, false, 'sangrado',290,430).setInteractive();
+        this.ataque1 = new Ataque(this.scene, 1, 15, 0, 0, false, false, 'zarpazo',90, 430).setInteractive();            
+            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, false, 'elAfilador', 190, 430).setInteractive();
+            this.ataque3 = new Ataque(this.scene, 1, 100, 0, 0, false, false, 'sangrado',290,430).setInteractive();
             this.listaAtaques = this.scene.add.group();
             this.listaAtaques.add(this.ataque1);
             this.listaAtaques.add(this.ataque2);

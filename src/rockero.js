@@ -12,9 +12,9 @@ export default class Rockero extends Enemigos {
     this.cd = 2000;
     this.cA = 0;
     if(!this.fisicas){
-      this.ataque1 = new Ataque(this.scene, -1, 1, 0, 2, false, null,null, null); //menos prioritario       
-      this.ataque2 = new Ataque(this.scene, 1, -10, 2, 1, false, null,null, null); //curacion 
-      this.ataque3 = new Ataque(this.scene, -1, 15, 3, 0, false, null,null, null);
+      this.ataque1 = new Ataque(this.scene, -1, 4, 0, 2, true, false, null,null, null); //menos prioritario       
+      this.ataque2 = new Ataque(this.scene, -1, 0, 2, 1, false, true, null,null, null); //curacion 
+      this.ataque3 = new Ataque(this.scene, -1, 15, 3, 0, false, false, null,null, null);
       this.listaAtaques = this.scene.add.group();
       this.listaAtaques.add(this.ataque1);
       this.listaAtaques.add(this.ataque2);

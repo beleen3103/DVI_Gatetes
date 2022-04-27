@@ -115,58 +115,69 @@ export default class Batalla extends Phaser.Scene {
                 
                 this.a = null;
             }
-            this.click = true;
+            if(this.anim.stuneado === false){
+                this.click = true;
 
-            this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
-                ataque.on('pointerover', () => {ataque.cuadradoVisible(true)});
-                ataque.on('pointerout', () => {ataque.cuadradoVisible(false)});
-                ataque.on('pointerdown', () => {
-                    if(this.a === null) this.a = ataque; //si seleccionas un ataque ya no puedes cambiar
+                this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
+                    ataque.on('pointerover', () => {ataque.cuadradoVisible(true)});
+                    ataque.on('pointerout', () => {ataque.cuadradoVisible(false)});
+                    ataque.on('pointerdown', () => {
+                        if(this.a === null) this.a = ataque; //si seleccionas un ataque ya no puedes cambiar
+                    });
                 });
-            });
             
-            if(this.a != null){
-                if(this.a.getTarget() === 1 && !this.a.esBarrido()){
-                    if(this.click){
-                    this.turn = 1;
-                    this.atacado = true;
-                    this.click = false;   
+                if(this.a != null){
+                    if(this.a.getTarget() === 1 && !this.a.esBarrido()){
+                        if(this.click){
+                        this.turn = 1;
+                        this.atacado = true;
+                        this.click = false;   
                     
-                    }                   
-                }
-                else if(this.a.getTarget() != 1){//curacion
-                    if(this.click){
-                        if(!this.a.esBarrido()) {
-                            this.a.attack(this.anim);
-                            this.damage.setFontSize(20);
-                            this.damage.text = "+"+ Math.abs(this.a.damage) + "!";
-                            this.damage.setPosition(this.anim.x-10, this.anim.y-150);
+                        }                   
+                    }
+                    else if(this.a.getTarget() != 1){//curacion
+                        if(this.click){
+                            if(!this.a.esBarrido()) {
+                                this.a.attack(this.anim);
+                                this.damage.setFontSize(20);
+                                this.damage.text = "+"+ Math.abs(this.a.damage) + "!";
+                                this.damage.setPosition(this.anim.x-10, this.anim.y-150);
+                            }
+                            else {
+                                this.a.attack(this.listaAnimales);
+                                this.damage.setFontSize(80);
+                                this.damage.text = "+" + Math.abs(this.a.damage) + "!";
+                                this.damage.setPosition(400, 50);
+                            }
+                            if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
+                            this.atacado = true;
+                            this.click = false;
+                        
                         }
-                        else {
-                            this.a.attack(this.listaAnimales);
+                    }
+                    else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
+                        if(this.click){
+                            this.a.attack(this.listaMalos);
+                            if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
+                            this.atacado = true;
+                            this.click = false;
                             this.damage.setFontSize(80);
-                            this.damage.text = "+" + Math.abs(this.a.damage) + "!";
+                            this.damage.text = "-" + this.a.damage + "!";
                             this.damage.setPosition(400, 50);
                         }
-                        if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
-                        this.atacado = true;
-                        this.click = false;
-                        
                     }
-                }
-                else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
-                    if(this.click){
-                        this.a.attack(this.listaMalos);
-                        if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
-                        this.atacado = true;
-                        this.click = false;
-                        this.damage.setFontSize(80);
-                        this.damage.text = "-" + this.a.damage + "!";
-                        this.damage.setPosition(400, 50);
-                    }
-                }
                 
-                this.auxDT = 0;
+                    this.auxDT = 0;
+                }
+
+            }
+            else {
+                this.auxDT++;
+                if(this.auxDT >= 2000){
+                    this.auxDT = 0;
+                    this.anim.stuneado = false;
+                    this.turn = 2;
+                }
             }
             
         }
@@ -200,8 +211,7 @@ export default class Batalla extends Phaser.Scene {
                     }
                 });
             
-        }
-        
+        }  
         else{
             this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
                 ataque.cuadradoVisible(false);
@@ -256,6 +266,9 @@ export default class Batalla extends Phaser.Scene {
                             if(!this.ataqueMalo.esBarrido()) {
                                 this.damage.text += Math.abs(this.ataqueMalo.damage)+"!";
                                 this.damage.setPosition(this.target.x-10, this.target.y-150);
+                                if(this.ataqueMalo.esStun()){
+                                    this.damage.text += " y ha stuneado"
+                                }
                             }
                             else{   
                                 this.damage.setFontSize(80);
@@ -264,6 +277,9 @@ export default class Batalla extends Phaser.Scene {
                             }
                             this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido(), curacion);
                             this.ataqueMalo.attack(this.target);
+                            if(this.ataqueMalo.esStun()){
+                                this.target.stuneado = true;
+                            }
                         }
                         else{
                             this.feedback.text += "¡El " + malo.getName();

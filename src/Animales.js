@@ -7,6 +7,7 @@ export default class Animales extends Personajes {
         this.flipX = true;
         this.move = false;
         this.parar = false;
+        this.stuneado = false;
         
         if(this.fisicas){
             this.cursors = this.scene.input.keyboard.createCursorKeys();

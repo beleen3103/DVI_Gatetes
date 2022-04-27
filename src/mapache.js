@@ -28,9 +28,9 @@ export default class Mapache extends Animales {
     }
 
     crearAtaques(){
-        this.ataque1 = new Ataque(this.scene, 1, 10, 0, 0, false, 'mordisco',90, 430).setInteractive();
-            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, 'curacion', 190, 430).setInteractive();
-            this.ataque3 = new Ataque(this.scene, 1, 50, 0, 0, true, 'cola',290, 430).setInteractive(); //Cambiar daño a 15
+        this.ataque1 = new Ataque(this.scene, 1, 10, 0, 0, false, false, 'mordisco',90, 430).setInteractive();
+            this.ataque2 = new Ataque(this.scene, -1, -10, 0 , 0, false, false, 'curacion', 190, 430).setInteractive();
+            this.ataque3 = new Ataque(this.scene, 1, 50, 0, 0, true, false, 'cola',290, 430).setInteractive(); //Cambiar daño a 15
             this.listaAtaques = this.scene.add.group();
             this.listaAtaques.add(this.ataque1);
             this.listaAtaques.add(this.ataque2);
