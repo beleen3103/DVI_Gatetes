@@ -14,7 +14,7 @@ export default class Batalla extends Phaser.Scene {
     init(data){
         this.mainScene = this.scene.get("sceneA name");
         this.escena = data.escena; //nomre de la escena a la que volver
-        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1);
+        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1).setDepth(-2);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
         this.numEnemigos = data.numEnemigos;
         this.tipoEnemigo = data.tipoEnemigo;
@@ -118,6 +118,8 @@ export default class Batalla extends Phaser.Scene {
             this.click = true;
 
             this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
+                ataque.on('pointerover', () => {ataque.cuadradoVisible(true)});
+                ataque.on('pointerout', () => {ataque.cuadradoVisible(false)});
                 ataque.on('pointerdown', () => {
                     if(this.a === null) this.a = ataque; //si seleccionas un ataque ya no puedes cambiar
                 });
@@ -201,6 +203,9 @@ export default class Batalla extends Phaser.Scene {
         }
         
         else{
+            this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
+                ataque.cuadradoVisible(false);
+            });
             this.auxDT += dt;
             if(this.auxDT >= 2000) {
                 this.turn = 0;

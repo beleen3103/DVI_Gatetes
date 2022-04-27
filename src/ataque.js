@@ -10,6 +10,8 @@ constructor (scene, target, damage, cooldown, priority, barrido, sprite, x, y){ 
     this.target = target;
     this.damage = damage;
     this.scene.add.existing(this);
+    this.cuadrado = scene.add.image(x,y, 'cuadrado').setVisible(false);
+    this.cuadrado.setDepth(-1);
 
     this.nombreAtaque = this.scene.add.text(x-35, y+40,sprite,{font: "15px Verdana"})
 }
@@ -46,5 +48,9 @@ attack(objetivo){
         });
     }
 }
+
+cuadradoVisible(visible){  
+      this.cuadrado.setVisible(visible);
+  }
 
 }
