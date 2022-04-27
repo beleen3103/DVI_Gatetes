@@ -166,8 +166,11 @@ export default class Batalla extends Phaser.Scene {
         else if(this.turn === 1){ //seleccion de enemigo si es necesario
             this.click = true;
             this.listaMalos.children.each(malo => { //se pueden clickar enemigos
-               if(malo.active) malo.flechaVisible(true);
                 malo.setInteractive();
+                if(malo.active) {
+                    malo.on('pointerover', () => {malo.flechaVisible(true);});
+                    malo.on('pointerout', () => {malo.flechaVisible(false);}); 
+                }
             });  
                 this.listaMalos.children.each(malo => {
                     if(!malo.isDead()){
