@@ -60,6 +60,8 @@ export default class Callao extends Phaser.Scene {
     preload(){
         this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
         this.load.image('plataformas', 'assets/sprites/tiles.png');
+        this.load.image('mapacheEvento','assets/sprites/mapacheEvento.png');
+        this.load.image('emo','assets/sprites/emo.png');
     }
     
     create() {
@@ -147,9 +149,16 @@ export default class Callao extends Phaser.Scene {
         this.eventoDisponible = false;
         if(!tenemosMapache){ //Solamente se podrá crear el evento si no tenemos el Mapache en el equipo
             //Si se pasa cierta zona del mapa, empieza el evento
-            let colisionEvento = this.add.zone(515,560,20,80);
+            let colisionEvento = this.add.zone(500,560,20,80);
             this.physics.world.enable(colisionEvento);
             colisionEvento.body.setAllowGravity(false);
+            this.mapacheEvento = this.add.image(610, 557, 'mapacheEvento').setOrigin(0).setScale(0.5);
+            this.emo1 = this.add.image(500, 500, 'emo').setOrigin(0).setScale(0.5);
+            this.emo2 = this.add.image(560, 500, 'emo').setOrigin(0).setScale(0.5);
+            this.emo3 = this.add.image(670, 500, 'emo').setOrigin(0).setScale(0.5);
+            this.emo1.flipX = true;
+            this.emo2.flipX = true;
+            
             this.physics.add.overlap(this.listaAnimales.getChildren(),colisionEvento,()=>{
                 //Dialogo del Mapache pidiendo ayuda
                 //Dialogo de los "fotografos" pidiéndole al Mapache que pose y gritándole monerías
@@ -264,6 +273,10 @@ export default class Callao extends Phaser.Scene {
         this.animal2.setActive(false).setVisible(false);
         this.animal2.barraVisible(false);
         this.animal2.setScale(0.5,0.5);
+        this.mapacheEvento.setActive(false).setVisible(false);
+        this.emo1.setActive(false).setVisible(false);
+        this.emo2.setActive(false).setVisible(false);
+        this.emo3.setActive(false).setVisible(false);
         //Pelea contra 3 emos Gato + Mapache
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'Callao'});
         //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
