@@ -6,6 +6,7 @@ import Rock from './rockero.js';
 import Gato from './gato.js';
 import Animales from './Animales.js';
 import Dialogo from "./dialogo.js";
+import Dron from './dron.js';
 
 export default class GranVia extends Phaser.Scene {
     
@@ -117,7 +118,7 @@ export default class GranVia extends Phaser.Scene {
             if(!data.dialogo){
                 //si ha perdido, fin del juego
                 if(data.losed){
-                    auxthis.scene.start('gameover', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+                    auxthis.scene.start('gameover');
                 }
                 else{//sino, actualizamos vida
                     let changePlayer = false;
@@ -282,6 +283,7 @@ export default class GranVia extends Phaser.Scene {
             this.auxDT+=dt;
         }
         else this.feedback.text = "";
+        
 
     }
     configureCamera(){
@@ -323,6 +325,8 @@ export default class GranVia extends Phaser.Scene {
     createEnemies(){
         new Rock(this, this.listaAnimales,null, 1600, 1170, true); //1-2 Enemigos en combate
         new Npc(this, this.listaAnimales.getChildren(), 2160, 1620, 1200, true); //1-2 Enemigos en combate
+        new Dron(this, 2200,330, 300, 'flecha', this.listaAnimales);
+
     }
     // Sobrará
     createPlatforms(){

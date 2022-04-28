@@ -116,7 +116,7 @@ export default class Tutorial extends Phaser.Scene {
                     auxthis.cameras.main.fadeOut(1000, 0, 0, 0);
 
                     auxthis.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                    auxthis.scene.start('gameover', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+                    auxthis.scene.start('gameover');
                     });
                 }
                 else{//sino, actualizamos vida
