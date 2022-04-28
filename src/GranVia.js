@@ -6,7 +6,6 @@ import Rock from './rockero.js';
 import Gato from './gato.js';
 import Animales from './Animales.js';
 import Dialogo from "./dialogo.js";
-import Dron from './dron.js';
 
 export default class GranVia extends Phaser.Scene {
     
@@ -18,6 +17,7 @@ export default class GranVia extends Phaser.Scene {
         //posicion del animal
         this.x = data.x;
         this.y = data.y;
+        this.move = false;
 
         //lista de animales que tenemos disponibles
         this.listaAnimales = this.add.group();
@@ -64,9 +64,6 @@ export default class GranVia extends Phaser.Scene {
     }
     
     create() {
-
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
-
         this.add.image(0, 0, 'granviaB').setOrigin(0).setScale(1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
         this.player.setDepth(100);  // Personaje por delante de los objetos
@@ -82,7 +79,7 @@ export default class GranVia extends Phaser.Scene {
         this.feedback.setScrollFactor(0,0).setDepth(101);
 
 
-        let toTuto = this.add.zone(0,1000,10,500);
+        let toTuto = this.add.zone(0,0,10,5000);
         this.physics.world.enable(toTuto);
         toTuto.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toTuto,()=>{
@@ -104,7 +101,7 @@ export default class GranVia extends Phaser.Scene {
         toCallaoB.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoB,()=>{
             this.scene.pause();
-            this.scene.start('Callao', {x: 100,y: 500, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(),flip:true});
+            this.scene.start('GranVia', {x: 100,y: 1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(),flip:true});
         })
 
 
@@ -117,9 +114,7 @@ export default class GranVia extends Phaser.Scene {
         this.events.on('resume',function(esc,data){
             if(!data.dialogo){
                 //si ha perdido, fin del juego
-                if(data.losed){
-                    auxthis.scene.start('gameover');
-                }
+                if(data.losed){}
                 else{//sino, actualizamos vida
                     let changePlayer = false;
                     for(let i=0; i<3; i++){
@@ -159,6 +154,33 @@ export default class GranVia extends Phaser.Scene {
        });
        //////////////////////////////////////////////////////////////////
 
+        /* EVENTO MAPACHE */
+        let tenemosMapache = false;
+        this.listaAnimales.children.each(animal => {
+            if(animal.getName() === "Mapache"){
+                tenemosMapache = true;
+            }
+        });
+
+
+        this.eventoDisponible = false;
+        if(!tenemosMapache){ //Solamente se podrá crear el evento si no tenemos el Mapache en el equipo
+            //Si se pasa cierta zona del mapa, empieza el evento
+            let colisionEvento = this.add.zone(2750,1100,20,300);
+            this.physics.world.enable(colisionEvento);
+            colisionEvento.body.setAllowGravity(false);
+            this.physics.add.overlap(this.listaAnimales.getChildren(),colisionEvento,()=>{
+                //Dialogo del Mapache pidiendo ayuda
+                //Dialogo de los "fotografos" pidiéndole al Mapache que pose y gritándole monerías
+                //Dialogo del gato diciendo: "Hmm debería ayudar a ese mapache"
+                //Si se pulsa "q" empieza la pelea
+                //Llamar al método eventoMapache
+                this.scene.pause();
+                this.scene.launch('dialogo', {nombreJSON: 'eventoMapache1.json', prevScene:'GranVia'});
+                this.eventoDisponible = true;
+                colisionEvento.destroy();
+            });
+        }
 
 
     }
@@ -181,18 +203,31 @@ export default class GranVia extends Phaser.Scene {
                     if(this.player.getName() === 'Gato')
                     this.physics.overlap(this.player,o,()=>{
                         if(this.player.keyW.isDown)  {
-                            this.player.body.velocity.y = -300/2;
+                            this.player.body.velocity.y = -300 / 2;
+                            if (!this.move || this.auxDT >= 6000) {
+                                this.auxDT = 0;
+                                this.player.play('trepa');
+                                this.move = true;
+                            }
                         }
                         else if(this.player.keyS.isDown) {
-                            this.player.body.velocity.y = 300/2;
+                            this.player.body.velocity.y = 300 / 2;
+                            if (!this.move || this.auxDT >= 6000) {
+                                this.auxDT = 0;
+                                this.player.play('trepa');
+                                this.move = true;
+                            }
                         }
                         else if((!this.player.keyW.isDown && !this.player.keyS.isDown)) {
                           this.player.body.gravity.y = 0;
-                          this.player.body.velocity.y = 0;
+                            this.player.body.velocity.y = 0;
+                            this.move = false;
                         }
+                        
                     });
                 break;
             };
+            this.auxDT += dt;
         })
         //PLATAFORMAS TILE
         this.capa.forEachTile(tile=>{ 
@@ -283,7 +318,12 @@ export default class GranVia extends Phaser.Scene {
             this.auxDT+=dt;
         }
         else this.feedback.text = "";
-        
+
+        /* EVENTO MAPACHE */
+        if(Phaser.Input.Keyboard.JustDown(this.keyE) && this.eventoDisponible){
+            this.eventoMapache();
+            this.eventoDisponible = false;
+        }
 
     }
     configureCamera(){
@@ -323,10 +363,8 @@ export default class GranVia extends Phaser.Scene {
         }
     }
     createEnemies(){
-        new Rock(this, this.listaAnimales,null, 1600, 1170, true); //1-2 Enemigos en combate
+        new Rock(this, this.listaAnimales, 1600, 1170, true); //1-2 Enemigos en combate
         new Npc(this, this.listaAnimales.getChildren(), 2160, 1620, 1200, true); //1-2 Enemigos en combate
-        new Dron(this, 2200,330, 300, 'flecha', this.listaAnimales);
-
     }
     // Sobrará
     createPlatforms(){
@@ -353,6 +391,18 @@ export default class GranVia extends Phaser.Scene {
         let rand = Phaser.Math.Between(1, 2); //1 o 2 enemigos
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: rand, tipoEnemigo: nombre, escena:'GranVia'});
         this.scene.pause();
+    }
+
+    eventoMapache(){
+        
+        //Crear el mapache
+        this.animal2 = new Mapache(this, this.player.x, this.player.y,true);
+        this.listaAnimales.add(this.animal2);
+        this.animal2.setActive(false).setVisible(false);
+        this.animal2.barraVisible(false);
+        //Pelea contra 3 emos Gato + Mapache
+        this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'GranVia'});
+        //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
     }
 
 }

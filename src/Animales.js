@@ -11,8 +11,8 @@ export default class Animales extends Personajes {
         
         if(this.fisicas){
             this.cursors = this.scene.input.keyboard.createCursorKeys();
-            this.body.setSize(80,65,true);
-            //this.label = this.scene.add.text(10, 10, "");
+            this.body.setSize(80, 65, true);
+            if (this.name === 'Gato') this.body.offset.y = 80;
             this.label = this.scene.add.text(160, 40, "");
             this.barra = new Barra(scene, 50, 40, this.vida);
             this.label.setScrollFactor(0,0).setDepth(100);

@@ -3,7 +3,7 @@ import Ataque from './ataque.js';
 export default class Gato extends Animales {
     constructor(scene, x, y, f) {
         super(scene, x, y, f, 'Gato', 100, 300, -600);
-        this.scene = scene;
+        this.scene = scene;     
         
         this.anims.create({
             key: 'andar',
@@ -21,6 +21,12 @@ export default class Gato extends Animales {
             key: 'levantarse',
             frames: this.anims.generateFrameNumbers('Gato', { start: 5, end: 5 }),
             frameRate: 20,
+            repeat: 0
+        })
+        this.anims.create({
+            key: 'trepa',
+            frames: this.anims.generateFrameNumbers('Gato', { start: 6, end: 11 }),
+            frameRate: 12,
             repeat: 0
         })
     }
