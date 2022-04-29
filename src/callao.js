@@ -81,10 +81,10 @@ export default class Callao extends Phaser.Scene {
         this.feedback.setScrollFactor(0,0).setDepth(101);
 
 
-        let toTuto = this.add.zone(0,300,10,600);
-        this.physics.world.enable(toTuto);
-        toTuto.body.setAllowGravity(false);
-        this.physics.add.overlap(this.listaAnimales.getChildren(),toTuto,()=>{
+        this.toTuto = this.add.zone(0,300,10,600);
+        this.physics.world.enable(this.toTuto);
+        this.toTuto.body.setAllowGravity(false);
+        this.physics.add.overlap(this.listaAnimales.getChildren(),this.toTuto,()=>{
             this.scene.pause();
             this.scene.start('GranVia', {x: 2900,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
         });
@@ -149,7 +149,7 @@ export default class Callao extends Phaser.Scene {
         this.eventoDisponible = false;
         if(!tenemosMapache){ //Solamente se podrá crear el evento si no tenemos el Mapache en el equipo
             //Si se pasa cierta zona del mapa, empieza el evento
-            let colisionEvento = this.add.zone(500,560,20,80);
+            let colisionEvento = this.add.zone(420,490,20,220);
             this.physics.world.enable(colisionEvento);
             colisionEvento.body.setAllowGravity(false);
             this.mapacheEvento = this.add.image(610, 557, 'mapacheEvento').setOrigin(0).setScale(0.5);
@@ -170,9 +170,21 @@ export default class Callao extends Phaser.Scene {
                 this.eventoDisponible = true;
                 colisionEvento.destroy();
             });
+
+            //Overlap Entrar Evento Mapache
+            let dialogoEvento = this.add.zone(605,550,200,100);
+            this.physics.world.enable(dialogoEvento);
+            dialogoEvento.body.setAllowGravity(false);
+
+            this.physics.add.overlap(this.listaAnimales.getChildren(),dialogoEvento, ()=>{
+                this.scene.launch('dialogo', {nombreJSON: 'eventoMapache2.json', prevScene:'Callao'});
+                this.scene.pause();
+                dialogoEvento.destroy();
+                // this.scene.launch('dialogo', {nombreJSON: 'eventoMapache2.json', prevScene:'Callao'});
+            });
         }
 
-        
+    
     }
     update(t, dt){
         this.c.startFollow(this.player);
@@ -277,6 +289,7 @@ export default class Callao extends Phaser.Scene {
         this.emo1.setActive(false).setVisible(false);
         this.emo2.setActive(false).setVisible(false);
         this.emo3.setActive(false).setVisible(false);
+        this.eventoDisponible = false;
         //Pelea contra 3 emos Gato + Mapache
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'Callao'});
         //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".

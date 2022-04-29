@@ -1,0 +1,33 @@
+{
+    "length":6,
+    "1":
+    {
+        "animal":"mapache",
+        "texto":"Estos pesados me tienen hasta la pinga. Venga hacerme fotos y fotos..."
+    },
+    "2":
+    {
+        "animal":"mapache",
+        "texto":"Yo solo no puedo con ellos, pero si unimos fuerzas seguro que podemos vencerles"
+    },
+    "3":
+    {
+        "animal":"mapache",
+        "texto":"Te devolveré el favor como quieras...Qué me dices...¿le damos?"
+    },
+    "4":
+    {
+        "animal":"gato",
+        "texto":"(Realmente tampoco parecen para tanto...no pierdo nada ayudándolo)"
+    },
+    "5":
+    {
+        "animal":"gato",
+        "texto":"Venga va, pero no me lo dejes todo a mí"
+    },
+    "6":
+    {
+        "animal":"none",
+        "texto":"Pulsa E al lado del Mapache para entrar al combate"
+    }
+}
