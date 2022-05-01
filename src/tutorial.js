@@ -209,22 +209,7 @@ export default class Tutorial extends Phaser.Scene {
         this.auxDT = 0;
         this.auxDTbasura = 0;
     }
-    
-    /*rebuscar(index){
-        let frases = [];
-
-      /*  if(this.name === "GranVia"){
-            frases.push("una máscara de león");
-        }*/
-/*
-        frases.push("una lata de refresco vacía.");
-        frases.push("una camiseta rota.");
-        frases.push("unos restos de carne. \nEfectivamente, se los ha comido.");
-        frases.push("un calcetín sucio.");
-        let rand = Phaser.Math.Between(0, frases.length-1);
-        index = rand;
-        return "El mapache ha encontrado " + frases[rand];
-    }*/
+  
 
     update(t,dt){
 
