@@ -200,7 +200,11 @@ export default class Batalla extends Phaser.Scene {
                                 this.damage.setFontSize(20);
                                 this.damage.text = "-"+this.a.damage + "!";
                                 this.damage.setPosition(malo.x-10, malo.y-150);
-                                if(this.i+1 === this.listaAnimales.getLength()) this.turn = 2;
+                                if (this.i + 1 === this.listaAnimales.getLength() && this.a.contMulti === 0) this.turn = 2;
+                                else if (this.a.contMulti > 0) {
+                                    this.a.contMulti = this.a.contMulti - 1;
+                                    this.turn = 1;
+                                }
                                 else this.turn = 0;
                                 this.click = false;
                                 this.listaMalos.children.each(malo1 => { //ya no se pueden clickar

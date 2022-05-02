@@ -1,6 +1,6 @@
 export default class Ataque extends Phaser.GameObjects.Sprite{
 
-constructor (scene, target, damage, cooldown, priority, barrido, stunea, sprite, x, y){  //target = 1 enemigo, = -1 animal
+constructor (scene, target, damage, cooldown, priority, barrido, stunea, contMulti, sprite, x, y){  //target = 1 enemigo, = -1 animal
     //si el daño es negativo = curacion
     super(scene, x, y, sprite);
     this.cooldownIni = cooldown;
@@ -10,6 +10,7 @@ constructor (scene, target, damage, cooldown, priority, barrido, stunea, sprite,
     this.target = target;
     this.damage = damage;
     this.stunea = stunea;
+    this.contMulti = contMulti;
     this.scene.add.existing(this);
     this.cuadrado = scene.add.image(x,y, 'cuadrado').setVisible(false);
     this.cuadrado.setDepth(-1);
