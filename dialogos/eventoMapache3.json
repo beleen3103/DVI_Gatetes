@@ -1,0 +1,28 @@
+{
+    "length":5,
+    "1":
+    {
+        "animal":"mapache",
+        "texto":"¡UUUUFFF! Muchísimas gracias, me acabas de salvar la vida."
+    },
+    "2":
+    {
+        "animal":"mapache",
+        "texto":"Te seguiré donde quiera que vayas mi pana <3"
+    },
+    "3":
+    {
+        "animal":"gato",
+        "texto":"Bueno...supongo que un poco de ayuda no me iría mal"
+    },
+    "4":
+    {
+        "animal":"none",
+        "texto":"¡El Mapache se ha unido a tu equipo!"
+    },
+    "5":
+    {
+        "animal":"none",
+        "texto":"Usa las teclas '1' o '2' para cambiar de personaje en cualquier momento"
+    }
+}

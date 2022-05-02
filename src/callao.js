@@ -143,6 +143,7 @@ export default class Callao extends Phaser.Scene {
 
         /* EVENTO MAPACHE */
         let tenemosMapache = false;
+        this.mapacheSalvado = false;
         this.listaAnimales.children.each(animal => {
             if(animal.getName() === "Mapache"){
                 tenemosMapache = true;
@@ -186,6 +187,26 @@ export default class Callao extends Phaser.Scene {
                 dialogoEvento.destroy();
                 // this.scene.launch('dialogo', {nombreJSON: 'eventoMapache2.json', prevScene:'Callao'});
             });
+
+            let dialogoMapacheSalvado = this.add.zone(520,550,200,100);
+            this.physics.world.enable(dialogoMapacheSalvado);
+            dialogoMapacheSalvado.body.setAllowGravity(false);
+
+            this.physics.add.overlap(this.listaAnimales.getChildren(),dialogoMapacheSalvado, ()=>{
+                if(this.mapacheSalvado){
+                    this.scene.launch('dialogo', {nombreJSON: 'eventoMapache3.json', prevScene:'Callao'});
+                    this.scene.pause();
+                    dialogoMapacheSalvado.destroy();
+                    this.mapacheSalvado = false;
+                    // this.scene.launch('dialogo', {nombreJSON: 'eventoMapache2.json', prevScene:'Callao'});
+                }
+            });
+            
+
+
+
+
+
         }
 
     
@@ -267,6 +288,7 @@ export default class Callao extends Phaser.Scene {
         if(Phaser.Input.Keyboard.JustDown(this.keyE) && this.eventoDisponible){
             this.eventoMapache();
             this.eventoDisponible = false;
+            this.mapacheSalvado = true;
         }
 
 
@@ -298,6 +320,7 @@ export default class Callao extends Phaser.Scene {
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'Callao'});
         this.scene.pause();
         //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
+        this.mapacheSalvado = true;
     }
 
 }
