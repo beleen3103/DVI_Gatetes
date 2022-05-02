@@ -61,11 +61,18 @@ export default class Alcantarilla extends Phaser.Scene {
     preload(){
         this.load.tilemapTiledJSON('Alcantarilla','assets/sprites/Alcantarilla.json');
         this.load.image('plataformas', 'assets/sprites/alcantarillasTiles.png');
-        this.load.image('caja', 'assets/sprites/caja.png')
+        this.load.image('caja', 'assets/sprites/caja.png');
+
+        this.load.audio('musicaAlcantarilla', 'audio/DVI_Alcantarilla.ogg'); //Precargar el audio
     }
 
     create(){
         //this.add.image(800, 590,'caja');
+
+        this.musica = this.sound.add('musicaAlcantarilla');
+        this.musica.play({loop:true, volume:0.5});
+
+
         new Caja(this, this.listaAnimales, 970, 590);
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.createMap();
@@ -122,6 +129,7 @@ export default class Alcantarilla extends Phaser.Scene {
                             }
                         });
                     }
+                    auxthis.musica.resume();
                 }
             }
        });

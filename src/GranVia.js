@@ -66,11 +66,16 @@ export default class GranVia extends Phaser.Scene {
     preload(){
         this.load.tilemapTiledJSON('mapa','assets/sprites/mapa.json');
         this.load.image('plataformas', 'assets/sprites/tiles.png');
+        
+        this.load.audio('musicaGranVia', 'audio/DVI_01.ogg'); //Precargar el audio
     }
     
     create() {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.musica = this.sound.add('musicaGranVia');
+        this.musica.play({loop:true, volume:0.3});
 
         this.add.image(0, 0, 'granviaB').setOrigin(0).setScale(1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
@@ -93,6 +98,7 @@ export default class GranVia extends Phaser.Scene {
         this.physics.add.overlap(this.listaAnimales.getChildren(),toTuto,()=>{
             this.scene.pause();
             this.scene.start('tutorial', {x: 1800, y: 490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:false, first:false});
+            this.musica.stop();
         });
 
         let toCallaoA = this.add.zone(3000, 0, 10, 800);
@@ -101,7 +107,8 @@ export default class GranVia extends Phaser.Scene {
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoA,()=>{
             this.scene.pause();
             this.scene.start('GranVia', {x: 100,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
-        })
+            this.musica.stop();
+        });
 
 
         let toCallaoB = this.add.zone(3000,1000,10,800);
@@ -110,7 +117,8 @@ export default class GranVia extends Phaser.Scene {
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoB,()=>{
             this.scene.pause();
             this.scene.start('Callao', {x: 100,y: 500, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(),flip:true});
-        })
+            this.musica.stop();
+        });
 
 
 
@@ -159,6 +167,7 @@ export default class GranVia extends Phaser.Scene {
                             }
                         });
                     }
+                    auxthis.musica.resume();
                 }
             }
        });
@@ -376,6 +385,7 @@ export default class GranVia extends Phaser.Scene {
         let rand = Phaser.Math.Between(1, 2); //1 o 2 enemigos
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: rand, tipoEnemigo: nombre, escena:'GranVia'});
         this.scene.pause();
+        this.musica.pause();
     }
 
 }

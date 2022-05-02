@@ -66,11 +66,18 @@ export default class Callao extends Phaser.Scene {
         this.load.image('plataformas', 'assets/sprites/tiles.png');
         this.load.image('mapacheEvento','assets/sprites/mapacheEvento.png');
         this.load.image('emo','assets/sprites/emo.png');
+
+        this.load.audio('musicaCallao', 'audio/DVI_Callao.ogg'); //Precargar el audio
+
     }
     
     create() {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.musica = this.sound.add('musicaCallao');
+        this.musica.play({loop:true, volume:0.3});
+
 
         this.add.image(0, 50, 'callaoB').setOrigin(0).setScale(1.1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
@@ -80,6 +87,7 @@ export default class Callao extends Phaser.Scene {
         this.keyTwo = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         this.keyThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+
         
         this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
         this.feedback.setScrollFactor(0,0).setDepth(101);
@@ -91,6 +99,7 @@ export default class Callao extends Phaser.Scene {
         this.physics.add.overlap(this.listaAnimales.getChildren(),this.toTuto,()=>{
             this.scene.pause();
             this.scene.start('GranVia', {x: 2900,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
+            this.musica.stop();
         });
 
 
@@ -136,6 +145,7 @@ export default class Callao extends Phaser.Scene {
                             }
                         });
                     }
+                    auxthis.musica.resume();
                 }
             }
        });
@@ -319,6 +329,7 @@ export default class Callao extends Phaser.Scene {
         //Pelea contra 3 emos Gato + Mapache
         this.scene.launch('batalla', {numeroAnimales: this.listaAnimales.getLength(), animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, numEnemigos: 3, tipoEnemigo: "emo", escena: 'Callao'});
         this.scene.pause();
+        this.musica.pause();
         //Dialogo del Mapache diciendo: "Me has salvado. Te estoy eternamente agradecido. Me acoplo".
         this.mapacheSalvado = true;
     }
