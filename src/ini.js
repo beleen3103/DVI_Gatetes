@@ -15,7 +15,10 @@ export default class Ini extends Phaser.Scene {
         this.load.image('emo', 'emo.png');
         this.load.image('nota', 'nota.png');
         this.load.image('rockero', 'rockero.png');
-        this.load.image('basura','basura.png');
+        this.load.image('basura', 'basura.png');
+        this.load.image('quesito', 'quesito.png');
+        this.load.image('ratamuerde', 'ratamuerde.png');
+        this.load.image('multiAtaque', 'multi.png');
         this.load.image('cuadrado', 'blanco.png');
         this.load.spritesheet('Mapache', 'Mapache.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Gato', 'gato.png', { frameWidth: 150, frameHeight: 150 });
