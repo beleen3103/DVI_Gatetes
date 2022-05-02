@@ -5,6 +5,7 @@ import Platform from './platform.js';
 import PlatformT from './platformT.js';
 import Mapache from './mapache.js';
 import Animales from './Animales.js';
+import Caja from './Caja.js';
 export default class Alcantarilla extends Phaser.Scene {
     
     constructor() {
@@ -60,9 +61,12 @@ export default class Alcantarilla extends Phaser.Scene {
     preload(){
         this.load.tilemapTiledJSON('Alcantarilla','assets/sprites/Alcantarilla.json');
         this.load.image('plataformas', 'assets/sprites/alcantarillasTiles.png');
+        this.load.image('caja', 'assets/sprites/caja.png')
     }
 
     create(){
+        //this.add.image(800, 590,'caja');
+        new Caja(this, this.listaAnimales, 970, 590);
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.createMap();
         this.configureCamera(); // Camara que sigue al jugador
@@ -71,7 +75,7 @@ export default class Alcantarilla extends Phaser.Scene {
         this.keyThree = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
         
-        this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
+        this.feedback = this.add.text(220,200,"", { font: "30px Verdana"});
         this.feedback.setScrollFactor(0,0).setDepth(101);
 
 
