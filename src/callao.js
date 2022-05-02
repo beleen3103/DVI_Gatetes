@@ -4,6 +4,7 @@ import Mapache from './mapache.js';
 import Npc from './emo.js';
 import Rock from './rockero.js';
 import Gato from './gato.js';
+import Rata from './rata.js';
 import Animales from './Animales.js';
 import Dialogo from "./dialogo.js";
 

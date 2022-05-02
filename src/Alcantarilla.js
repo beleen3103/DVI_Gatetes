@@ -1,5 +1,6 @@
 import Dialogo from "./dialogo.js";
 import Gato from './gato.js';
+import Rata from './rata.js';
 import Platform from './platform.js';
 import PlatformT from './platformT.js';
 import Mapache from './mapache.js';

@@ -1,6 +1,7 @@
 import Basura from './basura.js';
 import Mapache from './mapache.js';
 import Gato from './gato.js';
+import Rata from './rata.js';
 import Npc from './emo.js';
 import Animales from './Animales.js';
 

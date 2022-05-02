@@ -7,7 +7,7 @@ export default class Gato extends Animales {
         
         this.anims.create({
             key: 'andar',
-            frames: this.anims.generateFrameNumbers('Gato', { start: 0, end: 5 }),
+            frames: this.anims.generateFrameNumbers('Gato', { start: 0, end: 0 }),
             frameRate: 10,
             repeat: -1
         });

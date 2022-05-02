@@ -17,8 +17,9 @@ export default class Ini extends Phaser.Scene {
         this.load.image('rockero', 'rockero.png');
         this.load.image('basura','basura.png');
         this.load.image('cuadrado', 'blanco.png');
-        this.load.spritesheet('Mapache', 'Mapache.png', { frameWidth: 150, frameHeight: 71 });
+        this.load.spritesheet('Mapache', 'Mapache.png', { frameWidth: 150, frameHeight: 150 });
         this.load.spritesheet('Gato', 'gato.png', { frameWidth: 150, frameHeight: 150 });
+        this.load.spritesheet('Rata', 'rata.png', { frameWidth: 150, frameHeight: 150 });
 
         this.load.image('puertaCombate', 'puertaCombate.png');
         this.load.image('puertaPlataformeo', 'puertaPlataformeo.png');
@@ -37,7 +38,7 @@ export default class Ini extends Phaser.Scene {
     }
 
     create() {
-        this.scene.start('Alcantarilla', {x:100,y:0, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+        this.scene.start('Alcantarilla', {x:100,y:0, numeroAnimales: 1, animal1: 'Rata', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Rata', flip: true});
         // this.scene.start('Callao', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
     }
 }

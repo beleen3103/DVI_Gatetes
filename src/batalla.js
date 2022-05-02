@@ -2,6 +2,7 @@ import Mapache from './mapache.js';
 import emo from './emo.js';
 import rockero from './rockero.js';
 import Gato from './gato.js';
+import Rata from './rata.js';
 import Animales from './Animales.js';
 
 export default class Batalla extends Phaser.Scene {
