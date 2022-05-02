@@ -15,7 +15,7 @@ export default class Batalla extends Phaser.Scene {
     init(data){
         this.mainScene = this.scene.get("sceneA name");
         this.escena = data.escena; //nomre de la escena a la que volver
-        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1).setDepth(-2);
+        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1).setDepth(0);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
         this.numEnemigos = data.numEnemigos;
         this.tipoEnemigo = data.tipoEnemigo;
@@ -23,7 +23,10 @@ export default class Batalla extends Phaser.Scene {
         for(let i=0; i<3; i++){
             console.log(eval("data.animal"+(i+1)+"Vida"));
             if(eval("data.animal"+(i+1)) === "." || eval("data.animal"+(i+1)+"Vida") === 0){ //no hay animal o esta muerto
-                this.animal= new Animales(this, null, null, null,'.', 0, null,null);
+                this.animal = new Animales(this, null, null, null, '.', 0, null, null);
+                this.animal.barra.getBar().setVisible(false);
+                this.animal.label.setVisible(false);
+                this.animal.setVisible(false);
                 eval("this.animal"+(i+1)+"=this.animal");
             }
             else{
@@ -87,7 +90,7 @@ export default class Batalla extends Phaser.Scene {
         const yNpc = 250;
         while(!this.listaMalos.isFull()){
             //se genera el tipo de enemigo con el que te hayas chocado
-            eval("this.npc = new "+this.tipoEnemigo+"(this, this.listaAnimales.getChildren(), xNpc, xNpc, yNpc, false)");
+            eval("this.npc = new " + this.tipoEnemigo + "(this, this.listaAnimales.getChildren(), xNpc, xNpc, yNpc, false)");
             this.listaMalos.add(this.npc);
             xNpc += 150;
         }

@@ -15,6 +15,9 @@ export default class emo extends Enemigos {
       this.ataque1 = new Ataque(this.scene, -1, 5, 0, 2, true, false, null,null, null); //menos prioritario       
       this.ataque2 = new Ataque(this.scene, 1, -10, 2, 1, true, false, null,null, null); //curacion 
       this.ataque3 = new Ataque(this.scene, -1, 15, 3, 0, false, false, null,null, null);
+        this.ataque1.setVisible(false);
+        this.ataque2.setVisible(false);
+        this.ataque3.setVisible(false);
       this.listaAtaques = this.scene.add.group();
       this.listaAtaques.add(this.ataque1);
       this.listaAtaques.add(this.ataque2);

@@ -33,7 +33,10 @@ export default class Tutorial extends Phaser.Scene {
 
         for(let i=0; i<3; i++){
              if(eval("data.animal"+(i+1)) === "."){ //animal vacio, es decir, no tenemos 3 animales
-                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
+                 this.animal = new Animales(this, null, null, null, '.', 0, null, null);
+                 this.animal.barra.getBar().setVisible(false);
+                 this.animal.label.setVisible(false);
+                 this.animal.setVisible(false);
                  eval("this.animal"+(i+1)+"=this.animal");
              }
              else{
@@ -185,7 +188,6 @@ export default class Tutorial extends Phaser.Scene {
     }
     
     tutorialText(){
-        //this.add.rectangle(1000,550,2000,100,0x00ff00);
         let elli = this.add.ellipse(140,220,200,80,0x32A8A3);
         elli.setStrokeStyle(2,0x2B908C);
         let fle = this.add.text(50,200,"Utiliza A D \nde direccion para mover", { font: "15px Verdana", align: "center"});

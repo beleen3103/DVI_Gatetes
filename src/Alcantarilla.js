@@ -23,7 +23,10 @@ export default class Alcantarilla extends Phaser.Scene {
         for(let i=0; i<3; i++){
 
              if(eval("data.animal"+(i+1)) === "."){ //animal vacio, es decir, no tenemos 3 animales
-                 this.animal= new Animales(this, null, null, null,'.', 0, null,null);
+                 this.animal = new Animales(this, null, null, null, '.', 0, null, null);
+                 this.animal.barra.getBar().setVisible(false);
+                 this.animal.label.setVisible(false);
+                 this.animal.setVisible(false);
                  eval("this.animal"+(i+1)+"=this.animal");
              }
              else{
