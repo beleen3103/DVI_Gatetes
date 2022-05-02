@@ -56,9 +56,16 @@ export default class Dialogo extends Phaser.Scene {
         this.contDialogo = 1;
 
 
-        this.fondoDialogo = this.add.image(20,15,this.listaPersonajes[0]).setOrigin(0);
-        this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0);
-        this.contDialogo++;
+        if(this.dialogos[this.contDialogo]['animal']!=='none'){
+            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0);
+            this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0);
+            this.contDialogo = this.contDialogo + 1;
+        }
+        else{
+            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0);
+            this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0);
+            this.contDialogo = this.contDialogo + 1;
+        }
     }
 
     update(t,dt){

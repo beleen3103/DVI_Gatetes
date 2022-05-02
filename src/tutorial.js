@@ -4,6 +4,7 @@ import Gato from './gato.js';
 import Rata from './rata.js';
 import Npc from './emo.js';
 import Animales from './Animales.js';
+import Dialogo from "./dialogo.js";
 
 export default class Tutorial extends Phaser.Scene {
     
@@ -188,26 +189,13 @@ export default class Tutorial extends Phaser.Scene {
     }
     
     tutorialText(){
-        let elli = this.add.ellipse(140,220,200,80,0x32A8A3);
-        elli.setStrokeStyle(2,0x2B908C);
-        let fle = this.add.text(50,200,"Utiliza A D \nde direccion para mover", { font: "15px Verdana", align: "center"});
-        this.container = this.add.container(0,0,[elli,fle]);
 
-        let cambio1 = this.add.zone(300,0,10,1000);
-        this.physics.world.enable(cambio1);
-        cambio1.body.setAllowGravity(false);
-        this.physics.add.overlap(this.listaAnimales.getChildren(),cambio1,()=>{
-            elli.setPosition(500,220);
-            fle.setText("Utiliza el espacio o W\npara saltar");
-            fle.setPosition(420,200);
-            cambio1.destroy();
-        })
-        let cambio2 = this.add.zone(650,0,10,1000);
-        this.physics.world.enable(cambio2);
-        cambio2.body.setAllowGravity(false);
-        this.physics.add.overlap(this.listaAnimales.getChildren(),cambio2,()=>{
-            this.container.destroy();
-            cambio2.destroy();
+        let texto1 = this.add.zone(300,0,10,1000);
+        this.physics.world.enable(texto1);
+        texto1.body.setAllowGravity(false);
+        this.physics.add.overlap(this.listaAnimales.getChildren(),texto1,()=>{
+            this.scene.launch('dialogo', {nombreJSON: 'tutorial1.json', prevScene:'tutorial'});
+            texto1.destroy();
         })
         this.auxDT = 0;
         this.auxDTbasura = 0;

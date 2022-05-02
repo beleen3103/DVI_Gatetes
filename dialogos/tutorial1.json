@@ -1,0 +1,13 @@
+{
+    "length":2,
+    "1":
+    {
+        "animal":"none",
+        "texto":"Utiliza las teclas 'A' y 'D' para moverte"
+    },
+    "2":
+    {
+        "animal":"none",
+        "texto":"Pulsa 'W' o 'Espacio' para saltar"
+    }
+}
