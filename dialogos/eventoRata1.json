@@ -1,18 +1,138 @@
 {
-    "length":3,
+    "length":27,
     "1":
     {
         "animal":"rata",
-        "texto":"¿Quiénes sois?"
+        "texto":"¡Alto ahí!"
     },
     "2":
     {
         "animal":"gato",
-        "texto":"A tí qué te importa, mamagüebo."
+        "texto":"¿QUÉ?"
     },
     "3":
     {
+        "animal":"rata",
+        "texto":"¿Quiénes sois?"
+    },
+    "4":
+    {
+        "animal":"rata",
+        "texto":"Espera, espera...Un gato y un mapache...viniendo de Callao..."
+    },
+    "5":
+    {
+        "animal":"rata",
+        "texto":"No seréis vosotros los que les han dado un palizón a unos emos hace nada, ¿no?"
+    },
+    "6":
+    {
+        "animal":"gato",
+        "texto":"¿Y qué pasa si lo somos?"
+    },
+    "7":
+    {
+        "animal":"mapache",
+        "texto":"Pero...¡¿Cómo te has enterado?!"
+    },
+    "8":
+    {
+        "animal":"mapache",
+        "texto":"¡Si prácticamente acaba de pasar!"
+    },
+    "9":
+    {
+        "animal":"rata",
+        "texto":"Tengo muchos compañeros repartidos por la ciudad, nos enteramos de todo."
+    },
+    "10":
+    {
+        "animal":"rata",
+        "texto":"Sobre todo con la que se ha liado...Menos mal que habéis escapado."
+    },
+    "11":
+    {
+        "animal":"gato",
+        "texto":"¿Qué ha pasado exactamente?"
+    },
+    "12":
+    {
+        "animal":"rata",
+        "texto":"Un montón de emos se han rebelado contra los animales después de la paliza que les habéis dado."
+    },
+    "13":
+    {
+        "animal":"rata",
+        "texto":"Están pegando patadas a cualquier animal que vean por Callao...ME LOS QUIERO CARGAR"
+    },
+    "14":
+    {
+        "animal":"rata",
+        "texto":"Estos emos nunca me han caido bién."
+    },
+    "15":
+    {
+        "animal":"rata",
+        "texto":"Sobre todo después de que nos robaran la personalidad viviendo en lugares oscuros y oliendo mal..."
+    },
+    "16":
+    {
+        "animal":"rata",
+        "texto":"¡PERO ESTO YA ES LA GOTA QUE COLMA EL VASO!"
+    },
+    "17":
+    {
+        "animal":"gato",
+        "texto":"Esto es inaceptable, tenemos que hacer algo"
+    },
+    "18":
+    {
+        "animal":"rata",
+        "texto":"¡VAMOS A POR ELLLOS! ¡UNAMOS NUESTRAS FUERZAS!"
+    },
+    "19":
+    {
+        "animal":"rata",
+        "texto":"A cambio os daré un sitio donde descansar y las rutas subterráneas de todo Madrid"
+    },
+    "20":
+    {
+        "animal":"mapache",
+        "texto":"Yo sigo odiando a los emos. Cuenta conmigo."
+    },
+    "21":
+    {
+        "animal":"gato",
+        "texto":"Esta ciudad cada vez va a peor, estoy seguro que entre todos podremos derrotarlos."
+    },
+    "22":
+    {
+        "animal":"gato",
+        "texto":"¡Cuenta conmigo también!"
+    },
+    "23":
+    {
+        "animal":"gato",
+        "texto":"(Además no me iría nada mal descansar un rato y recuperarme...)"
+    },
+    "24":
+    {
+        "animal":"rata",
+        "texto":"¡PERFECTO! Ahí arriba tenéis unas cajas de cartón con algunas latas para reponer fuerzas"
+    },
+    "25":
+    {
+        "animal":"rata",
+        "texto":"Cuando estemos preparados, os enseñaré el camino...dejadme ir delante que es bastante estrechito"
+    },
+    "26":
+    {
         "animal":"none",
         "texto":"¡La rata se ha unido a tu equipo!"
+    },
+    "27":
+    {
+        "animal":"none",
+        "texto":"Usa la tecla '3' para usar a la rata en cualquier momento"
     }
 }

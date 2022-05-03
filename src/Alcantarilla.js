@@ -137,18 +137,14 @@ export default class Alcantarilla extends Phaser.Scene {
                         });
                     }
                     auxthis.musica.resume();
-                    if(this.tenemosRata){
-                        this.rata.setActive(false).setVisible(false);
-                    }
                 }
             }
+            auxthis.rata.setActive(false).setVisible(false);
        });
 
 
 
         /* EVENTO RATA */
-
-        this.rata.setActive(false).setVisible(false);
         this.listaAnimales.children.each(animal => {
             if(animal.getName() === "Rata"){
                 this.tenemosRata = true;
@@ -172,6 +168,7 @@ export default class Alcantarilla extends Phaser.Scene {
                 
                 this.scene.pause();
                 this.scene.launch('dialogo', {nombreJSON: 'eventoRata1.json', prevScene:'Alcantarilla'}).bringToTop();
+                this.scene.moveBelow('dialogo');
                 colisionEvento.destroy();
 
 
@@ -351,6 +348,7 @@ export default class Alcantarilla extends Phaser.Scene {
             o.body.setImmovable(true);
             o.body.setAllowGravity(false);
         });
+
 
         const tileset1 = this.map.addTilesetImage('alct','plataformas'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
         this.capa = this.map.createLayer('suelo', tileset1);

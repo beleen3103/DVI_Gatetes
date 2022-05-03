@@ -67,6 +67,8 @@ export default class Callao extends Phaser.Scene {
         this.load.image('mapacheEvento','assets/sprites/mapacheEvento.png');
         this.load.image('emo','assets/sprites/emo.png');
 
+        this.load.image('entrada','assets/sprites/entradaAlcantarilla.png');
+
         this.load.audio('musicaCallao', 'audio/DVI_Callao.ogg'); //Precargar el audio
 
     }
@@ -80,6 +82,7 @@ export default class Callao extends Phaser.Scene {
 
 
         this.add.image(0, 50, 'callaoB').setOrigin(0).setScale(1.1); // FONDO
+        this.add.image(777, 567, 'entrada').setOrigin(0).setScale(0.4); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.configureCamera(); // Camara que sigue al jugador
@@ -219,6 +222,18 @@ export default class Callao extends Phaser.Scene {
 
 
         }
+
+
+        let entradaAlcantarilla = this.add.zone(800,575,50,50);
+        this.physics.world.enable(entradaAlcantarilla);
+        entradaAlcantarilla.body.setAllowGravity(false);
+        this.physics.add.overlap(this.listaAnimales.getChildren(),entradaAlcantarilla,()=>{
+            if(this.listaAnimales.getLength()>=2){
+                this.scene.pause();
+                this.scene.start('Alcantarilla', {x:20, y:200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
+                this.musica.stop();
+            }
+        });
 
     
     }

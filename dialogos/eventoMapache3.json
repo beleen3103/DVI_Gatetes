@@ -1,5 +1,5 @@
 {
-    "length":5,
+    "length":9,
     "1":
     {
         "animal":"mapache",
@@ -24,5 +24,25 @@
     {
         "animal":"none",
         "texto":"Usa las teclas '1' o '2' para cambiar de personaje en cualquier momento"
+    },
+    "6":
+    {
+        "animal":"mapache",
+        "texto":"Creo que la hemos liado un poco al pelear contra estos emos..."
+    },
+    "7":
+    {
+        "animal":"mapache",
+        "texto":"Hay una entrada a las alcantarillas a la derecha del edificio de Schweppes"
+    },
+    "8":
+    {
+        "animal":"mapache",
+        "texto":"Vámonos antes de que vengan a por nosotros"
+    },
+    "9":
+    {
+        "animal":"gato",
+        "texto":"Genial, no me iría mal un poco de descanso..."
     }
 }

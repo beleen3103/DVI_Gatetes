@@ -59,13 +59,13 @@ export default class Dialogo extends Phaser.Scene {
 
 
         if(this.dialogos[this.contDialogo]['animal']!=='none'){
-            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
-            this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0).setDepth(1);
+            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(110);
+            this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0).setDepth(110);
             this.contDialogo = this.contDialogo + 1;
         }
         else{
-            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
-            this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0).setDepth(1);
+            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(110);
+            this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0).setDepth(110);
             this.contDialogo = this.contDialogo + 1;
         }
     }
@@ -80,13 +80,13 @@ export default class Dialogo extends Phaser.Scene {
 
                 if(this.contDialogo <= this.dialogos['length']){
                     if(this.dialogos[this.contDialogo]['animal']!=='none'){
-                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
-                        this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0).setDepth(1);
+                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(110);
+                        this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0).setDepth(110);
                         this.contDialogo = this.contDialogo + 1;
                     }
                     else{
-                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
-                        this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0).setDepth(1);
+                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(110);
+                        this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0).setDepth(110);
                         this.contDialogo = this.contDialogo + 1;
                     }
                 }

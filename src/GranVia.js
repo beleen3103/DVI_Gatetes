@@ -334,6 +334,7 @@ export default class GranVia extends Phaser.Scene {
             tileWidth: 30,
             tileHeight: 30
         });
+
         this.capaO = this.map.createFromObjects('colisiones');
         this.capaO.forEach(o=>{
             this.physics.world.enable(o);
