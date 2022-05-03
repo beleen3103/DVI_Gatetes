@@ -7,7 +7,7 @@ export default class Gato extends Animales {
         
         this.anims.create({
             key: 'andar',
-            frames: this.anims.generateFrameNumbers('Gato', { start: 0, end: 0 }),
+            frames: this.anims.generateFrameNumbers('Gato', { start: 0, end: 5 }),
             frameRate: 10,
             repeat: -1
         });
@@ -16,19 +16,19 @@ export default class Gato extends Animales {
             frames: this.anims.generateFrameNumbers('Gato', { start: 5, end: 5 }),
             frameRate: 15,
             repeat: 0
-        })
+        });
         this.anims.create({
             key: 'levantarse',
             frames: this.anims.generateFrameNumbers('Gato', { start: 5, end: 5 }),
             frameRate: 20,
             repeat: 0
-        })
+        });
         this.anims.create({
             key: 'trepa',
             frames: this.anims.generateFrameNumbers('Gato', { start: 6, end: 11 }),
             frameRate: 12,
             repeat: 0
-        })
+        });
     }
     
     crearAtaques(){
