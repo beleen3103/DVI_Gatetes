@@ -69,7 +69,6 @@ export default class Alcantarilla extends Phaser.Scene {
     }
 
     create(){
-        //this.add.image(800, 590,'caja');
 
         this.musica = this.sound.add('musicaAlcantarilla');
         this.musica.play({loop:true, volume:0.5});

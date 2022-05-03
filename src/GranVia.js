@@ -357,9 +357,9 @@ export default class GranVia extends Phaser.Scene {
         }
     }
     createEnemies(){
-        new Rock(this, this.listaAnimales, 1600, 1170, true); //1-2 Enemigos en combate
-        new Npc(this, this.listaAnimales.getChildren(), 2160, 1620, 1200, true); //1-2 Enemigos en combate
-        new Dron(this, 2200,330, 300, 'flecha', this.listaAnimales);
+        new Rock(this, this.listaAnimales, 1600, 1600, 1170, true); //1-2 Enemigos en combate
+        new Npc(this, this.listaAnimales.getChildren(), 1200, 800, 1200, true); //1-2 Enemigos en combate
+        new Dron(this, 2200,330, 300, 'dron', this.listaAnimales);
     }
     // Sobrará
     createPlatforms(){
