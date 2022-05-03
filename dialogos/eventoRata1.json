@@ -1,0 +1,18 @@
+{
+    "length":3,
+    "1":
+    {
+        "animal":"rata",
+        "texto":"¿Quiénes sois?"
+    },
+    "2":
+    {
+        "animal":"gato",
+        "texto":"A tí qué te importa, mamagüebo."
+    },
+    "3":
+    {
+        "animal":"none",
+        "texto":"¡La rata se ha unido a tu equipo!"
+    }
+}

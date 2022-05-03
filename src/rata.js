@@ -4,6 +4,8 @@ export default class Rata extends Animales {
     constructor(scene, x, y, f) {
         super(scene, x, y, f, 'Rata', 100, 300, -600);
         this.scene = scene;
+        this.x = x;
+        this.y = y;
 
         this.anims.create({
             key: 'andar',

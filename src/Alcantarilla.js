@@ -63,6 +63,8 @@ export default class Alcantarilla extends Phaser.Scene {
         this.load.image('plataformas', 'assets/sprites/alcantarillasTiles.png');
         this.load.image('caja', 'assets/sprites/caja.png');
 
+        this.load.image('rata','assets/sprites/rata.png');
+
         this.load.audio('musicaAlcantarilla', 'audio/DVI_Alcantarilla.ogg'); //Precargar el audio
     }
 
@@ -71,6 +73,10 @@ export default class Alcantarilla extends Phaser.Scene {
 
         this.musica = this.sound.add('musicaAlcantarilla');
         this.musica.play({loop:true, volume:0.5});
+
+        //Rata
+        this.tenemosRata = false;
+        this.rata = this.add.image(365, 785, 'rata').setOrigin(0).setScale(1).setDepth(1);
 
 
         new Caja(this, this.listaAnimales, 970, 590);
@@ -84,6 +90,7 @@ export default class Alcantarilla extends Phaser.Scene {
         
         this.feedback = this.add.text(220,200,"", { font: "30px Verdana"});
         this.feedback.setScrollFactor(0,0).setDepth(101);
+
 
 
 
@@ -130,9 +137,58 @@ export default class Alcantarilla extends Phaser.Scene {
                         });
                     }
                     auxthis.musica.resume();
+                    if(this.tenemosRata){
+                        this.rata.setActive(false).setVisible(false);
+                    }
                 }
             }
        });
+
+
+
+        /* EVENTO RATA */
+
+        this.rata.setActive(false).setVisible(false);
+        this.listaAnimales.children.each(animal => {
+            if(animal.getName() === "Rata"){
+                this.tenemosRata = true;
+            }
+        });
+
+        if(!this.tenemosRata){
+            this.rata.setActive(true).setVisible(true);
+
+            let colisionEvento = this.add.zone(280,790,20,220);
+            this.physics.world.enable(colisionEvento);
+            colisionEvento.body.setAllowGravity(false);
+
+            this.physics.add.overlap(this.listaAnimales.getChildren(),colisionEvento,()=>{
+                                
+                this.animal3 = new Rata(this, this.player.x, this.player.y,true);
+                this.listaAnimales.add(this.animal3);
+                this.animal3.setActive(false).setVisible(false);
+                this.animal3.barraVisible(false);
+                this.animal3.setScale(1,1);
+                
+                this.scene.pause();
+                this.scene.launch('dialogo', {nombreJSON: 'eventoRata1.json', prevScene:'Alcantarilla'}).bringToTop();
+                colisionEvento.destroy();
+
+
+            });
+            
+        }
+
+        //Volver a Callao
+        this.toCallao = this.add.zone(40,0,60,30);
+        this.physics.world.enable(this.toCallao);
+        this.toCallao.body.setAllowGravity(false);
+        this.physics.add.overlap(this.listaAnimales.getChildren(),this.toCallao,()=>{
+            this.scene.pause();
+            this.scene.start('Callao', {x: 500,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
+            this.musica.stop();
+        });
+
 
     }
 
@@ -264,6 +320,11 @@ export default class Alcantarilla extends Phaser.Scene {
             this.auxDT+=dt;
         }
         else this.feedback.text = "";
+
+
+        if(this.tenemosRata){
+            this.rata.setActive(false).setVisible(false);
+        }
     }
 
 

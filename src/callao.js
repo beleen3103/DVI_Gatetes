@@ -208,6 +208,7 @@ export default class Callao extends Phaser.Scene {
                     this.scene.pause();
                     dialogoMapacheSalvado.destroy();
                     this.mapacheSalvado = false;
+
                     // this.scene.launch('dialogo', {nombreJSON: 'eventoMapache2.json', prevScene:'Callao'});
                 }
             });

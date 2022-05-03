@@ -16,7 +16,9 @@ export default class Dialogo extends Phaser.Scene {
 
         this.load.image('dialogogato', 'assets/texts/dialogogato.png');
         this.load.image('dialogomapache', 'assets/texts/dialogomapache.png');
-        this.load.image('dialogonone', 'assets/texts/dialogonone.png')
+        this.load.image('dialogorata', 'assets/texts/dialogorata.png');
+        this.load.image('dialogonone', 'assets/texts/dialogonone.png');
+
     }
 
     create(){
@@ -57,13 +59,13 @@ export default class Dialogo extends Phaser.Scene {
 
 
         if(this.dialogos[this.contDialogo]['animal']!=='none'){
-            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0);
-            this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0);
+            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
+            this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0).setDepth(1);
             this.contDialogo = this.contDialogo + 1;
         }
         else{
-            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0);
-            this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0);
+            this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
+            this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0).setDepth(1);
             this.contDialogo = this.contDialogo + 1;
         }
     }
@@ -78,13 +80,13 @@ export default class Dialogo extends Phaser.Scene {
 
                 if(this.contDialogo <= this.dialogos['length']){
                     if(this.dialogos[this.contDialogo]['animal']!=='none'){
-                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0);
-                        this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0);
+                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
+                        this.textoMostrado = this.add.text(136,65,this.dialogos[this.contDialogo]['texto'], {font: "15px Verdana", color: "#71a38d", align: "left"}).setOrigin(0).setDepth(1);
                         this.contDialogo = this.contDialogo + 1;
                     }
                     else{
-                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0);
-                        this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0);
+                        this.fondoDialogo = this.add.image(20,15,'dialogo'+this.dialogos[this.contDialogo]['animal']).setOrigin(0).setDepth(1);
+                        this.textoMostrado = this.add.text(65,60,this.dialogos[this.contDialogo]['texto'], {font: "17px Verdana", color: "#71a38d", align: "left"}).setFontStyle('italic').setOrigin(0).setDepth(1);
                         this.contDialogo = this.contDialogo + 1;
                     }
                 }
