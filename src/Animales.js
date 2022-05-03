@@ -99,7 +99,7 @@ export default class Animales extends Personajes {
                 this.body.setVelocityX(0);
                 this.move = false;  
                 if (!this.parar) {
-                    this.chain();
+                    //this.chain();
                     this.play('parar');
                     this.parar = true;
                 }
