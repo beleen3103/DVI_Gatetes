@@ -15,13 +15,12 @@ export default class Batalla extends Phaser.Scene {
     init(data){
         this.mainScene = this.scene.get("sceneA name");
         this.escena = data.escena; //nomre de la escena a la que volver
-        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1).setDepth(0);
+        this.add.image(0, 0, 'vs').setOrigin(0).setScale(1).setDepth(-2);
         this.listaAnimales = this.add.group(); //LISTA PA QUE LOS ANIMALES PEGUEN IGUAL QUE LOS MALOS
         this.numEnemigos = data.numEnemigos;
         this.tipoEnemigo = data.tipoEnemigo;
         let x = 110;
         for(let i=0; i<3; i++){
-            console.log(eval("data.animal"+(i+1)+"Vida"));
             if(eval("data.animal"+(i+1)) === "." || eval("data.animal"+(i+1)+"Vida") === 0){ //no hay animal o esta muerto
                 this.animal = new Animales(this, null, null, null, '.', 0, null, null);
                 this.animal.barra.getBar().setVisible(false);
@@ -210,10 +209,11 @@ export default class Batalla extends Phaser.Scene {
                                 }
                                 else this.turn = 0;
                                 this.click = false;
-                                this.listaMalos.children.each(malo1 => { //ya no se pueden clickar
+                                if(this.turn != 1){this.listaMalos.children.each(malo1 => { //ya no se pueden clickar
                                     malo1.disableInteractive();
                                     malo1.flechaVisible(false);
                                 }); 
+                                }
                             }
                         });
                     }
@@ -248,7 +248,6 @@ export default class Batalla extends Phaser.Scene {
                             else{
                                 if(this.ataqueMalo.esBarrido()) this.target = this.listaAnimales; //todos los animales;
                                 else { //random
-                                    console.log(this.listaAnimales.countActive());
                                     let rand = Phaser.Math.Between(0, this.listaAnimales.getLength()-1);
                                     let index = 0;
                                     let seleccionado = false;
