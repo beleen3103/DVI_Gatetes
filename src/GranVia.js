@@ -74,7 +74,7 @@ export default class GranVia extends Phaser.Scene {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
         
-        this.add.image(0,1200,'suelo').setOrigin(0).setScale(1,3);
+        this.add.image(0,1200,'suelo').setOrigin(0).setScale(2,2);
         this.musica = this.sound.add('musicaGranVia');
         this.musica.play({loop:true, volume:0.3});
 

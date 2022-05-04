@@ -1,11 +1,46 @@
 {
-    "length":2,
+    "length":9,
     "1":
+    {
+        "animal":"none",
+        "texto":"En pleno centro Madrid antes había un maravilloso parque, este era conocido como Plaza de España."
+    },
+    "2":
+    {
+        "animal":"none",
+        "texto":"En él habitaba fauna y flora de todo tipo, gatos, ardillas, emos..."
+    },
+    "3":
+    {
+        "animal":"none",
+        "texto":"Sin embargo..."
+    },
+    "4":
+    {
+        "animal":"none",
+        "texto":"¡¡Los humanos decidieron acabar con este oasis en mitad de la jungla de cemento y crearon la \nexplanada de Plaza España!!"
+    },
+    "5":
+    {
+        "animal":"none",
+        "texto":"En está se encuentra nuestro protagonista, un gato que habitaba el parque y ya no puede soportar \nmás el daño que han hecho los humanos."
+    },
+    "6":
+    {
+        "animal":"none",
+        "texto":"Quiere huir de Madrid, pero no sin antes... "
+    },
+    "7":
+    {
+        "animal":"none",
+        "texto":"...cobrarse venganza!"
+    },
+    "8":
     {
         "animal":"none",
         "texto":"Utiliza las teclas 'A' y 'D' para moverte"
     },
-    "2":
+    "9":
     {
         "animal":"none",
         "texto":"Pulsa 'W' o 'Espacio' para saltar"
