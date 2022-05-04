@@ -253,8 +253,8 @@ export default class Callao extends Phaser.Scene {
 
         }
 
-
-        let entradaAlcantarilla = this.add.zone(800,575,50,50);
+        if(this.listaAnimales.getLength() < 3){
+            let entradaAlcantarilla = this.add.zone(800,575,50,50);
         this.physics.world.enable(entradaAlcantarilla);
         entradaAlcantarilla.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),entradaAlcantarilla,()=>{
@@ -264,6 +264,8 @@ export default class Callao extends Phaser.Scene {
                 this.musica.stop();
             }
         });
+        }
+        
 
     
     }
