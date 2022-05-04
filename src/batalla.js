@@ -64,7 +64,8 @@ export default class Batalla extends Phaser.Scene {
         
         
         this.feedback = this.add.text(600,400,"", { font: "20px Verdana"});
-        this.damage = this.add.text(0,0,"", { font: "20px Verdana"});
+        this.damage = this.add.text(0, 0, "", { font: "20px Verdana" });
+        this.textoTurno = this.add.text(0, 0, "", { font: "20px Verdana" });
         this.auxDT = 0;
         this.turn = 0;
         this.turnosAnimales = 1; 
@@ -97,7 +98,8 @@ export default class Batalla extends Phaser.Scene {
     update(t,dt){
         super.update(t,dt);
         let siguenVivos = false;
-        if(this.turn === 0){
+        if (this.turn === 0) {
+            
             this.listaMalos.children.each(malo => { //se pueden clickar enemigos
                 if(malo.active) {
                     malo.alpha = 0.7;
@@ -116,7 +118,7 @@ export default class Batalla extends Phaser.Scene {
                     if((this.i+1) > 3) this.i = 0;
                 }
                 console.log("alimal cogido: " + (this.i+1));
-                this.anim = eval("this.animal"+(this.i+1));
+                this.anim = eval("this.animal" + (this.i + 1));
 
                 this.anim.crearAtaques();
                 
@@ -124,7 +126,12 @@ export default class Batalla extends Phaser.Scene {
                 
                 this.a = null;
             }
-            if(this.anim.stuneado === false){
+            if (this.anim.stuneado === false) {
+                this.textoTurno.setVisible(true);
+                this.textoTurno.setFontSize(20);
+                this.textoTurno.text = "Elige un ataque";
+                this.textoTurno.setPosition(this.anim.x - 30, this.anim.y - 210);
+                
                 this.click = true;
 
                 this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
@@ -137,7 +144,8 @@ export default class Batalla extends Phaser.Scene {
             
                 if(this.a != null){
                     if(this.a.getTarget() === 1 && !this.a.esBarrido()){
-                        if(this.click){
+                        if (this.click) {
+                            this.textoTurno.text = "Elige un enemigo";
                         this.turn = 1;
                         this.atacado = true;
                         this.click = false;   
@@ -162,7 +170,7 @@ export default class Batalla extends Phaser.Scene {
                             //if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
                             this.atacado = true;
                             this.click = false;
-                        
+                            this.textoTurno.text = " ";
                         }
                     }
                     else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
@@ -175,6 +183,7 @@ export default class Batalla extends Phaser.Scene {
                             this.damage.setFontSize(80);
                             this.damage.text = "-" + this.a.damage + "!";
                             this.damage.setPosition(400, 50);
+                            this.textoTurno.text = " ";
                         }
                     }
                 
@@ -229,7 +238,8 @@ export default class Batalla extends Phaser.Scene {
                 });
             
         }  
-        else{
+        else {
+            this.textoTurno.text = " ";
             this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
                 ataque.cuadradoVisible(false);
             });
