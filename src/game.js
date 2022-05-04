@@ -3,7 +3,6 @@ import ClaseEscenaNivel1 from './GranVia.js';
 import ClaseEscenaNivel2 from './callao.js';
 import Batalla from './batalla.js';
 import Tutorial from './tutorial.js';
-import Hub from './hub.js';
 import Dialogo from './dialogo.js';
 import Alcantarilla from './Alcantarilla.js';
 import PantallaInicio from './pantallaInicio.js';
@@ -18,7 +17,7 @@ new Phaser.Game({
         autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
     },
     pixelArt: true,
-    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, ClaseEscenaNivel2, PantallaInicio, Tutorial, Batalla, Hub, Dialogo, Alcantarilla, GameOver],
+    scene: [ClaseEscenaInicial, ClaseEscenaNivel1, ClaseEscenaNivel2, PantallaInicio, Tutorial, Batalla, Dialogo, Alcantarilla, GameOver],
     physics: {
         default: 'arcade',
         arcade: {
