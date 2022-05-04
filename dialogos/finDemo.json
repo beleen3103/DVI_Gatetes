@@ -1,0 +1,28 @@
+{
+    "length":5,
+    "1":
+    {
+        "animal":"none",
+        "texto":"¡Has llegado al final de la demo!"
+    },
+    "2":
+    {
+        "animal":"gato",
+        "texto":"¡Muchas gracias por ayudarnos en esta aventura!"
+    },
+    "3":
+    {
+        "animal":"mapache",
+        "texto":"Nos vemos cuando salga el juego completo"
+    },
+    "4":
+    {
+        "animal":"rata",
+        "texto":"Yo casi ni aparecí..."
+    },
+    "5":
+    {
+        "animal": "none",
+        "texto": "Desplázate hacia la derecha para volver a inicio"
+    }
+}

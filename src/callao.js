@@ -154,6 +154,32 @@ export default class Callao extends Phaser.Scene {
        });
        //////////////////////////////////////////////////////////////////
 
+       /*FIN DE DEMO */
+      let finDemo = this.add.zone(1070,550,10,100);
+            this.physics.world.enable(finDemo);
+            finDemo.body.setAllowGravity(false);
+     
+            this.physics.add.overlap(this.listaAnimales.getChildren(),finDemo, ()=>{
+                if(this.listaAnimales.getLength() === 3){
+                    this.scene.pause();
+                    this.scene.launch('dialogo', {nombreJSON: 'finDemo.json', prevScene:'Callao'});
+                    
+                    finDemo.destroy();                  
+                }
+                
+            });
+
+            let vueltaIni = this.add.zone(1095,550,10,100);
+            this.physics.world.enable(vueltaIni);
+            vueltaIni.body.setAllowGravity(false);
+     
+            this.physics.add.overlap(this.listaAnimales.getChildren(),vueltaIni, ()=>{
+                if(this.listaAnimales.getLength() === 3){
+                    this.scene.start("pantallaInicio");                  
+                }
+                
+            });
+
         /* EVENTO MAPACHE */
         let tenemosMapache = false;
         this.mapacheSalvado = false;
@@ -243,7 +269,7 @@ export default class Callao extends Phaser.Scene {
     }
     update(t, dt){
         this.c.startFollow(this.player);
-        
+
         if(this.keyOne.isDown){
             if(this.player != this.animal1){ 
                 if(this.animal1.vida > 0){
