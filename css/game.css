@@ -35,9 +35,33 @@ a:visited {
   color: white;
 }
 
+
+
+.texto-web{
+  position:absolute;
+  /* left: 50%;
+  transform: translate(-50%, 0); */
+  top: 850px;
+  height: 40vh;
+  color: black;
+  background-color: white;
+  left: 0;
+  width: 100%;
+}
+
+.mas-info-titulo {
+  position: relative;
+  text-align: center;
+}
+
+.mas-info-texto {
+  margin-left: 450px;
+  margin-right: 450px;
+}
+
 .footer {
   position: absolute;
-  top: 90%;
+  top:142%;
   left: 0;
   height: 10%;
   width: 100%;
