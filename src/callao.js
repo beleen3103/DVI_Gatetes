@@ -186,6 +186,9 @@ export default class Callao extends Phaser.Scene {
         /* EVENTO MAPACHE */
         let tenemosMapache = false;
         this.mapacheSalvado = false;
+        if(this.listaAnimales.getLength()>=2){
+            this.mapacheSalvado = true;
+        }
         this.listaAnimales.children.each(animal => {
             if(animal.getName() === "Mapache"){
                 tenemosMapache = true;
@@ -195,12 +198,13 @@ export default class Callao extends Phaser.Scene {
 
         this.eventoDisponible = false;
         this.eventoDisponible2 = false;
+        this.mapacheEvento = this.add.image(610, 557, 'mapacheEvento').setOrigin(0).setScale(0.5).setVisible(false);
         if(!tenemosMapache){ //Solamente se podrá crear el evento si no tenemos el Mapache en el equipo
             //Si se pasa cierta zona del mapa, empieza el evento
             let colisionEvento = this.add.zone(420,490,20,220);
             this.physics.world.enable(colisionEvento);
             colisionEvento.body.setAllowGravity(false);
-            this.mapacheEvento = this.add.image(610, 557, 'mapacheEvento').setOrigin(0).setScale(0.5);
+            this.mapacheEvento.setVisible(true);
             this.emo1 = this.add.image(500, 500, 'emo').setOrigin(0).setScale(0.5);
             this.emo2 = this.add.image(560, 500, 'emo').setOrigin(0).setScale(0.5);
             this.emo3 = this.add.image(670, 500, 'emo').setOrigin(0).setScale(0.5);
@@ -262,7 +266,6 @@ export default class Callao extends Phaser.Scene {
         this.physics.world.enable(this.entradaAlcantarilla);
         this.entradaAlcantarilla.body.setAllowGravity(false);
         this.letraE = this.add.image(780,520,'letraE').setOrigin(0).setScale(0.3);
-        this.letraE.setVisible(true);
         this.physics.add.overlap(this.listaAnimales.getChildren(),this.entradaAlcantarilla,()=>{
             this.overlapAlcantarilla = true;
             if(this.listaAnimales.getLength()>=2 && Phaser.Input.Keyboard.JustDown(this.keyE)){
@@ -272,6 +275,8 @@ export default class Callao extends Phaser.Scene {
             }
         });
         }
+
+        // this.letraE2 = this.add.image(618,520,'letraE').setOrigin(0).setScale(0.3);
         
 
     
@@ -359,7 +364,8 @@ export default class Callao extends Phaser.Scene {
 
 
         //Entrada Alcantarilla
-        if(this.listaAnimales.getLength() < 3){
+        if(this.mapacheSalvado){
+            this.letraE.setX(780);
             var boundsA = this.player.getBounds();
             var boundsB = this.entradaAlcantarilla.getBounds();
             if(!Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB)){
@@ -369,6 +375,19 @@ export default class Callao extends Phaser.Scene {
                 this.letraE.setVisible(true);
             }
         }
+        else {
+            //E Evento Mapache
+            this.letraE.setX(618);
+            var boundsA = this.player.getBounds();
+            var boundsB = this.mapacheEvento.getBounds();
+            if(!Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB)){
+                this.letraE.setVisible(false);
+            }
+            else{
+                this.letraE.setVisible(true);
+            }
+        }
+
 
 
     }
