@@ -76,7 +76,7 @@ export default class GranVia extends Phaser.Scene {
         
         this.add.image(0,1200,'suelo').setOrigin(0).setScale(2,2);
         this.musica = this.sound.add('musicaGranVia');
-        this.musica.play({loop:true, volume:0.3});
+        this.musica.play({loop:true, volume:0.1});
 
         this.add.image(0, 0, 'granviaB').setOrigin(0).setScale(1); // FONDO
         //this.player = new Gato(this, this.x, this.y, true); // Personaje

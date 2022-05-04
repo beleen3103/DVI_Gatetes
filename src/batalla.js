@@ -55,7 +55,7 @@ export default class Batalla extends Phaser.Scene {
 
     create() {
         this.musica1 = this.sound.add('MusicaBatalla');
-        this.musica1.play({loop:true, volume:0.5});
+        this.musica1.play({loop:true, volume:0.1});
 
         this.keyQ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
         this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);

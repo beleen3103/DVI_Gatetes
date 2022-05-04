@@ -15,7 +15,7 @@ export default class PantallaInicio extends Phaser.Scene {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
         
         this.musica = this.sound.add('musicNoDrums');
-        this.musica.play({loop:true, volume:0.3});
+        this.musica.play({loop:true, volume:0.1});
 
         this.video = this.add.video(500,250,'fondoInicio');
         this.video.play(true);

@@ -69,7 +69,8 @@ export default class Callao extends Phaser.Scene {
 
         this.load.image('entrada','assets/sprites/entradaAlcantarilla.png');
 
-        this.load.image('letraE','assets/sprites/E.png')
+        this.load.image('letraE','assets/sprites/E.png');
+        this.load.image('sueloCallao','assets/background/sueloCallao.png');
 
         this.load.audio('musicaCallao', 'audio/DVI_Callao.ogg'); //Precargar el audio
 
@@ -78,9 +79,9 @@ export default class Callao extends Phaser.Scene {
     create() {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
-        this.add.image(0,560,'suelo').setOrigin(0).setScale(1,2);
+        this.add.image(0,600,'sueloCallao').setOrigin(0).setScale(1);
         this.musica = this.sound.add('musicaCallao');
-        this.musica.play({loop:true, volume:0.3});
+        this.musica.play({loop:true, volume:0.1});
 
 
         this.add.image(0, 50, 'callaoB').setOrigin(0).setScale(1.1); // FONDO

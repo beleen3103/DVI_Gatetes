@@ -74,7 +74,7 @@ export default class Tutorial extends Phaser.Scene {
         this.add.image(0,0,'background').setOrigin(0);
         this.add.image(0,500,'suelo').setOrigin(0);
         this.musica = this.sound.add('musicaTutorial');
-        this.musica.play({loop:true, volume:0.3});
+        this.musica.play({loop:true, volume:0.1});
         this.restartMusic = false;
         this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E); 
         this.keyOne = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);        
