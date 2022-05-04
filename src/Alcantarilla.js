@@ -1,8 +1,6 @@
 import Dialogo from "./dialogo.js";
 import Gato from './gato.js';
 import Rata from './rata.js';
-import Platform from './platform.js';
-import PlatformT from './platformT.js';
 import Mapache from './mapache.js';
 import Animales from './Animales.js';
 import Caja from './Caja.js';
@@ -356,7 +354,7 @@ export default class Alcantarilla extends Phaser.Scene {
         });
 
 
-        const tileset1 = this.map.addTilesetImage('alct','plataformas'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
+        const tileset1 = this.map.addTilesetImage('alcantarillasTiles','plataformas'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
         this.capa = this.map.createLayer('suelo', tileset1);
         this.capa.setCollisionByProperty({colisiona: true});
         this.physics.add.collider(this.listaAnimales,this.capa);
