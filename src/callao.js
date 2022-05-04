@@ -69,6 +69,8 @@ export default class Callao extends Phaser.Scene {
 
         this.load.image('entrada','assets/sprites/entradaAlcantarilla.png');
 
+        this.load.image('letraE','assets/sprites/E.png')
+
         this.load.audio('musicaCallao', 'audio/DVI_Callao.ogg'); //Precargar el audio
 
     }
@@ -253,11 +255,15 @@ export default class Callao extends Phaser.Scene {
 
         }
 
+        this.overlapAlcantarilla = false;
         if(this.listaAnimales.getLength() < 3){
-            let entradaAlcantarilla = this.add.zone(800,575,50,50);
-        this.physics.world.enable(entradaAlcantarilla);
-        entradaAlcantarilla.body.setAllowGravity(false);
-        this.physics.add.overlap(this.listaAnimales.getChildren(),entradaAlcantarilla,()=>{
+            this.entradaAlcantarilla = this.add.zone(800,575,50,50);
+        this.physics.world.enable(this.entradaAlcantarilla);
+        this.entradaAlcantarilla.body.setAllowGravity(false);
+        this.letraE = this.add.image(780,520,'letraE').setOrigin(0).setScale(0.3);
+        this.letraE.setVisible(true);
+        this.physics.add.overlap(this.listaAnimales.getChildren(),this.entradaAlcantarilla,()=>{
+            this.overlapAlcantarilla = true;
             if(this.listaAnimales.getLength()>=2 && Phaser.Input.Keyboard.JustDown(this.keyE)){
                 this.scene.pause();
                 this.scene.start('Alcantarilla', {x:20, y:200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
@@ -348,6 +354,17 @@ export default class Callao extends Phaser.Scene {
             this.eventoDisponible = false;
             this.eventoDisponible2 = false;
             this.mapacheSalvado = true;
+        }
+
+
+        //Entrada Alcantarilla
+	    var boundsA = this.player.getBounds();
+	    var boundsB = this.entradaAlcantarilla.getBounds();
+	    if(!Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB)){
+            this.letraE.setVisible(false);
+        }
+        else{
+            this.letraE.setVisible(true);
         }
 
 
