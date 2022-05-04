@@ -199,32 +199,37 @@ export default class GranVia extends Phaser.Scene {
                 break;
                 //Bloques que permiten al gato escalar
                 case 'trepar':
-                    if(this.player.getName() === 'Gato')
-                    this.physics.overlap(this.player,o,()=>{
-                        if(this.player.keyW.isDown)  {
-                            this.player.body.velocity.y = -300 / 2;
-                            if (!this.move || this.auxDT >= 6000) {
-                                this.auxDT = 0;
-                                this.player.play('trepa');
-                                this.move = true;
+                    if (this.player.getName() === 'Gato')
+                        this.physics.overlap(this.player, o, () => {
+                            if (this.player.keyW.isDown) {
+                                this.player.body.velocity.y = -300 / 2;
+                                if (!this.move) {
+                                    this.player.play('trepa');
+                                    this.player.chain('paratrepa');
+                                    this.move = true;
+                                }
+
+
                             }
-                        }
-                        else if(this.player.keyS.isDown) {
-                            this.player.body.velocity.y = 300 / 2;
-                            if (!this.move || this.auxDT >= 6000) {
-                                this.auxDT = 0;
-                                this.player.play('trepa');
-                                this.move = true;
+                            else if (this.player.keyS.isDown) {
+                                this.player.body.velocity.y = 300 / 2;
+
+                                if (!this.move) {
+                                    this.player.play('trepa');
+                                    this.player.chain('paratrepa');
+                                    this.move = true;
+                                }
+
                             }
-                        }
-                        else if((!this.player.keyW.isDown && !this.player.keyS.isDown)) {
-                          this.player.body.gravity.y = 0;
-                            this.player.body.velocity.y = 0;
-                            this.move = false;
-                        }
-                        
-                    });
-                break;
+                            else if ((!this.player.keyW.isDown && !this.player.keyS.isDown)) {
+                                this.player.body.gravity.y = 0;
+                                this.player.body.velocity.y = 0;
+                                if ((!this.player.keyA.isDown && !this.player.keyD.isDown)) this.player.stop();
+                                this.move = false;
+                            }
+
+                        });
+                    break;
             };
             this.auxDT += dt;
         })

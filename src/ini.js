@@ -38,11 +38,12 @@ export default class Ini extends Phaser.Scene {
         this.load.setPath('assets/background/');
         this.load.image('vs', 'batalla.png');
         this.load.image('callaoB', 'callao.jpg');
+        this.load.image('alcantarillaB', 'alcantarilla.png');
         
     }
 
     create() {
-        this.scene.start('pantallaInicio');
-        // this.scene.start('Callao', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+        //this.scene.start('pantallaInicio');
+        this.scene.start('GranVia', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
     }
 }

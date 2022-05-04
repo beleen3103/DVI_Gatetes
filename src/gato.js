@@ -27,6 +27,12 @@ export default class Gato extends Animales {
             key: 'trepa',
             frames: this.anims.generateFrameNumbers('Gato', { start: 6, end: 11 }),
             frameRate: 12,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'paratrepa',
+            frames: this.anims.generateFrameNumbers('Gato', { start: 6, end: 6 }),
+            frameRate: 12,
             repeat: 0
         });
     }
