@@ -67,7 +67,7 @@ export default class Batalla extends Phaser.Scene {
         this.damage = this.add.text(0,0,"", { font: "20px Verdana"});
         this.auxDT = 0;
         this.turn = 0;
-        
+        this.turnosAnimales = 0; 
         this.a = null;
         this.atacado = false;
         this.i = 0;
@@ -96,25 +96,31 @@ export default class Batalla extends Phaser.Scene {
     }
     update(t,dt){
         super.update(t,dt);
+        let siguenVivos = false;
         if(this.turn === 0){
             this.listaMalos.children.each(malo => { //se pueden clickar enemigos
                 if(malo.active) {
                     malo.alpha = 0.7;
                 }
             }); 
-            if(this.atacado){
+            if(this.atacado){ //siguiente animal
                 this.atacado = false;
                 
                 this.anim.eliminarAtaques();
                 
-                if(this.i+1 >= this.listaAnimales.getLength()) this.i = 0;
-                else this.i++;
-                
-                while(eval("this.animal"+(this.i+1)+".vida") === 0 && this.i+1 < 3) this.i++;
-
+               // if(this.i+1 >= this.listaAnimales.getLength()) this.i = 0;
+               // else this.i++;
+                this.i++;
+                while(eval("this.animal"+(this.i+1)+".vida") === 0) {
+                    this.i++;
+                    if((this.i+1) > 3) this.i = 0;
+                }
+                console.log("alimal cogido: " + (this.i+1));
                 this.anim = eval("this.animal"+(this.i+1));
+
                 this.anim.crearAtaques();
                 
+                this.turnosAnimales++;
                 
                 this.a = null;
             }
@@ -152,7 +158,8 @@ export default class Batalla extends Phaser.Scene {
                                 this.damage.text = "+" + Math.abs(this.a.damage) + "!";
                                 this.damage.setPosition(400, 50);
                             }
-                            if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
+                            if(this.turnosAnimales > this.listaAnimales.countActive()) this.turn = 2;
+                            //if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
                             this.atacado = true;
                             this.click = false;
                         
@@ -161,7 +168,8 @@ export default class Batalla extends Phaser.Scene {
                     else if(this.a.getTarget() === 1 && this.a.esBarrido()){ //ataca a todos
                         if(this.click){
                             this.a.attack(this.listaMalos);
-                            if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
+                            //if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
+                            if(this.turnosAnimales > this.listaAnimales.countActive()) this.turn = 2;
                             this.atacado = true;
                             this.click = false;
                             this.damage.setFontSize(80);
@@ -202,7 +210,8 @@ export default class Batalla extends Phaser.Scene {
                                 this.damage.setFontSize(20);
                                 this.damage.text = "-"+this.a.damage + "!";
                                 this.damage.setPosition(malo.x-10, malo.y-150);
-                                if (this.i + 1 === this.listaAnimales.getLength() && this.a.contMulti === 0) this.turn = 2;
+                                if(this.turnosAnimales > this.listaAnimales.countActive()) this.turn = 2;
+                                //if (this.i + 1 === this.listaAnimales.getLength() && this.a.contMulti === 0) this.turn = 2;
                                 else if (this.a.contMulti > 0) {
                                     this.a.contMulti = this.a.contMulti - 1;
                                     this.turn = 1;
@@ -224,15 +233,18 @@ export default class Batalla extends Phaser.Scene {
             this.anim.listaAtaques.children.each(ataque=>{ //selección de ataque
                 ataque.cuadradoVisible(false);
             });
+            this.turnosAnimales = 0;
             this.auxDT += dt;
             if(this.auxDT >= 2000) {
                 this.turn = 0;
                 let curacion = false;
                 let numEnem = 1;
                 this.damage.text = "";
+                
                 this.listaMalos.children.each(malo => { //cada enemigo ataca
                     if(numEnem === 1) this.feedback.text = "";
                     if(malo.active){ //si no esta muerto ya, ataca
+                        
                         //primero actualizamos cooldown
                         malo.advance();
                         this.ataqueMalo = malo.selectAttack();
@@ -284,6 +296,20 @@ export default class Batalla extends Phaser.Scene {
                             }
                             this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido(), curacion);
                             this.ataqueMalo.attack(this.target);
+                            this.listaAnimales.children.each(anim=>{
+                                if(!anim.isDead()) siguenVivos = true;
+                                else{
+                                    //this.listaAnimales.remove(anim);
+                                    anim.label.setVisible(false);
+                                    anim.barra.getBar().setVisible(false);
+                                    anim.setActive(false).setVisible(false);
+                                }
+                            });
+                            if(!siguenVivos){
+                                this.musica1.stop();
+                                this.scene.resume(this.escena, {dialogo:false, losed: losed, animal1Vida: this.animal1.vida, animal2Vida: this.animal2.vida, animal3Vida: this.animal3.vida}); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
+                                this.scene.stop()
+                            }
                             if(this.ataqueMalo.esStun()){
                                 this.target.stuneado = true;
                             }
@@ -309,7 +335,7 @@ export default class Batalla extends Phaser.Scene {
         })
         
         //para ver si quedan animales vivos
-        let siguenVivos = false;
+        siguenVivos = false;
         this.listaAnimales.children.each(anim=>{
             if(!anim.isDead()) siguenVivos = true;
             else{
