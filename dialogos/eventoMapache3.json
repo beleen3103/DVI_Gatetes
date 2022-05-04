@@ -1,5 +1,5 @@
 {
-    "length":9,
+    "length":10,
     "1":
     {
         "animal":"mapache",
@@ -8,39 +8,44 @@
     "2":
     {
         "animal":"mapache",
-        "texto":"Te seguiré donde quiera que vayas mi pana <3"
+        "texto":"¡A partir de ahora te seguiré donde quiera que vayas!"
     },
     "3":
     {
         "animal":"gato",
-        "texto":"Bueno...supongo que un poco de ayuda no me iría mal"
+        "texto":"..."
     },
     "4":
     {
-        "animal":"none",
-        "texto":"¡El Mapache se ha unido a tu equipo!"
+        "animal":"gato",
+        "texto":"Bueno...supongo que un poco de ayuda no me iría mal"
     },
     "5":
     {
         "animal":"none",
-        "texto":"Usa las teclas '1' o '2' para cambiar de personaje en cualquier momento"
+        "texto":"¡El Mapache se ha unido a tu equipo!"
     },
     "6":
     {
-        "animal":"mapache",
-        "texto":"Creo que la hemos liado un poco al pelear contra estos emos..."
+        "animal":"none",
+        "texto":"Usa las teclas '1' o '2' para cambiar de personaje en cualquier momento"
     },
     "7":
     {
         "animal":"mapache",
-        "texto":"Hay una entrada a las alcantarillas a la derecha del edificio de Schweppes"
+        "texto":"Creo que la hemos liado un poco al pelear contra estos emos..."
     },
     "8":
     {
         "animal":"mapache",
-        "texto":"Vámonos antes de que vengan a por nosotros"
+        "texto":"Hay una entrada a las alcantarillas a la derecha del edificio de Schweppes"
     },
     "9":
+    {
+        "animal":"mapache",
+        "texto":"Vámonos antes de que vengan a por nosotros"
+    },
+    "10":
     {
         "animal":"gato",
         "texto":"Genial, no me iría mal un poco de descanso..."

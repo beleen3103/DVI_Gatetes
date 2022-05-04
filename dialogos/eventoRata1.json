@@ -1,5 +1,5 @@
 {
-    "length":27,
+    "length":28,
     "1":
     {
         "animal":"rata",
@@ -134,5 +134,10 @@
     {
         "animal":"none",
         "texto":"Usa la tecla '3' para usar a la rata en cualquier momento"
+    },
+    "28":
+    {
+        "animal":"none",
+        "texto":"Puedes curarte interactuando con la caja de comida"
     }
 }
