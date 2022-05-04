@@ -76,7 +76,7 @@ export default class Callao extends Phaser.Scene {
     create() {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
-
+        this.add.image(0,560,'suelo').setOrigin(0).setScale(1,2);
         this.musica = this.sound.add('musicaCallao');
         this.musica.play({loop:true, volume:0.3});
 

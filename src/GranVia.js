@@ -73,7 +73,8 @@ export default class GranVia extends Phaser.Scene {
     create() {
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);
-
+        
+        this.add.image(0,1200,'suelo').setOrigin(0).setScale(1,3);
         this.musica = this.sound.add('musicaGranVia');
         this.musica.play({loop:true, volume:0.3});
 
@@ -106,8 +107,9 @@ export default class GranVia extends Phaser.Scene {
         toCallaoA.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),toCallaoA,()=>{
             this.scene.pause();
-            this.scene.start('GranVia', {x: 100,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
-            this.musica.stop();
+            //this.scene.start('GranVia', {x: 100,y:490, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip:true});
+            this.scene.launch('dialogo',  {nombreJSON: 'noAccesible.json', prevScene:'GranVia'});
+            toCallaoA.destroy();
         });
 
 

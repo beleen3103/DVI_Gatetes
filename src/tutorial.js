@@ -15,7 +15,7 @@ export default class Tutorial extends Phaser.Scene {
     preload(){
         this.load.image('background', 'assets/background/fondo.png');
         this.load.audio('musicaTutorial', 'audio/DVI_01.ogg'); //Precargar el audio
-        this.load.image('suelo','assets/background/suelo.png');
+        
     }
 
     init(data){
@@ -97,10 +97,7 @@ export default class Tutorial extends Phaser.Scene {
         let auxthis = this;
         this.createEnemies();
         this.createPlatforms(auxthis);
-        if(this.first){
-            this.tutorialText();
-        }
-
+        
         let fin = this.add.zone(1950,0,100,1000);
         this.physics.world.enable(fin);
         fin.body.setAllowGravity(false);
@@ -109,7 +106,7 @@ export default class Tutorial extends Phaser.Scene {
             this.musica.stop();
             auxthis.cameras.main.fadeOut(1000, 0, 0, 0);
             this.scene.start('GranVia', {x:110, y:1200, numeroAnimales: this.listaAnimales.getLength(),animal1: this.animal1.getName(), animal1Vida: this.animal1.vida, animal2: this.animal2.getName(), animal2Vida: this.animal2.vida, animal3: this.animal3.getName(), animal3Vida: this.animal3.vida, actual: this.player.getName(), flip: true})
-
+            
         });
         
         ////////////////////ESTO EN TODAS LAS ESCENAS/////////////////////
@@ -119,9 +116,9 @@ export default class Tutorial extends Phaser.Scene {
                 //si ha perdido, fin del juego
                 if(data.losed){
                     auxthis.cameras.main.fadeOut(1000, 0, 0, 0);
-
+                    
                     auxthis.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-                    auxthis.scene.start('gameover');
+                        auxthis.scene.start('gameover');
                     });
                 }
                 else{//sino, actualizamos vida
@@ -153,7 +150,7 @@ export default class Tutorial extends Phaser.Scene {
                                 auxthis.player.setActive(true).setVisible(true); //hacemos visible el nuevo
                                 auxthis.player.body.enable=true;
                                 auxthis.player.barraVisible(true);
-
+                                
                                 changed = true;
                             }
                         });
@@ -162,10 +159,13 @@ export default class Tutorial extends Phaser.Scene {
                 }
             }
             
-       });
-       //////////////////////////////////////////////////////////////////
-
+        });
+        //////////////////////////////////////////////////////////////////
         
+        
+        if(this.first){
+            this.tutorialText();
+        }
         
     }
     createEnemies(){
@@ -190,10 +190,11 @@ export default class Tutorial extends Phaser.Scene {
     
     tutorialText(){
 
-        let texto1 = this.add.zone(300,0,10,1000);
+        let texto1 = this.add.zone(100,0,10,1000);
         this.physics.world.enable(texto1);
         texto1.body.setAllowGravity(false);
         this.physics.add.overlap(this.listaAnimales.getChildren(),texto1,()=>{
+            this.scene.pause();
             this.scene.launch('dialogo', {nombreJSON: 'tutorial1.json', prevScene:'tutorial'});
             texto1.destroy();
         })
