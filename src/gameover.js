@@ -26,7 +26,7 @@ export default class GameOver extends Phaser.Scene {
     
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
             this.musica.stop();
-            this.scene.start('pantallaInicio', {x:100,y:490, numeroAnimales: 1, animal1: 'Gato', animal1Vida: 100, animal2: '.', animal2Vida: 0, animal3: '.', animal3Vida: 0, actual: 'Gato', flip: true});
+            this.scene.start('pantallaInicio');
         })
 
     }
