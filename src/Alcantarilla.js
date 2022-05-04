@@ -64,6 +64,8 @@ export default class Alcantarilla extends Phaser.Scene {
         this.load.image('rata','assets/sprites/rata.png');
 
         this.load.audio('musicaAlcantarilla', 'audio/DVI_Alcantarilla.ogg'); //Precargar el audio
+
+        this.load.image('letraE','assets/sprites/E.png')
     }
 
     create(){
@@ -78,7 +80,7 @@ export default class Alcantarilla extends Phaser.Scene {
         this.rata = this.add.image(365, 785, 'rata').setOrigin(0).setScale(1).setDepth(1);
 
 
-        new Caja(this, this.listaAnimales, 970, 590);
+        this.caja = new Caja(this, this.listaAnimales, 470, 860);
         this.player.setDepth(100);  // Personaje por delante de los objetos
         this.createMap();
         this.configureCamera(); // Camara que sigue al jugador
@@ -185,6 +187,8 @@ export default class Alcantarilla extends Phaser.Scene {
             this.musica.stop();
         });
 
+        this.letraE = this.add.image(435,790,'letraE').setOrigin(0).setScale(0.3);
+        this.letraE.setVisible(true);
 
     }
 
@@ -325,6 +329,16 @@ export default class Alcantarilla extends Phaser.Scene {
 
         if(this.tenemosRata){
             this.rata.setActive(false).setVisible(false);
+        }
+
+        //Overlap Caja para curarse
+	    var boundsA = this.player.getBounds();
+	    var boundsB = this.caja.getBounds();
+	    if(!Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB)){
+            this.letraE.setVisible(false);
+        }
+        else{
+            this.letraE.setVisible(true);
         }
     }
 

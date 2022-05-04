@@ -358,13 +358,15 @@ export default class Callao extends Phaser.Scene {
 
 
         //Entrada Alcantarilla
-	    var boundsA = this.player.getBounds();
-	    var boundsB = this.entradaAlcantarilla.getBounds();
-	    if(!Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB)){
-            this.letraE.setVisible(false);
-        }
-        else{
-            this.letraE.setVisible(true);
+        if(this.listaAnimales.getLength() < 3){
+            var boundsA = this.player.getBounds();
+            var boundsB = this.entradaAlcantarilla.getBounds();
+            if(!Phaser.Geom.Intersects.RectangleToRectangle(boundsA, boundsB)){
+                this.letraE.setVisible(false);
+            }
+            else{
+                this.letraE.setVisible(true);
+            }
         }
 
 

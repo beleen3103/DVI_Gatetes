@@ -92,6 +92,17 @@ export default class GranVia extends Phaser.Scene {
         this.feedback = this.add.text(310,200,"", { font: "30px Verdana"});
         this.feedback.setScrollFactor(0,0).setDepth(101);
 
+        if(this.listaAnimales.getLength() < 2){
+            let dialgoEnredadera = this.add.zone(250,1075,20,250);
+            this.physics.world.enable(dialgoEnredadera);
+            dialgoEnredadera.body.setAllowGravity(false);
+            this.physics.add.overlap(this.listaAnimales.getChildren(),dialgoEnredadera,()=>{
+                this.scene.pause();
+                this.scene.launch('dialogo',  {nombreJSON: 'tutorialEnredadera.json', prevScene:'GranVia'});
+                dialgoEnredadera.destroy();
+            });
+        }
+
 
         let toTuto = this.add.zone(0,1000,10,5000);
         this.physics.world.enable(toTuto);

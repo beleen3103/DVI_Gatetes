@@ -1,0 +1,18 @@
+{
+    "length":3,
+    "1":
+    {
+        "animal":"gato",
+        "texto":"Vaya, una enredadera."
+    },
+    "2":
+    {
+        "animal":"gato",
+        "texto":"Quizás pueda escalar por ella"
+    },
+    "3":
+    {
+        "animal":"none",
+        "texto":"pulsa 'W' para subir por la enredadera"
+    }
+}

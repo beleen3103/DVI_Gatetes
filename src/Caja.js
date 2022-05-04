@@ -26,7 +26,7 @@ export default class Caja extends Phaser.GameObjects.Sprite {
            this.auxDT = 0;
          }
      
-     if(this.auxDT < 2000){
+     if(this.auxDT < 1000){
        this.auxDT+=dt;
      }
      else this.feedback.text = "";  
