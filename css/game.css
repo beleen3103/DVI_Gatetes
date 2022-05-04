@@ -2,11 +2,16 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* body {
-  background-image: url('../assets/background/batalla.jpg');
+body {
+  background-image: url('../assets/background/fondoWeb3.png');
   background-repeat: no-repeat;
   background-size: 100%;
-} */
+} 
+
+canvas {
+  outline: black 8px solid;
+  border-radius: 10px;
+}
 
 h1 {
   text-align: center;
