@@ -58,7 +58,7 @@ export default class Alcantarilla extends Phaser.Scene {
 
     preload(){
         this.load.tilemapTiledJSON('Alcantarilla','assets/sprites/Alcantarilla.json');
-        this.load.image('plataformas', 'assets/sprites/alcantarillasTiles.png');
+        this.load.image('plataformasA', 'assets/sprites/alcantarillasTiles.png');
         this.load.image('caja', 'assets/sprites/caja.png');
 
         this.load.image('rata','assets/sprites/rata.png');
@@ -354,7 +354,7 @@ export default class Alcantarilla extends Phaser.Scene {
         });
 
 
-        const tileset1 = this.map.addTilesetImage('alcantarillasTiles','plataformas'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
+        const tileset1 = this.map.addTilesetImage('alcantarillasTiles','plataformasA'); //hay que empotrar los tileset en el TILED (boton inferior derecho)
         this.capa = this.map.createLayer('suelo', tileset1);
         this.capa.setCollisionByProperty({colisiona: true});
         this.physics.add.collider(this.listaAnimales,this.capa);
