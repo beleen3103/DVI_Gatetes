@@ -67,7 +67,7 @@ export default class Batalla extends Phaser.Scene {
         this.damage = this.add.text(0,0,"", { font: "20px Verdana"});
         this.auxDT = 0;
         this.turn = 0;
-        this.turnosAnimales = 0; 
+        this.turnosAnimales = 1; 
         this.a = null;
         this.atacado = false;
         this.i = 0;
@@ -282,19 +282,6 @@ export default class Batalla extends Phaser.Scene {
                                 this.damage.text = "-";
                                 
                             }
-                            if(!this.ataqueMalo.esBarrido()) {
-                                this.damage.text += Math.abs(this.ataqueMalo.damage)+"!";
-                                this.damage.setPosition(this.target.x-10, this.target.y-150);
-                                if(this.ataqueMalo.esStun()){
-                                    this.damage.text += " y ha stuneado"
-                                }
-                            }
-                            else{   
-                                this.damage.setFontSize(80);
-                                this.damage.text += Math.abs(this.ataqueMalo.damage) + "!";
-                                this.damage.setPosition(400, 50);
-                            }
-                            this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido(), curacion);
                             this.ataqueMalo.attack(this.target);
                             this.listaAnimales.children.each(anim=>{
                                 if(!anim.isDead()) siguenVivos = true;
@@ -310,6 +297,19 @@ export default class Batalla extends Phaser.Scene {
                                 this.scene.resume(this.escena, {dialogo:false, losed: losed, animal1Vida: this.animal1.vida, animal2Vida: this.animal2.vida, animal3Vida: this.animal3.vida}); //vuelve a la escena del mapa aunque desde el principio, no se guarda el estado
                                 this.scene.stop()
                             }
+                            if(!this.ataqueMalo.esBarrido()) {
+                                this.damage.text += Math.abs(this.ataqueMalo.damage)+"!";
+                                this.damage.setPosition(this.target.x-10, this.target.y-150);
+                                if(this.ataqueMalo.esStun()){
+                                    this.damage.text += " y ha stuneado"
+                                }
+                            }
+                            else{   
+                                this.damage.setFontSize(80);
+                                this.damage.text += Math.abs(this.ataqueMalo.damage) + "!";
+                                this.damage.setPosition(400, 50);
+                            }
+                            this.feedback.text += malo.textoAtaque(numEnem, this.target, this.ataqueMalo.esBarrido(), curacion);
                             if(this.ataqueMalo.esStun()){
                                 this.target.stuneado = true;
                             }
