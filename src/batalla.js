@@ -38,7 +38,7 @@ export default class Batalla extends Phaser.Scene {
                 this.animal.setVida(vidaAux); 
                 this.animal.barra.setHealth(vidaAux);
                 this.animal.updateScore();
-                this.animal.setActive(false);
+                this.animal.setActive(true);
                 
                 //lo añadimos al grupo
                 eval("this.animal"+(i+1)+"=this.animal");               
@@ -155,7 +155,7 @@ export default class Batalla extends Phaser.Scene {
                     else if(this.a.getTarget() != 1){//curacion
                         if(this.click){
                             if(!this.a.esBarrido()) {
-                                this.a.attack(this.anim);
+                                this.a.attack(this.anim); 
                                 this.damage.setFontSize(20);
                                 this.damage.text = "+"+ Math.abs(this.a.damage) + "!";
                                 this.damage.setPosition(this.anim.x-10, this.anim.y-150);
@@ -166,7 +166,7 @@ export default class Batalla extends Phaser.Scene {
                                 this.damage.text = "+" + Math.abs(this.a.damage) + "!";
                                 this.damage.setPosition(400, 50);
                             }
-                            if(this.turnosAnimales > this.listaAnimales.countActive()) this.turn = 2;
+                            if(this.turnosAnimales >= this.listaAnimales.countActive()) this.turn = 2;
                             //if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
                             this.atacado = true;
                             this.click = false;
@@ -177,7 +177,7 @@ export default class Batalla extends Phaser.Scene {
                         if(this.click){
                             this.a.attack(this.listaMalos);
                             //if(this.i+1 >= this.listaAnimales.getLength())this.turn = 2;
-                            if(this.turnosAnimales > this.listaAnimales.countActive()) this.turn = 2;
+                            if(this.turnosAnimales >= this.listaAnimales.countActive()) this.turn = 2;
                             this.atacado = true;
                             this.click = false;
                             this.damage.setFontSize(80);
@@ -219,7 +219,7 @@ export default class Batalla extends Phaser.Scene {
                                 this.damage.setFontSize(20);
                                 this.damage.text = "-"+this.a.damage + "!";
                                 this.damage.setPosition(malo.x-10, malo.y-150);
-                                if(this.turnosAnimales > this.listaAnimales.countActive()) this.turn = 2;
+                                if(this.turnosAnimales >= this.listaAnimales.countActive()) this.turn = 2;
                                 //if (this.i + 1 === this.listaAnimales.getLength() && this.a.contMulti === 0) this.turn = 2;
                                 else if (this.a.contMulti > 0) {
                                     this.a.contMulti = this.a.contMulti - 1;
