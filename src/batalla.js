@@ -293,6 +293,7 @@ export default class Batalla extends Phaser.Scene {
                                 
                             }
                             this.ataqueMalo.attack(this.target);
+                            siguenVivos = false;
                             this.listaAnimales.children.each(anim=>{
                                 if(!anim.isDead()) siguenVivos = true;
                                 else{
