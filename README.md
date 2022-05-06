@@ -2,7 +2,7 @@
 
 https://beleen3103.github.io/DVI_Gatetes/
 
-<b>Grupo: </b>DVI Gatetes
+<b>Grupo: </b><i>Grupo 1 - DVI Gatetes</i>
 
 
 <h2>Datos Generales</h2>
