@@ -56,6 +56,9 @@ Al salir de la alcantarilla, el jugador puede volver a cualquier zona anterior, 
 <p>Todos los personajes empiezan con 100 de vida, y cuentan con 3 ataques cada uno para los combates.</p>
 
 <h4>Gato</h4>
+<p align="center">
+<img src="assets/readme/gato.png">
+</p>
 <p>
 Primer personaje jugable del juego. Al estar enfadado tras ver que los humanos cada vez le quitan más y más vegetación, es quien comienza la aventura decidiendo marcharse de su hogar, Plaza de España, en busca de algo de naturaleza.
 </p>
@@ -83,6 +86,9 @@ Primer personaje jugable del juego. Al estar enfadado tras ver que los humanos c
 </table>
 
 <h4>Mapache</h4>
+<p align="center">
+<img src="assets/readme/mapache.png">
+</p>
 <p>
 Un mapache que es acosado en Gran Vía por algunos emos. Pertenece a la generación de mapaches que infestó Madrid en los dos mil. Tras ayudarle, decide devolvernos el favor uniéndose a nuestro equipo. Le gusta rebuscar en la basura en busca de tesoros del mundo humano.
 </p>
@@ -110,6 +116,9 @@ Un mapache que es acosado en Gran Vía por algunos emos. Pertenece a la generaci
 </table>
 
 <h4>Rata</h4>
+<p align="center">
+<img src="assets/readme/rata.png">
+</p>
 <p>
 Una agradable ratilla que vive en las alcantarillas. Cansada de estar por allí, decide unirse al equipo en busca de un poco de acción y, quizás, corromper el mundo humano lo suficiente como para hacer de éste su hogar.
 </p>
@@ -144,6 +153,9 @@ A la hora de combatir, también tienen un conjunto de ataques que, en este caso,
 </p>
 
 <h4>Emos</h4>
+<p align="center">
+<img src="assets/readme/emo.png">
+</p>
 <p>
 Sin nada más que hacer en su día, los emos se dedican a pasear por Plaza de España o Gran Vía en busca de algún entretenimiento. Sin duda, no perderán la oportunidad de interactuar con los pequeños animales que dan vueltas por la ciudad.
 
@@ -181,6 +193,9 @@ El emo solo se moverá en el mapa realizando un movimiento repetido de un lado a
 </table>
 
 <h4>Rockero</h4>
+<p align="center">
+<img src="assets/readme/rockero.png">
+</p>
 <p>
 En honor a los famosos heavys de Gran Vía, este rockero dedica sus días a tocar para los transeúntes en la calle más famosa de Madrid. Sin embargo, su música no es para todos los oídos, hay quien puede quedarse un poco atontado ante tal estridente sonido.
 
@@ -218,6 +233,9 @@ Además el Rockero en el mapa pese a estar estático estará tocando su guitarra
 </table>
 
 <h4>Dron</h4>
+<p align="center">
+<img src="assets/readme/dron.png">
+</p>
 <p>
 Un pequeño dron de vigilancia que sobrevuela Gran Vía a la espera de detectar cualquier tipo de altercado o de comportamiento fuera de lo normal. No temerá en acercarse a inspeccionar más de cerca.
 
@@ -289,12 +307,44 @@ Sin embargo, pese a buscar un estilo divertido los mapas de la ciudad tienen una
 
 Estos mapas son todos basados en zonas reales de Madrid modificadas para mantener coherencia en el plataformeo del juego.
   
-En las alcantarillas optamos por una paleta de colores complementarios con el verde como color dominante con toques naranjas como en las tuberías.
+<p align="center">
+<img src="assets/readme/tutorial.png"><br>
+Plaza España
+</p>
+<p align="center">
+<img src="assets/readme/granvia.png"><br>
+Gran Vía
+</p>
+<p align="center">
+<img src="assets/readme/callao.png"><br>
+Callao
+</p>
   
-Para el mapa de batalla de momento solo se ha hecho el de la batalla en ciudad,
-siendo un fondo estándar que puede asociarse fácilmente a cualquier combate en zonas de ciudad. Sin demasiado detalle para no distraer de la acción.
+En las alcantarillas optamos por una paleta de colores complementarios con el verde como color dominante con toques naranjas como en las tuberías.
+<p align="center">
+<img src="assets/readme/alcantarilla.png"><br>
+Alcantarilla
+</p>
+  
+Para el mapa de batalla de momento solo se ha hecho el de la batalla en ciudad, siendo un fondo estándar que puede asociarse fácilmente a cualquier combate en zonas de ciudad. Sin demasiado detalle para no distraer de la acción.
+<p align="center">
+<img src="assets/readme/combate.png"><br>
+Plaza España
+</p>
   
 Para los personajes y demás sprites el estilo de garabato permite que en las animaciones haya una mayor sensación de movimiento aunque las animaciones sean de 6 frames cada una. Además se ha mantenido una coherencia de estilo junto con el fondo y el resto de personajes, siendo todos los humanos con una forma y tamaño similar pese a los distintivos propios de cada personaje. 
+
+<p align="center">
+<img src="assets/readme/intro.png"><br>
+Pantalla de inicio
+</p>
+
+<p align="center">
+<img src="assets/readme/gameover.png"><br>
+Game Over
+</p>
+
+
 </p>
 
 <h3>Música</h3>
@@ -348,10 +398,10 @@ Para hacer los controles lo más sencillo posible, los separamos entre controles
 </p>
 
 <h2>Arquitectura</h2>
-Diseño UML de las clases
+Diseño UML
 <br><br>
 <p align="center">
-<img src="assets/uml.png">
+<img src="assets/readme/uml.png">
 </p>
 
 
