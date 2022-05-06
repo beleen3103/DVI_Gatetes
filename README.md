@@ -2,141 +2,62 @@
 
 https://beleen3103.github.io/DVI_Gatetes/
 
-<h2>Genero</h2>
-<p>Plataformas con desplazamiento horizontal y combate por turnos</p>
+<b>Grupo: </b>DVI Gatetes
 
-<h2>Plataforma</h2>
-<p>Página web desarrollado con Phaser</p>
 
-<h2>PEGI</h2>
-<p>+18</p>
+<h2>Datos Generales</h2>
+<b>Género: </b><i>Plataformas</i><br>
+<b>Plataforma: </b><i>PC (navegador web)</i><br>
+<b>PEGI: </b><i>12</i><br>
+<b>Público objetivo: </b><i>Joven-Adulto</i><br>
 
-<h2>Lore</h2>
-<h3><i>Personajes principales</i></h3>
+
+<h3>Sinopsis</h3>
+<p>
+Miaudrid o Libertad es un juego ambientado en la ciudad de Madrid actual en el año 2022. El personaje controlado por el jugador sin embargo no es un humano sino un gato, este se ve rodeado de las obras hechas por los humanos y cansado luchará contra estos para huir de la ciudad y encontrar zonas más verdes rodeadas de naturaleza. 
+
+Empieza en Plaza España emprendiendo su aventura por Gran Vía hasta encontrar un simpático mapache que le pide ayuda, a partir de aquí nuestro protagonista no tendrá que ir solo por la ciudad y poco a poco le irán ayudando más animales conforme también los humanos irán haciendo más difícil su huída.
+
+El juego tiene un tono de comedia junto con cierta crítica a cómo el ser humano ha invadido cada vez más espacios naturales acabando con el bienestar de muchos animales.
+
+Los humanos que aparecen en el juego son todos caricaturas de alguna persona característica que estaría en la zona, como en Plaza España los “emos” o en Gran Vía los heavys. Todo esto acompañado con un arte despreocupado acorde con el tono del juego.
+</p>
+
+<h2>Gameplay</h2>
+<h3>Contexto</h3>
+<p>
+El juego se basa en un Madrid actual. Con la iniciativa que está tomando la ciudad de remodelar zonas verdes como Plaza de España para asfaltarlas, se están perdiendo lentamente los parques de Madrid. Con esto, la fauna se ve expulsada de sus territorios.
+</p>
+
+<h3>Historia</h3>
+<p>
+  Las obras de Madrid han llevado a un Gato a querer huir de su hábitat en Plaza España para irse lejos a zonas más verdes y lejos de los humanos y piensa acabar con cualquier humano que se lo quiera impedir. Por su ruta huyendo de Madrid se encontrará con otros animales que por unas razones u otras se le van a unir en su aventura. Al conocer nuevos compañeros irá conociendo más y más maldades de los seres humanos alimentando su sed de venganza y su afán por una vida lejos de ellos.
+
+La historia se sitúa inicialmente en Plaza España, que nos sirve de zona de tutorial de movimiento (se le presenta al jugador cómo mover lateralmente al personaje y cómo saltar), para posteriormente realizar el primer combate por turnos.
+
+Una vez terminado con el tutorial, el jugador puede avanzar hasta la zona de Gran Vía. En este momento se presenta la habilidad de trepar por enredaderas, exclusiva del Gato (otros personajes desbloqueados en el futuro no podrán escalar). Con esta nueva mecánica se le presenta al jugador dos alternativas para pasarse el nivel e ir a la siguiente zona:
 <ul>
-  <li>Gato</li>
-  <li>Mapache</li>
-  <li>Rata</li>
-  <li>Cuervo</li>
-  <li>Tortuga</li>
+  <li><b>Plataformeo: </b>usar los diferentes tipos de plataformas para evitar los combates. Hay otros elementos que intentarán entorpecer al jugador para que se caiga y entre en combate, o simplemente quitarle vida.</li>
+  <li><b>Combates consecutivos: </b>Realizar los combates uno detrás de otro hasta derrotar a todos los enemigos de la zona</li>
 </ul>
 
-<h3><i>Enemigos</i></h3>
-<ul>
-  <li>Emos</li>
-  <li>Cliente del Primark</li>
-  <li>Fotógrafos Shweppes</li>
-  <li>Peces mutantes de alcantarilla</li>
-  <li>Empresarios</li>
-  <li>CEO Hotel Plaza España</li>
-</ul>
+Sea cual sea el camino elegido (o una combinación de ambas), el Gato entra a la zona de Callao, donde un Mapache está siendo acorralado por un grupo de emos que le están haciendo fotos. Ante esta situación, el Mapache le pide ayuda al Gato para escapar. El Gato acepta y el jugado entra en combate contra los emos, esta vez pudiendo controlar a ambos personajes (Gato y Mapache). Una vez concluido el combate, el Mapache se une al equipo para que pueda ser usado tanto en plataformeo como en conjunto con el Gato en futuros combates.
 
-<h3><i>Desarrollo de la historia</i></h3>
-La historia principal se centra en un gatete que vivía en Plaza España. Este estaba feliz viviendo en ella hasta que se realizaron las obras de remodelación de la plaza, haciendo que perdiera su casa y comfort. Tras esto decide embarcar un viaje tratando de escapar de Madrid, en el que tendrá que superar varios enemigos humanos que se lo impedirán. En su viaje, se encontrará con otros animales compañeros que se le unirán a su aventura en búsqueda de la libertad en un lugar mejor.
-<br><br>
-El juego tiene una historia principal lineal, en la que el jugador va pasando por diferentes zonas de Madrid tratando de salir de la capital. En cada zona se desbloqueará un personaje que se podrá usar en cualquier momento tanto para ir por el mundo como para combatir contra enemigos.
-<br><br>
-En cierto punto de la historia, se desbloquea la zona de alcantarillas que sirve como "HUB". Desde este punto se podrá avanzar por la historia o volver a otras zonas que ya se hayan pasado para, por ejemplo: volver a pelear con enemigos o conseguir nuevos objetos.
-<br>
+Tras el combate, el Mapache sugiere escapar por las alcantarillas para evitar que el resto de humanos se les echen encima. Al entrar en la nueva zona se encuentran con el tercer personaje jugable del juego: la Rata. Esta misma, al verlos, les explica que efectivamente los humanos han empezado a agredir a todos los animales que se encuentran en Gran Vía y Callao, incluyendo compañeras suyas, causándole rabia y ansias de venganza. Por esa misma razón, se une al equipo para que juntos puedan ir a derrotar al grupo de humanos que está causando problemas.
 
-<hr>
+Antes de salir de la alcantarilla, la Rata les comenta que pueden usar unas cajas de cartón con latas de comida para descansar y curarse, a modo de preparación. Además, las alcantarillas les servirán a modo de central por la que poder llegar a otros sitios de Madrid más adelante.
 
-<h4>Zona 0 (Tutorial) - Plaza España</h4>
-La zona de Plaza España nos servirá como zona inicial del juego y como tutorial de las primeras mecánicas básicas:
-<ul>
-  <li><i>Moverse lateralmente</i></li>
-  <li><i>Saltar</i></li>
-  <li><i>Combatir contra enemigos</i></li>
-</ul>
-Esta zona solo será jugable con el personaje del gato, que es el principal de la historia.
-No descartamos meter algo para que el jugador pueda volver para acceder a una subzona con otro personaje una vez desbloqueado (por ejemplo, las basuras donde rebuscar con el Mapache).
+Para salir de las Alcantarillas, se podrá usar a la Rata, que es de un tamaño más reducido, permitiéndoles pasar por lugares más estrechos.
 
-<hr>
+Al salir de la alcantarilla, el jugador puede volver a cualquier zona anterior, aunque de momento no hay implementada ninguna otra zona. Al seguir hacia la derecha de Callao se presentará el mensaje de final de demo al jugador.
+</p>
 
-<h4>Zona 1 - Gran vía</h4>
-Tras pasar el tutorial de movimiento y de combate de Plaza España, se cambiará de escena a Gran Vía, que se caracteriza por tener disponible dos ramas de juego: saltar y moverse mediante plataformeo evitando los combates con enemigos; o bien pelear mientras se avanza en la historia.
-<br><br>
-Al momento de llegar delante del Edificio de Shweppes, hay un evento obligatorio, en el que ayudaremos al mapache a escapar de una sesión fotográfica que le están realizando unos fotógrafos para un anuncio delante del edificio.
-<br><br>
-Tras el evento se desbloquea al personaje del Mapache y se le enseña al jugador a cómo rotar de personaje en cualquier momento.
-<br><br>
-Se sigue avanzando hasta el final de Gran Vía, donde el jugador se encontrará frente un control policial. El jugador puede elegir ir por las alcantarillas para proseguir con la historia, o pelear contra la policía liderada por un perro llamado Perro Sanxe y ser brutalmente asesinado.
 
-<hr>
 
-<h4>Zona 2 - Alcantarillado (HUB)</h4>
-<i>por rellenar...</i>
 
-<hr>
 
-<h4>Zona 3 - Cuatro Torres</h4>
-<i>por rellenar...</i>
 
-<hr>
-
-<h4>Zona 4 - Atocha - Retiro</h4>
-<i>por rellenar...</i>
-
-<h2>Contexto</h2>
-<p></p>
-
-<h2>Mecánicas</h2>
-<ul>
-  <li>Movimiento Lateral</li>
-  <li>Salto</li>
-  <li>Salto de pared</li>
-  <li>Agacharse</li>
-  <li>Curarse (objetos)</li>
-  <li>Cambiar de personaje</li>
-  <li>Combatir (por turnos)</li>
-    <ul>
-      <li><i>Ataque</i></li>
-      <li><i>Ataque curación</i></li>
-    </ul>
-  <li>Escalar pared <i><b>(Gato)</b></i></li>
-  <li>Rebuscar en la basura <i><b>(Mapache)</b></i></li>
-  <li>Doble Salto <i><b>(Cuervo)</b></i></li>
-  <li>Meterse en agujeros <i><b>(Rata)</b></i></li>
-  <li>Nadar <i><b>(Tortuga)</b></i></li>
-</ul>
-
-<h2>Dinámicas</h2>
-Serán las resultantes de combinar diferentes mecánicas para ejecutar diferentes estrategias. Por ejemplo:
-<ul>
-  <li>Usar el plataformeo para evitar algún combate</li>
-  <li>Combinación de personajes para acceder a zonas concretas<li>
-  <li>Orden de los ataques en el combate</li>
-</ul>
-
-<h2>Controles</h2>
-<ul>
-  <li><b>"AD"</b>: Desplazamiento horizontal</li>
-  <li><b>"W" o "Barra espaciadora"</b>: salto</li>
-  <li><b>"E"</b>: Cambio de personaje</li>
-</ul>
-
-<h2>Dirección Artística</h2>
-<h3><i>Arte gráfico</i></h3>
-<i>por completar ...</i>
-
-<h3><i>Banda Sonora</i></h3>
-La Banda Sonora del juego se basa en leitmotivs y se caracteriza por el uso de sonidos orgánicos, cercanos y cotidianos.
-<br><br>
-En cada zona además la música se adecúa al contexto, como por ejemplo un aumento en la reverberación al estar dentro de las alcantarillas.
-<br><br>
-Hay un leitmotiv por personaje que empieza a sonar cuando se empieza a usar (el jugador puede decidir cambiar de personaje en cualquier instante del juego.
-<br><br>
-La lista de tracks es la siguiente:
-<ul>
-  <li><i><b>Cat's will:</b> leitmotiv del Gato</i></li>
-  <li><i><b>Overpowered Raccoon:</b> leitmotiv del Mapache</i></li>
-  <li><i><b>Legionnaire Rat:</b> leitmotiv de la Rata</i></li>
-  <li><i><b>Bard Raven:</b> leitmotiv del Cuervo</i></li>
-  <li><i><b>Tortoise the Shoe Fetishist:</b> leitmotiv de la Tortuga</i></li>
-  <li><i><b>Compulsive Deceiver:</b> leitmotiv de Perro Sanxe</i></li>
-  <li><i><b>Eren's freedom:</b> música de combate</i></li>
-  <li><i><b>A Seagull's Dream:</b> despedida de Madrid</i></li>
-</ul>
+---
 
 <h2>Arquitectura</h2>
 Diseño UML de las clases
@@ -144,59 +65,3 @@ Diseño UML de las clases
 <p align="center">
 <img src="assets/uml.png">
 </p>
-
-<h2>Plan de trabajo</h2>
-<h3><i>Sprint 20/03</i></h3>
-<ul>
-  <li>Acabar el Tutorial</li>
-  <li>Añadir personaje del Gato</li>
-  <li>Zona Gran Vía (diseño plataformeo y enemigos)</li>
-  <li>Evento Mapache</li>
-  <li>Cambio de personaje</li>
-  <li>BSO de Combate, Gato y Mapache</li>
-</ul>
-
-<h3><i>Sprint 27/03</i></h3>
-<ul>
-  <li>Zona Alcantarillas</li>
-  <li>Personaje Rata</li>
-  <li>HUB</li>
-  <li>Enemigos Alcantarillas</li>
-  <li>Evento Rata (para meterse en una zona chiquita)</li>
-  <li>BSO Perro Sanxe y Rata</li>
-</ul>
-
-<h3><i>Sprint 03/04</i></h3>
-<ul>
-  <li>Zona Cuatro Torres</li>
-  <li>Personaje Cuervo</li>
-  <li>Enemigos Cuatro Torres</li>
-  <li>BSO Cuervo</li>
-</ul>
-
-<h3><i>Sprint 10/04</i></h3>
-<ul>
-  <li>Zona Atocha</li>
-  <li>Personaje Tortuga</li>
-  <li>Enemigos Atocha</li>
-  <li>Evento Tortuga</li>
-  <li>BSO Tortuga, Boss final</li>
-</ul>
-
-<h3><i>Sprint 24/04</i></h3>
-<ul>
-  <li>Zona Final del juego</li>
-  <li>Pantalla de despedida - créditos</li>
-  <li>Añadir objetos que solo se puedan obtener en las zonas anteriores con los nuevos personajes</li>
-  <li>BSO Combate Final, despedida</li>
-  <li>Empezar con el testeo del juego</li>
-</ul>
-
-<h3><i>Sprint 01/05</i></h3>
-<ul>
-  <li>Testeo final y pulido</li>
-  <li>Documentación</li>
-</ul>
-
-<h2>Sistema</h2>
-<p></p>
